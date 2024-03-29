@@ -1,0 +1,10 @@
+.responsive {
+    @media (max-width: 1024px) {
+        position: absolute;
+        @apply w-72 h-[100vh] top-full right-0 left-0 block bg-gray-400 bg-opacity-20 overflow-hidden;
+        a {
+            display: block;
+            color: green;
+        }
+    }
+}

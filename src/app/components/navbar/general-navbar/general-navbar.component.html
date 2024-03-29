@@ -1,0 +1,16 @@
+<nav class="flex relative h-20 justify-between items-center px-20 py-10">
+    <div class="flex items-center gap-2">
+        <h3 (click)="navbar.classList.toggle('responsive')" class="lg:hidden">X</h3>
+        <a href="" class="text-red-500 text-5xl">Home</a>
+        <!-- <a href="" class="">
+        <img class="h-12 w-112" src="/logo.png" alt="">
+    </a> -->
+    </div>   
+    <div #navbar class="hidden lg:flex lg:gap-11 lg:items-center lg:justify-evenly lg:overflow-hidden font-bold">
+        <a href="" class="">Home</a>
+        <a href="" class="">Rooms</a>
+        <a href="" class="">Facilities</a>
+        <a href="" class="">Contacts</a>
+        <a href="" class="bg-red-500 text-white rounded-lg p-3">Book Room</a>
+    </div>
+</nav>

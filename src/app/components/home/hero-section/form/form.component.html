@@ -1,0 +1,49 @@
+<div class="absolute h-[450px] w-60  right-20 flex justify-center items-center">
+  <form [formGroup]="addressForm" class="w-full bg-white h-4/6 bg-opacity-20 " novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="shipping-card">
+      <mat-card-header>
+        <mat-card-title>Shipping Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+
+        <div>
+          <div>
+            <mat-form-field class="bg-white bg-opacity-35 italic text-black">
+              <input matInput placeholder="First name" formControlName="firstName">
+              @if (addressForm.controls['firstName'].hasError('required')) {
+              <mat-error>First name is <strong>required</strong></mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="bg-white bg-opacity-35 italic text-black">
+              <input matInput placeholder="Last name" formControlName="lastName">
+              @if (addressForm.controls['lastName'].hasError('required')) {
+              <mat-error>Last name is <strong>required</strong></mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="bg-white bg-opacity-35 italic text-black">
+              <input matInput placeholder="Last name" formControlName="lastName">
+              @if (addressForm.controls['lastName'].hasError('required')) {
+              <mat-error>Last name is <strong>required</strong></mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="bg-white bg-opacity-35 italic text-black">
+              <input matInput placeholder="Last name" formControlName="lastName">
+              @if (addressForm.controls['lastName'].hasError('required')) {
+              <mat-error>Last name is <strong>required</strong></mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
