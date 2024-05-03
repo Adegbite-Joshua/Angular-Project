@@ -1,49 +1,45 @@
-<div class="absolute h-[450px] w-60  right-20 flex justify-center items-center">
-  <form [formGroup]="addressForm" class="w-full bg-white h-4/6 bg-opacity-20 " novalidate (ngSubmit)="onSubmit()">
-    <mat-card class="shipping-card">
-      <mat-card-header>
-        <mat-card-title>Shipping Information</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
+<!-- <div class="absolute h-[450px] w-60  right-20 flex justify-center items-center"> -->
+<form [formGroup]="addressForm" class="w-72 px-5 h-full bg-white bg-opacity-50 rounded-lg" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <p class="font-bold tet-3xl text-white">Book a Room</p>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
 
-        <div>
-          <div>
-            <mat-form-field class="bg-white bg-opacity-35 italic text-black">
-              <input matInput placeholder="First name" formControlName="firstName">
-              @if (addressForm.controls['firstName'].hasError('required')) {
-              <mat-error>First name is <strong>required</strong></mat-error>
-              }
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field class="bg-white bg-opacity-35 italic text-black">
-              <input matInput placeholder="Last name" formControlName="lastName">
-              @if (addressForm.controls['lastName'].hasError('required')) {
-              <mat-error>Last name is <strong>required</strong></mat-error>
-              }
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field class="bg-white bg-opacity-35 italic text-black">
-              <input matInput placeholder="Last name" formControlName="lastName">
-              @if (addressForm.controls['lastName'].hasError('required')) {
-              <mat-error>Last name is <strong>required</strong></mat-error>
-              }
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field class="bg-white bg-opacity-35 italic text-black">
-              <input matInput placeholder="Last name" formControlName="lastName">
-              @if (addressForm.controls['lastName'].hasError('required')) {
-              <mat-error>Last name is <strong>required</strong></mat-error>
-              }
-            </mat-form-field>
-          </div>
+      <div>
+        <div class="bg-opacity-35 italic my-2 text-black">
+          <input class="w-full p-2 h-10 rounded-lg" placeholder="Full name" formControlName="full_name">
+          @if (addressForm.controls['full_name'].hasError('required') && addressForm.controls['full_name'].dirty) {
+          <mat-error class="text-red-500">Full name is <strong>required</strong></mat-error>
+          }
         </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit">Submit</button>
-      </mat-card-actions>
-    </mat-card>
-  </form>
-</div>
+        <div class="bg-opacity-35 italic my-2 text-black">
+          <input class="w-full p-2 h-10 rounded-lg" type="tel" placeholder="Telephone" formControlName="phone_number">
+          @if (addressForm.controls['phone_number'].hasError('required') && addressForm.controls['phone_number'].dirty) {
+          <mat-error class="text-red-500">Telephone is <strong>required</strong></mat-error>
+          }
+        </div>
+        <div class="bg-opacity-35 italic my-2 text-black">
+          <input class="w-full p-2 h-10 rounded-lg" type="date" placeholder="Check in date"
+            formControlName="check_in_date">
+          @if (addressForm.controls['check_in_date'].hasError('required') && addressForm.controls['check_in_date'].dirty) {
+          <mat-error class="text-red-500">Check in date is <strong>required</strong></mat-error>
+          }
+        </div>
+        <div class="bg-opacity-35 italic my-2 text-black">
+          <input class="w-full p-2 h-10 rounded-lg" type="date" placeholder="Check out date"
+            formControlName="check_out_date">
+          @if (addressForm.controls['check_out_date'].hasError('required') && addressForm.controls['check_out_date'].dirty) {
+          <mat-error class="text-red-500">Check out date is <strong>required</strong></mat-error>
+          }
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="flex">
+      <button class="ms-auto p-2 rounded-lg bg-red-500 text-white font-bold" type="submit">Book now</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+<!-- </div> -->
