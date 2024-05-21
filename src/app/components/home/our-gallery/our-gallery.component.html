@@ -2,11 +2,9 @@
 <h1 style="margin-left: 10%; margin-right: 10%; margin-top: 50px;" class="text-center text-3xl">Our Gallery</h1>
 <div style="margin-left: 10%; margin-right: 10%;">
   <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-    <div ngxSlickItem *ngFor="let slide of slides" class="slide p-2">
-      <img src="{{ slide.img}}" class="img-style" alt="" width="100%">
+    <div ngxSlickItem *ngFor="let slide of slides" class="slide p-2 relative">
+      <button class="absolute top-0 right-0 z-10 p-1 bg-red-500 text-white rounded-md">Book</button>
+      <img src="{{ slide.img}}" class="img-style rounded-md" alt="" width="100%">
     </div>
   </ngx-slick-carousel>
 </div>
-<!-- <div style="background-image: url('assets/1.jpg');">
-
-</div> -->

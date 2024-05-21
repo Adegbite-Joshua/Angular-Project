@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+// import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 
 @Component({
@@ -32,8 +33,8 @@ export class OurGalleryComponent {
   slideConfig = {
     "slidesToShow": 4,
     "slidesToScroll": 1,
-    "nextArrow": "<span class='nav-btn next-slide bg-black text-white font-bold p-1 rounded-full'>></span>",
-    "prevArrow": "<span class='nav-btn prev-slide bg-black text-white font-bold p-1 rounded-full'><</span>",
+    "nextArrow": "<span class='nav-btn next-slide bg-red-500 text-white font-bold p-1 rounded-full'>></span>",
+    "prevArrow": "<span class='nav-btn prev-slide bg-red-500 text-white font-bold p-1 rounded-full'><</span>",
     "dots": true,
     "infinite": false,
     "responsive": [
@@ -43,7 +44,7 @@ export class OurGalleryComponent {
           "arrows": true,
           "ïnfinite": true,
           "slidesToShow": 3,
-          "slidesToScroll": 3
+          "slidesToScroll": 1
         }
       },
       {
@@ -52,10 +53,29 @@ export class OurGalleryComponent {
           "arrows": true,
           "ïnfinite": true,
           "slidesToShow": 1,
+          "dots": false,
           "slidesToScroll": 1
         }
       }
     ]
   };
+
+  // constructor(private breakpointObserver: BreakpointObserver) {}
+
+  // ngOnInit() {
+  //   this.breakpointObserver.observe(['(max-width: 767px)']).subscribe((state: BreakpointState) => {
+  //     if (state.matches) {
+  //       // Below 768px
+  //       this.slideConfig.dots = false;
+  //       console.log(false);
+        
+  //     } else {
+  //       // Above 768px
+  //       this.slideConfig.dots = true;
+  //       console.log(true);
+        
+  //     }
+  //   });
+  // }
 
 }

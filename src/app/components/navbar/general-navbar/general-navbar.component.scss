@@ -1,13 +1,13 @@
 .responsive {
     @media (max-width: 1024px) {
         position: absolute;
-        @apply w-full h-[100vh] top-full right-0 left-0 block p-0;
+        @apply w-full h-[100vh] top-full right-0 left-0 block p-0 bg-gray-400 bg-opacity-60 ;
         div {
-            @apply bg-gray-400 w-72 bg-opacity-60 overflow-hidden m-0 h-full;
+            @apply w-72 overflow-hidden m-0 h-full;
         }
         a {
             display: block;
-            color: green;
+            color: red;
             @apply my-5 mx-3;
         }
     }
