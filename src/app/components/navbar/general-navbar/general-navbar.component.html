@@ -8,11 +8,11 @@
     </div>
     <div #nav_bar id="nav_bar" (click)="toggle_nav_bar($event)" style="z-index: 9999;" class="hidden lg:flex lg:gap-11 lg:items-center lg:justify-evenly lg:overflow-hidden font-bold">
         <!-- <div class=""> -->
-            <a href="" class="mx-2">Home</a>
-            <a href="" class="mx-2">Rooms</a>
-            <a href="" class="mx-2">Facilities</a>
-            <a href="" class="mx-2">Contacts</a>
-            <a href="" class="bg-red-500 text-white rounded-lg p-3">Book Room</a>
+            <a routerLink="/" class="mx-2">Home</a>
+            <a routerLink="/rooms" class="mx-2">Rooms</a>
+            <a routerLink="/" class="mx-2">Facilities</a>
+            <a routerLink="/" class="mx-2">Contacts</a>
+            <a routerLink="/" class="bg-red-500 text-white rounded-lg p-3">Book Room</a>
         <!-- </div> -->
     </div>
 </nav>
