@@ -1,0 +1,15 @@
+<!-- You can now use your library component in app.component.html -->
+<!-- <h1 style="margin-left: 10%; margin-right: 10%; margin-top: 50px;" class="text-center text-3xl">Our Gallery</h1> -->
+<div style="margin-left: 10%; margin-right: 10%;">
+  <h3 class="text-4xl font-bold">{{facilityType}}</h3>
+  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+    <div ngxSlickItem *ngFor="let slide of slides" class="slide mx-2 p-3">
+      <img src="{{ slide.img}}" class="img-style rounded-md h-[200px] w-auto" alt="">
+      <div class="before:scale-105 before:bg-slate-200 rounded-lg before:h-40">
+        <h3 class="text-center text-3xl">Starter</h3>
+        <p class="text-center">Fennel - Burrata - Salad</p>
+        <strong class="text-center block">$5 - $100</strong>
+      </div>
+    </div>
+  </ngx-slick-carousel>
+</div>

@@ -1,0 +1,29 @@
+.prev-slide, .next-slide {
+    height: 15px !important;
+    width: 15px !important;
+    color: black !important;
+  }
+  .slick-prev::before, .slick-next:before {
+    color: black !important;
+  }
+  
+  .carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .img-style {
+    margin-left: auto;
+    margin-right: auto;
+    height: 250px;
+    width: 250px;
+  }
+  
+  @media (max-width: 992) {
+    .img-style {
+      margin-left: 10px !important;
+      margin-right: 10px !important;
+    }
+  }
