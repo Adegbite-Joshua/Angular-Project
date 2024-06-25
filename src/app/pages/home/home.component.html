@@ -2,16 +2,47 @@
 <app-hero-section></app-hero-section>
 <app-about-section></app-about-section>
 <div class="relative h-[400px]">
-    <div class="absolute top-0 right-0 left-0 bottom-0 -z-20" style="background-image: url(assets/17.jpg); background-repeat: no-repeat; background-size: 100% 100%">
+    <div class="absolute top-0 right-0 left-0 bottom-0 -z-20"
+        style="background-image: url(assets/17.jpg); background-repeat: no-repeat; background-size: 100% 100%">
 
     </div>
-    <div class="py-10 sm:py-20 text-center h-full flex flex-col items-center justify-evenly justify-items-center bg-black bg-opacity-40 text-white">
+    <div
+        class="py-10 sm:py-20 text-center h-full flex flex-col items-center justify-evenly justify-items-center bg-black bg-opacity-40 text-white">
         <h4 class="text-2xl">Bar & Restaurant</h4>
-        <p class="mt-20 w-5/6 sm:w-4/6"> Ladies and gentlemen, history keeps repeating itself but doesn't teach us any lessons. 'Never again' 
-            has turned into 'again and again and again.' So today, ladies and gentlemen, take Hotel Lunar as a 
-            wake-up call and a message to be our messenger that people are the ones who can change what they 
+        <p class="mt-20 w-5/6 sm:w-4/6"> Ladies and gentlemen, history keeps repeating itself but doesn't teach us any
+            lessons. 'Never again'
+            has turned into 'again and again and again.' So today, ladies and gentlemen, take Hotel Lunar as a
+            wake-up call and a message to be our messenger that people are the ones who can change what they
             want to change.</p>
     </div>
 </div>
 <app-our-gallery></app-our-gallery>
+<div class="container mt-12 mb-4">
+    <p class="text-center text-blue-600"><strong>TESTIMONIALS</strong></p>
+    <h4 class="text-2xl text-center font-bold">Don’t just take our words</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 p-10">
+        <div class="flex flex-col md:flex-row gap-1 md:gap-3 my-2 md:p-3">
+            <img src="assets/11.jpg" class="h-40 w-40 rounded-md" alt="">
+            <div class="">
+                <div class="flex flex-col justify-around h-40">
+                    <app-star-rating [rating]="3" [readOnly]="true" [maxRating]="5"></app-star-rating>
+                    <!-- <app-star-rating  [rating]="userRating"  [readOnly]="isReadOnly"  [maxRating]="5" (ratingChange)="onRatingChange($event)"> </app-star-rating> -->
+                    <h6>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsum magnam accusamus."</h6>
+                    <h5 class="text-xl">Joshua Adegbite</h5>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row gap-1 md:gap-3 my-2 md:p-3">
+            <img src="assets/11.jpg" class="h-40 w-40 rounded-md" alt="">
+            <div class="">
+                <div class="flex flex-col justify-around h-40">
+                    <app-star-rating [rating]="3" [readOnly]="true" [maxRating]="5"></app-star-rating>
+                    <!-- <app-star-rating  [rating]="userRating"  [readOnly]="isReadOnly"  [maxRating]="5" (ratingChange)="onRatingChange($event)"> </app-star-rating> -->
+                    <h6>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsum magnam accusamus."</h6>
+                    <h5 class="text-xl">Joshua Adeoye</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <app-footer></app-footer>

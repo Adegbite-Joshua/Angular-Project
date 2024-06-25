@@ -1,0 +1,5 @@
+<div class="flex">
+    <ng-container *ngFor="let filled of stars; let i = index">
+        <i [class]="filled ? 'fa-solid fa-star': 'fa-regular fa-star'" (click)="rate(i + 1)" (mouseover)="hover(i + 1)" (mouseleave)="leave()" [class.cursor-pointer]="!readOnly" class="mr-1 text-blue-600"></i>
+    </ng-container>
+</div>

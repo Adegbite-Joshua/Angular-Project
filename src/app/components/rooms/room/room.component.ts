@@ -9,6 +9,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './room.component.scss'
 })
 export class RoomComponent {
-  @Input() public placementRight: any;
-
+  @Input() public placementRight: any;  
 }

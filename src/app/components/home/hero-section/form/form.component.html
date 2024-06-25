@@ -12,33 +12,33 @@
         <div class="bg-opacity-35 italic my-2 text-black">
           <input class="w-full p-2 h-10 rounded-lg" placeholder="Full name" formControlName="full_name">
           @if (addressForm.controls['full_name'].hasError('required') && addressForm.controls['full_name'].dirty) {
-          <mat-error class="text-red-500">Full name is <strong>required</strong></mat-error>
+          <mat-error class="text-blue-600">Full name is <strong>required</strong></mat-error>
           }
         </div>
         <div class="bg-opacity-35 italic my-2 text-black">
           <input class="w-full p-2 h-10 rounded-lg" type="tel" placeholder="Telephone" formControlName="phone_number">
           @if (addressForm.controls['phone_number'].hasError('required') && addressForm.controls['phone_number'].dirty) {
-          <mat-error class="text-red-500">Telephone is <strong>required</strong></mat-error>
+          <mat-error class="text-blue-600">Telephone is <strong>required</strong></mat-error>
           }
         </div>
         <div class="bg-opacity-35 italic my-2 text-black">
           <input class="w-full p-2 h-10 rounded-lg" type="date" placeholder="Check in date"
             formControlName="check_in_date">
           @if (addressForm.controls['check_in_date'].hasError('required') && addressForm.controls['check_in_date'].dirty) {
-          <mat-error class="text-red-500">Check in date is <strong>required</strong></mat-error>
+          <mat-error class="text-blue-600">Check in date is <strong>required</strong></mat-error>
           }
         </div>
         <div class="bg-opacity-35 italic my-2 text-black">
           <input class="w-full p-2 h-10 rounded-lg" type="date" placeholder="Check out date"
             formControlName="check_out_date">
           @if (addressForm.controls['check_out_date'].hasError('required') && addressForm.controls['check_out_date'].dirty) {
-          <mat-error class="text-red-500">Check out date is <strong>required</strong></mat-error>
+          <mat-error class="text-blue-600">Check out date is <strong>required</strong></mat-error>
           }
         </div>
       </div>
     </mat-card-content>
     <mat-card-actions class="flex">
-      <button class="ms-auto p-2 rounded-lg bg-red-500 text-white font-bold" type="submit">Book now</button>
+      <button class="ms-auto p-2 rounded-lg bg-blue-600 text-white font-bold" type="submit">Book now</button>
     </mat-card-actions>
   </mat-card>
 </form>
