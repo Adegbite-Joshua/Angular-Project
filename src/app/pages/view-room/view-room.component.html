@@ -1,0 +1,42 @@
+<app-general-navbar></app-general-navbar>
+<div class="container mx-auto flex flex-col md:flex-row justify-between items-center my-2 md:p-3">
+    <div>
+        <div class="flex items-center gap-3">
+            <h3 class="text-4xl font-bold">Lemon Tree Premier Pune</h3>
+            <app-star-rating [rating]="4" [readOnly]="true" [maxRating]="5"></app-star-rating>
+        </div>
+        <h5 class="text-xl">Category: Single</h5>
+    </div>
+    <div class="flex flex-col">
+        <h2 class="text-4xl text-blue-600">$230/night</h2>
+        <div class="flex gap-2">
+            <button class="p-2 rounded-md border border-blue-600"><i class="fas fa-heart text-blue-600"></i></button>
+            <button class="p-2 rounded-md border border-blue-600"><i class="fas fa-share text-blue-600"></i></button>
+            <button class="bg-blue-600 rounded-md text-white px-4">Book Now</button>
+        </div>
+    </div>
+</div>
+<div class="container mx-auto my-2 p-2">
+    <div class="md:p-0 rounded-lg overflow-hidden">
+        <mat-grid-list [cols]="getGridCols(room.images.length)" class="rounded-md" rowHeight="160px">
+            <mat-grid-tile *ngFor="let tile of room.images; let i = index; trackBy: trackByFn"
+                [colspan]="getColSpan(room.images.length, i)" [rowspan]="getRowSpan(room.images.length, i)">
+                <img [src]="tile" class="w-full h-full" alt="Room image">
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+    <hr class="my-5">
+    <h4 class="text-2xl font-bold">Overview</h4>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore velit, voluptatum quos deleniti magnam, eos est
+        in fugiat fugit ipsam laudantium tenetur saepe ducimus quo ratione? Quia optio dolores, inventore hic odit
+        doloribus. Porro inventore ratione deleniti fugit quis. Recusandae odio soluta rerum nesciunt saepe ipsum
+        obcaecati voluptate, mollitia suscipit dignissimos consequatur sed ut iste, commodi amet autem pariatur quo
+        animi dolores doloribus corrupti nemo molestiae fuga non. Eligendi illum perferendis eum quia ullam? Ipsa
+        provident eveniet dicta labore fugit quis perferendis, corrupti, officiis iste laborum earum excepturi a sit?
+        Omnis dolorem sequi voluptatum ducimus rerum distinctio deleniti quia nulla. Laboriosam, at distinctio adipisci
+        facere ducimus quisquam voluptates neque consectetur deleniti magni? Praesentium deserunt itaque vel aspernatur
+        nostrum laborum quae.</p>
+</div>
+
+
+<app-footer></app-footer>

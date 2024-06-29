@@ -10,6 +10,7 @@ import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup } from '@angul
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { StarRatingComponent } from '../../components/star-rating/star-rating.component';
+import { RouterLink } from '@angular/router';
 
 
 interface Tile {
@@ -44,7 +45,8 @@ interface Room {
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    MatGridListModule
+    MatGridListModule,
+    RouterLink
   ],
   templateUrl: './all-rooms.component.html',
   styleUrls: ['./all-rooms.component.scss']
