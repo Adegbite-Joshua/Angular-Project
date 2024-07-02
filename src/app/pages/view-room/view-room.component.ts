@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { GeneralNavbarComponent } from '../../components/navbar/general-navbar/general-navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-view-room',
   standalone: true,
-  imports: [GeneralNavbarComponent, FooterComponent, MatGridListModule, StarRatingComponent, CommonModule],
+  imports: [GeneralNavbarComponent, FooterComponent, MatGridListModule, StarRatingComponent, CommonModule, RouterLink],
   templateUrl: './view-room.component.html',
   styleUrl: './view-room.component.scss'
 })
