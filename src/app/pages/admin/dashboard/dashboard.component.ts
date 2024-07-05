@@ -17,6 +17,7 @@ Chart.register(...registerables);
 })
 export class DashboardComponent {
   @ViewChild('myChart') myChart!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('myChart2') myChart2!: ElementRef<HTMLCanvasElement>;
 
   overview: any = {};
   roomTypes: any[] = [];
@@ -46,6 +47,21 @@ export class DashboardComponent {
 
   initChart(): void {
     const chartItem: ChartItem = this.myChart.nativeElement;
+    const chartItem2: ChartItem = this.myChart2.nativeElement;
+    new Chart(chartItem2, {
+      type: 'pie',
+      data: {
+        labels: this.occupancyChartLabels,
+        datasets: this.occupancyChartData
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { beginAtZero: true },
+          y: { beginAtZero: true }
+        }
+      }
+    });
     new Chart(chartItem, {
       type: 'bar',
       data: {
