@@ -1,0 +1,91 @@
+<div class="flex flex-col md:flex-row">
+    <div class="w-3/12 flex flex-row md:flex-col p-3">
+        <img src="assets/14.jpg" class="w-24 md:w-full h-16" alt="">
+        <a routerLink="/admin/dashboard" class="flex gap-2 p-2">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a routerLink="/admin/front-desk" class="flex gap-2 p-2">
+            <i class="fas fa-home"></i>
+            <span>Front Desk</span>
+        </a>
+        <a routerLink="/admin/guest" class="flex gap-2 p-2">
+            <i class="fas fa-home"></i>
+            <span>Guest</span>
+        </a>
+        <a routerLink="/admin/rooms" class="flex gap-2 p-2">
+            <i class="fas fa-home"></i>
+            <span>Rooms</span>
+        </a>
+    </div>
+    <div class="w-9/12 p-4">
+        <div class="p-3">
+            <div class="flex justify-between">
+                <div class="flex items-center gap-2 p-1 border rounded-md bg-slate-100">
+                    <i class="fas fa-search"></i>
+                    <input type="search" name="" id="" class="border-none p-2 bg-transparent focus:outline-none  focus:border-none" placeholder="Search for rooms">
+                </div>
+                <div class="flex">
+                    <i class="fas fa-notify"></i>
+                    <img src="assets/12.jpg" class="h-12 w-12 rounded-full" alt="">
+                </div>
+            </div>
+            <div class="">
+
+            </div>
+        </div>
+        <div class="overview bg-gray-100 p-4 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-semibold mb-2">Overview</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div>Today's Check-in: {{ overview.checkIn }}</div>
+                <div>Today's Check-out: {{ overview.checkOut }}</div>
+                <div>Total in Hotel: {{ overview.inHotel }}</div>
+                <div>Total Available Rooms: {{ overview.availableRoom }}</div>
+                <div>Total Occupied Rooms: {{ overview.occupiedRoom }}</div>
+            </div>
+        </div>
+
+        <div class="room-types bg-gray-100 p-4 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-semibold mb-2">Rooms</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div *ngFor="let room of roomTypes">
+                    <div>{{ room.type }}: {{ room.available }}/{{ room.total }} - ${{ room.price }}/day</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="room-status bg-gray-100 p-4 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-semibold mb-2">Room Status</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div>Occupied Rooms: {{ roomStatus.occupied }}</div>
+                <div>Clean Rooms: {{ roomStatus.clean }}</div>
+                <div>Dirty Rooms: {{ roomStatus.dirty }}</div>
+                <div>Inspected Rooms: {{ roomStatus.inspected }}</div>
+            </div>
+        </div>
+
+        <div class="floor-status bg-gray-100 p-4 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-semibold mb-2">Floor Status</h2>
+            <div class="flex justify-center">
+                <canvas #myChart></canvas>
+            </div>
+        </div>
+
+        <div class="occupancy-statistics bg-gray-100 p-4 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-semibold mb-2">Occupancy Statistics</h2>
+            <div class="flex justify-center">
+                <!-- <canvas baseChart [datasets]="occupancyChartData" [labels]="occupancyChartLabels" [chartType]="'bar'"></canvas> -->
+            </div>
+        </div>
+
+        <div class="customer-feedback bg-gray-100 p-4 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-semibold mb-2">Customer Feedback</h2>
+            <div class="space-y-2">
+                <div *ngFor="let feedback of customerFeedback">
+                    <div>{{ feedback.name }} (Room {{ feedback.room }}): {{ feedback.comment }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

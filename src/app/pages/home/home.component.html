@@ -19,28 +19,31 @@
     <p class="text-center text-blue-600"><strong>TESTIMONIALS</strong></p>
     <h4 class="text-2xl text-center font-bold">Don’t just take our words</h4>
     <div class="grid grid-cols-1 md:grid-cols-2 p-10">
-        <div class="flex flex-col md:flex-row gap-1 md:gap-3 my-2 md:p-3">
+        <div class="flex flex-col md:flex-row gap-1 md:gap-3 my-2 p-2 md:p-3">
             <img src="assets/11.jpg" class="h-40 w-40 rounded-md" alt="">
             <div class="">
                 <div class="flex flex-col justify-around h-40">
                     <app-star-rating [rating]="3" [readOnly]="true" [maxRating]="5"></app-star-rating>
                     <!-- <app-star-rating  [rating]="userRating"  [readOnly]="isReadOnly"  [maxRating]="5" (ratingChange)="onRatingChange($event)"> </app-star-rating> -->
-                    <h6>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsum magnam accusamus."</h6>
+                    <p class="text-xl">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsum magnam accusamus."</p>
                     <h5 class="text-xl">Joshua Adegbite</h5>
                 </div>
             </div>
         </div>
-        <div class="flex flex-col md:flex-row gap-1 md:gap-3 my-2 md:p-3">
+        <div class="flex flex-col md:flex-row gap-1 md:gap-3 my-2 p-2 md:p-3">
             <img src="assets/11.jpg" class="h-40 w-40 rounded-md" alt="">
             <div class="">
                 <div class="flex flex-col justify-around h-40">
                     <app-star-rating [rating]="3" [readOnly]="true" [maxRating]="5"></app-star-rating>
                     <!-- <app-star-rating  [rating]="userRating"  [readOnly]="isReadOnly"  [maxRating]="5" (ratingChange)="onRatingChange($event)"> </app-star-rating> -->
-                    <h6>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsum magnam accusamus."</h6>
+                    <p class="text-xl">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsum magnam accusamus."</p>
                     <h5 class="text-xl">Joshua Adeoye</h5>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="flex">
+        <a routerLink="/reviews" class="w-2/4 mx-auto bg-blue-600 p-2 text-center text-white rounded-md">View More</a>
     </div>
 </div>
 <app-footer></app-footer>

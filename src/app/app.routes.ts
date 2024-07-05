@@ -9,6 +9,9 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { BookedRoomComponent } from './pages/booked-room/booked-room.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { PolicyComponent } from './pages/policy/policy.component';
+import { ReviewsComponent } from './pages/reviews/reviews.component';
+import { WriteReviewComponent } from './pages/write-review/write-review.component';
+import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 
 export const routes: Routes = [
     // {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -22,4 +25,9 @@ export const routes: Routes = [
     {path: 'contact-us', component: ContactComponent},
     {path: 'terms', component: TermsComponent},
     {path: 'privacy-policy', component: PolicyComponent},
+    {path: 'reviews', component: ReviewsComponent},
+    {path: 'write-review', component: WriteReviewComponent},
+    {path: 'admin', children:[
+        { path: 'dashboard', component: DashboardComponent},
+    ],canActivate:[]},
 ];

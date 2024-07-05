@@ -5,11 +5,12 @@ import { HeroSectionComponent } from '../../components/home/hero-section/hero-se
 import { OurGalleryComponent } from '../../components/home/our-gallery/our-gallery.component';
 import { GeneralNavbarComponent } from '../../components/navbar/general-navbar/general-navbar.component';
 import { StarRatingComponent } from '../../components/star-rating/star-rating.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [GeneralNavbarComponent, HeroSectionComponent, AboutSectionComponent, OurGalleryComponent, FooterComponent, StarRatingComponent],
+  imports: [GeneralNavbarComponent, HeroSectionComponent, AboutSectionComponent, OurGalleryComponent, FooterComponent, StarRatingComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
