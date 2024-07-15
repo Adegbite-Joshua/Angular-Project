@@ -1,6 +1,7 @@
 <!-- <div class="absolute h-[450px] w-60  right-20 flex justify-center items-center"> -->
-<form [formGroup]="addressForm" class="w-72 px-5 h-full bg-white my-auto bg-opacity-50 rounded-lg" (ngSubmit)="onSubmit()">
-  <mat-card>
+<form [formGroup]="addressForm" class="w-72 px-5 h-full bg-white my-auto bg-opacity-50 rounded-lg"
+  (ngSubmit)="onSubmit()">
+  <mat-card class="bg-transparent bg-opacity-0">
     <mat-card-header>
       <mat-card-title>
         <p class="font-bold tet-3xl text-white">Book a Room</p>
@@ -17,21 +18,24 @@
         </div>
         <div class="bg-opacity-35 italic my-2 text-black">
           <input class="w-full p-2 h-10 rounded-lg" type="tel" placeholder="Telephone" formControlName="phone_number">
-          @if (addressForm.controls['phone_number'].hasError('required') && addressForm.controls['phone_number'].dirty) {
+          @if (addressForm.controls['phone_number'].hasError('required') && addressForm.controls['phone_number'].dirty)
+          {
           <mat-error class="text-blue-600">Telephone is <strong>required</strong></mat-error>
           }
         </div>
         <div class="bg-opacity-35 italic my-2 text-black">
           <input class="w-full p-2 h-10 rounded-lg" type="date" placeholder="Check in date"
             formControlName="check_in_date">
-          @if (addressForm.controls['check_in_date'].hasError('required') && addressForm.controls['check_in_date'].dirty) {
+          @if (addressForm.controls['check_in_date'].hasError('required') &&
+          addressForm.controls['check_in_date'].dirty) {
           <mat-error class="text-blue-600">Check in date is <strong>required</strong></mat-error>
           }
         </div>
         <div class="bg-opacity-35 italic my-2 text-black">
           <input class="w-full p-2 h-10 rounded-lg" type="date" placeholder="Check out date"
             formControlName="check_out_date">
-          @if (addressForm.controls['check_out_date'].hasError('required') && addressForm.controls['check_out_date'].dirty) {
+          @if (addressForm.controls['check_out_date'].hasError('required') &&
+          addressForm.controls['check_out_date'].dirty) {
           <mat-error class="text-blue-600">Check out date is <strong>required</strong></mat-error>
           }
         </div>

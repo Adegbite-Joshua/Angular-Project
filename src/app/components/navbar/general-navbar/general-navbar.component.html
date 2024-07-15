@@ -1,6 +1,14 @@
 <nav class="flex relative h-20 justify-between items-center px-20 py-10">
     <div class="flex items-center gap-2">
-        <h3 (click)="nav_bar.classList.toggle('responsive')" class="lg:hidden"><i class="fas fa-bars text-blue-600 text-3xl"></i></h3>
+        <h3 (click)="nav_bar.classList.toggle('responsive')" class="lg:hidden">
+            <!-- <i class="fas fa-bars text-blue-600 text-3xl"></i> -->
+            <label class="burger" [htmlFor]="'burger'">
+                <input type="checkbox" #burger>
+                <span></span>
+                <span></span>
+                <span></span>
+              </label>
+        </h3>
         <a href="" class="text-blue-600 text-5xl">Home</a>
         <!-- <a href="" class="">
         <img class="h-12 w-112" src="/logo.png" alt="">
