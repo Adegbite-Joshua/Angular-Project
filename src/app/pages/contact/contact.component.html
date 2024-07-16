@@ -1,5 +1,5 @@
 <app-general-navbar></app-general-navbar>
-<div class="h-[450px] relative">
+<div class="h-[350px] md:h-[450px] relative">
     <div class="absolute w-full h-full -z-20"
         style="background-image: url(assets/12.jpg); background-repeat: no-repeat; background-size: 100% 100%">
     </div>
@@ -16,17 +16,17 @@
                 <h5 class="text-2xl font-bold text-center my-2">We'll love to hear your feedback. Kindly send us a mail</h5>
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 font-bold mb-2">Name:</label>
-                    <input type="text" id="name" name="name" required
+                    <input type="text" id="name" name="name" placeholder="Full name" required
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block text-gray-700 font-bold mb-2">Email:</label>
-                    <input type="email" id="email" name="email" required
+                    <input type="email" id="email" name="email" placeholder="Email address" required
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div class="mb-6">
                     <label for="message" class="block text-gray-700 font-bold mb-2">Message:</label>
-                    <textarea id="message" name="message" rows="5" required
+                    <textarea id="message" name="message" rows="5" placeholder="Your message..." required
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
                 </div>
                 <div class="flex items-center justify-between">
@@ -38,7 +38,7 @@
             </form>
         </div>
         <div class="">
-            <ul class="mb-8 flex space-x-8 justify-center items-center">
+            <ul class="mb-8 flex flex-col md:flex-row space-x-8 gap-2 justify-center items-center">
                 <li class="flex items-center space-x-2">
                     <i class="fa-solid fa-phone text-blue-600 text-3xl"></i>
                   <a href="tel:+1234567890" class="font-bold">+1 (234) 567-890</a>

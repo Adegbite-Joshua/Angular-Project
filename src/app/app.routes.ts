@@ -12,9 +12,10 @@ import { PolicyComponent } from './pages/policy/policy.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { WriteReviewComponent } from './pages/write-review/write-review.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { GuestsComponent } from './pages/admin/guests/guests.component';
 
 export const routes: Routes = [
-    // {path: '', redirectTo: 'home', pathMatch: 'full'},
+    {path: 'home', redirectTo: '/', pathMatch: 'full'},
     {path: '', component: HomeComponent},
     {path: 'rooms', component: RoomsComponent},
     {path: 'rooms/all', component: AllRoomsComponent},
@@ -27,7 +28,9 @@ export const routes: Routes = [
     {path: 'privacy-policy', component: PolicyComponent},
     {path: 'reviews', component: ReviewsComponent},
     {path: 'write-review', component: WriteReviewComponent},
+    {path: '*', component: WriteReviewComponent},
     {path: 'admin', children:[
         { path: 'dashboard', component: DashboardComponent},
+        { path: 'guests', component: GuestsComponent},
     ],canActivate:[]},
 ];

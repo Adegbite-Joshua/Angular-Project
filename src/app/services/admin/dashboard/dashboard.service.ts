@@ -40,9 +40,21 @@ export class DashboardService {
 
   getCustomerFeedback() {
     return [
-      { name: 'Mark', comment: 'Food could be better.', room: 'A201' },
-      { name: 'Christian', comment: 'Facilities are not enough for amount paid.', room: 'A301' },
-      { name: 'Alexander', comment: 'Room cleaning could be better.', room: 'A401' }
+      { name: 'Mark', review: 'Food could be better.', star_rating: 3 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid. Facilities are not enough for amount paid Facilities are not enough for amount paid', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid. Facilities are not enough for amount paid', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
+      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
+      { name: 'Alexander', review: 'Room cleaning could be better.', star_rating: 2 }
     ];
   }
 }

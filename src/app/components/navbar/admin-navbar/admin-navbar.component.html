@@ -1,0 +1,38 @@
+<div class="flex flex-col md:flex-row">
+    <div class="w-full md:w-3/12 flex flex-row md:flex-col p-3 overflow-x-auto">
+        <img src="assets/14.jpg" class="w-24 md:w-full h-16 my-1" alt="">
+        <a routerLink="/admin/dashboard" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto flex gap-2 p-2">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a routerLink="/admin/front-desk" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto flex gap-2 p-2">
+            <i class="fas fa-pen-to-square"></i>
+            <span>Front Desk</span>
+        </a>
+        <a routerLink="/admin/guests" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto flex gap-2 p-2">
+            <i class="fas fa-check-to-slot"></i>
+            <span>Guest</span>
+        </a>
+        <a routerLink="/admin/rooms" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto flex gap-2 p-2">
+            <i class="fas fa-home"></i>
+            <span>Rooms</span>
+        </a>
+    </div>
+    <div class="w-full md:w-9/12 md:p-4">
+        <div class="p-3">
+            <div class="flex justify-between">
+                <div class="flex items-center gap-2 p-1 border rounded-md bg-slate-100">
+                    <i class="fas fa-search"></i>
+                    <input type="search" name="" id=""
+                        class="border-none p-2 bg-transparent focus:outline-none  focus:border-none"
+                        placeholder="Search for rooms">
+                </div>
+                <div class="flex">
+                    <i class="fas fa-notify"></i>
+                    <img src="assets/12.jpg" class="h-12 w-12 rounded-full" alt="">
+                </div>
+            </div>
+        </div>
+        <ng-content></ng-content>
+    </div>
+</div>

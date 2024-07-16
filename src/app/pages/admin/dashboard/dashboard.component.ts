@@ -4,6 +4,8 @@ import { DashboardService } from '../../../services/admin/dashboard/dashboard.se
 import { CommonModule } from '@angular/common';
 import { Chart, ChartConfiguration, ChartItem, registerables } from 'chart.js';
 import { RouterLink } from '@angular/router';
+import { AdminNavbarComponent } from '../../../components/navbar/admin-navbar/admin-navbar.component';
+import { StarRatingComponent } from '../../../components/star-rating/star-rating.component';
 
 Chart.register(...registerables);
 
@@ -11,7 +13,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ CommonModule, RouterLink],
+  imports: [ AdminNavbarComponent, StarRatingComponent, CommonModule, RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
