@@ -1,0 +1,31 @@
+<app-admin-navbar>
+    <div class="flex space-x-4 mb-4">
+        <button (click)="applyFilter('all')" [class.active]="filter === 'all'">All</button>
+        <button (click)="applyFilter('due in')" [class.active]="filter === 'due in'">Due in</button>
+        <button (click)="applyFilter('checked out')" [class.active]="filter === 'checked out'">Checked out</button>
+        <button (click)="applyFilter('due out')" [class.active]="filter === 'due out'">Due out</button>
+        <button (click)="applyFilter('checked in')" [class.active]="filter === 'checked in'">Checked in</button>
+      </div>
+      
+      <div class="months flex mb-4">
+        <div *ngFor="let month of months" (click)="selectMonth(month)" [class.active]="selectedMonth === month" class="cursor-pointer">
+          {{ month }}
+        </div>
+      </div>
+      <div class="calendar">
+        <div class="days">
+          <div *ngFor="let day of days" class="day">{{ day }}</div>
+        </div>
+        <div class="bookings">
+          <div *ngFor="let booking of bookings" 
+               class="booking" 
+               [style.gridColumnStart]="getColumnStart(booking.startDate)"
+               [style.gridColumnEnd]="getColumnEnd(booking.endDate)"
+               [ngClass]="booking.status.replace(' ', '-')">
+            {{ booking.name }}
+          </div>
+        </div>
+      </div>
+      
+            
+</app-admin-navbar>

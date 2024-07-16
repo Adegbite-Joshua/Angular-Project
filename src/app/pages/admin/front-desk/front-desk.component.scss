@@ -1,0 +1,55 @@
+button {
+    @apply px-4 py-2 rounded bg-gray-200;
+  }
+  
+  button.active {
+    @apply bg-blue-500 text-white;
+  }
+  
+  .months .month {
+    @apply px-4 py-2 rounded cursor-pointer;
+  }
+  
+  .months .month.active {
+    @apply bg-blue-500 text-white;
+  }
+  
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .days, .bookings {
+    display: contents;
+  }
+  
+  .day {
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .booking {
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: white;
+  }
+  
+  .checked-out {
+    background-color: lightblue;
+  }
+  
+  .due-out {
+    background-color: lightcoral;
+  }
+  
+  .checked-in {
+    background-color: lightgreen;
+  }
+  
+  .due-in {
+    background-color: lightyellow;
+    color: black;
+  }
+  

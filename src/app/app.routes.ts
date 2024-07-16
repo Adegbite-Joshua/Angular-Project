@@ -14,6 +14,7 @@ import { WriteReviewComponent } from './pages/write-review/write-review.componen
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { GuestsComponent } from './pages/admin/guests/guests.component';
 import { AdminRoomsComponent } from './pages/admin/admin-rooms/admin-rooms.component';
+import { FrontDeskComponent } from './pages/admin/front-desk/front-desk.component';
 
 export const routes: Routes = [
     {path: 'home', redirectTo: '/', pathMatch: 'full'},
@@ -32,6 +33,7 @@ export const routes: Routes = [
     {path: '*', component: WriteReviewComponent},
     {path: 'admin', children:[
         { path: 'dashboard', component: DashboardComponent},
+        { path: 'front-desk', component: FrontDeskComponent},
         { path: 'guests', component: GuestsComponent},
         { path: 'rooms', component: AdminRoomsComponent },
     ],canActivate:[]},
