@@ -1,0 +1,15 @@
+<div class="p-3">
+    <h1 mat-dialog-title>{{data.title}}</h1>
+    <div mat-dialog-content>
+        <p>{{data.message}}</p>
+        <ng-container *ngIf="data.input">
+            <mat-form-field>
+                <input matInput [(ngModel)]="inputValue" placeholder="Email">
+            </mat-form-field>
+        </ng-container>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button (click)="onYesClick()" cdkFocusInitial>Confirm</button>
+    </div>
+</div>

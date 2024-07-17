@@ -31,7 +31,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/slick-carousel/slick/slick.scss",
               "node_modules/slick-carousel/slick/slick-theme.scss",
               "node_modules/@fortawesome/fontawesome-free/css/all.css"
@@ -103,7 +103,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "@angular/material/prebuilt-themes/pink-bluegrey.css"
+              "@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": []
           }

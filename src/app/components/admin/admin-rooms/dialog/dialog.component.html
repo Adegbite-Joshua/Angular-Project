@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>Add Room</h2>
+<mat-dialog-content>
+  <form [formGroup]="roomForm">
+    <div>
+      <label class="text-blue-600">Room Title</label>
+      <input class="w-full block border-2 rounded-md text-slate-400 p-2" formControlName="title" required>
+      <div *ngIf="roomForm.get('title') && roomForm.get('title')?.touched && roomForm.get('title')?.invalid" class="text-red-600">
+        <small *ngIf="roomForm.get('title')?.errors?.['required']">Room title is required.</small>
+      </div>
+    </div>
+    <div>
+      <label class="text-blue-600">Room Overview</label>
+      <textarea class="w-full block border-2 rounded-md text-slate-400 p-2" formControlName="overview" required></textarea>
+      <div *ngIf="roomForm.get('overview') && roomForm.get('overview')?.touched && roomForm.get('overview')?.invalid" class="text-red-600">
+        <small *ngIf="roomForm.get('overview')?.errors?.['required']">Room overview is required.</small>
+      </div>
+    </div>
+    <div>
+      <label class="text-blue-600">Facility</label>
+      <textarea class="w-full block border-2 rounded-md text-slate-400 p-2" formControlName="facility" required></textarea>
+      <div *ngIf="roomForm.get('facility') && roomForm.get('facility')?.touched && roomForm.get('facility')?.invalid" class="text-red-600">
+        <small *ngIf="roomForm.get('facility')?.errors?.['required']">Facility information is required.</small>
+      </div>
+    </div>
+    <div>
+      <label class="text-blue-600">Price</label>
+      <input class="w-full block border-2 rounded-md text-slate-400 p-2" type="number" formControlName="price" required>
+      <div *ngIf="roomForm.get('price') && roomForm.get('price')?.touched && roomForm.get('price')?.invalid" class="text-red-600">
+        <small *ngIf="roomForm.get('price')?.errors?.['required']">Price is required.</small>
+        <small *ngIf="roomForm.get('price')?.errors?.['min']">Price must be at least 1.</small>
+      </div>
+    </div>
+    <div>
+      <label class="text-blue-600">Images</label>
+      <input class="w-full block border-2 rounded-md text-slate-400 p-2" type="file" formControlName="files" (change)="onFileChange($event)" multiple>
+      <div *ngIf="roomForm.get('images') && roomForm.get('images')?.touched && roomForm.get('images')?.invalid" class="text-red-600">
+        <small *ngIf="roomForm.get('images')?.errors?.['required']">At least one image is required.</small>
+      </div>
+    </div>
+    <div>
+        <label class="text-blue-600">Floor</label>
+        <input class="w-full block border-2 rounded-md text-slate-400 p-2" type="number" formControlName="floor" required>
+        <div *ngIf="roomForm.get('floor') && roomForm.get('floor')?.touched && roomForm.get('floor')?.invalid" class="text-red-600">
+          <small *ngIf="roomForm.get('floor')?.errors?.['required']">Floor is required.</small>
+          <small *ngIf="roomForm.get('floor')?.errors?.['min']">Floor information is required.</small>
+        </div>
+      </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex gap-2">
+  <button class="bg-red-400 text-white p-2 rounded-md" (click)="onCancel()">Cancel</button>
+  <button class="bg-blue-600 text-white py-2 px-3 rounded-md" (click)="onSubmit()" [disabled]="!roomForm.valid">Add Room</button>
+</mat-dialog-actions>
