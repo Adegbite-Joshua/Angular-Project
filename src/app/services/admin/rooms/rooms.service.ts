@@ -10,6 +10,7 @@ export class RoomsService {
   private rooms = new BehaviorSubject<any[]>([
     {
       number: '001',
+      id: '001',
       bedType: 'Double bed',
       floor: '-1',
       facility: 'AC, shower, Double bed, towel, bathtub, TV',
@@ -22,6 +23,7 @@ export class RoomsService {
     },
     {
       number: '002',
+      id: '002',
       bedType: 'Single bed',
       floor: '-2',
       facility: 'AC, shower, Single bed, towel, bathtub, TV',
@@ -36,6 +38,7 @@ export class RoomsService {
     },
     {
       number: '003',
+      id: '003',
       bedType: 'Triple bed',
       floor: '-1',
       facility: 'AC, shower, Triple bed, towel, bathtub, TV',
@@ -48,6 +51,7 @@ export class RoomsService {
     },
     {
       number: '004',
+      id: '004',
       bedType: 'Single bed',
       floor: '-2',
       facility: 'AC, shower, Single bed, towel, bathtub, TV',

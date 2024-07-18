@@ -19,28 +19,29 @@
     <p class="text-center text-blue-600"><strong>TESTIMONIALS</strong></p>
     <p class="text-2xl text-center font-bold">Don’t just take our words</p>
     <div class="grid grid-cols-1 md:grid-cols-2 p-10">
-        <div class="flex flex-col md:flex-row gap-1 md:gap-3 my-2 p-2 md:p-3">
-            <img src="assets/11.jpg" class="h-40 w-40 rounded-md" alt="">
+        <div *ngIf="reviews.length > 0" class="flex flex-col md:flex-row gap-1 md:gap-3 my-2 p-2 md:p-3">
+            <img src="{{reviews[0].image}}" class="h-40 w-40 rounded-md" alt="">
             <div class="">
                 <div class="flex flex-col justify-around h-40">
-                    <app-star-rating [rating]="3" [readOnly]="true" [maxRating]="5"></app-star-rating>
+                    <app-star-rating [rating]="reviews[0].star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
                     <!-- <app-star-rating  [rating]="userRating"  [readOnly]="isReadOnly"  [maxRating]="5" (ratingChange)="onRatingChange($event)"> </app-star-rating> -->
-                    <p class="">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsum magnam accusamus."</p>
-                    <p class="text-xl">Joshua Adegbite</p>
+                    <p class="">"{{reviews[0].review}}"</p>
+                    <p class="text-xl">{{reviews[0].reviewer}}</p>
                 </div>
             </div>
         </div>
-        <div class="flex flex-col md:flex-row gap-1 md:gap-3 my-2 p-2 md:p-3">
-            <img src="assets/11.jpg" class="h-40 w-40 rounded-md" alt="">
+        <div *ngIf="reviews.length > 1" class="flex flex-col md:flex-row gap-1 md:gap-3 my-2 p-2 md:p-3">
+            <img src="{{reviews[1].image}}" class="h-40 w-40 rounded-md" alt="">
             <div class="">
                 <div class="flex flex-col justify-around h-40">
-                    <app-star-rating [rating]="3" [readOnly]="true" [maxRating]="5"></app-star-rating>
+                    <app-star-rating [rating]="reviews[1].star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
                     <!-- <app-star-rating  [rating]="userRating"  [readOnly]="isReadOnly"  [maxRating]="5" (ratingChange)="onRatingChange($event)"> </app-star-rating> -->
-                    <p class="text-xl">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsum magnam accusamus."</p>
-                    <h5 class="text-xl">Joshua Adeoye</h5>
+                    <p class="">"{{reviews[1].review}}"</p>
+                    <p class="text-xl">{{reviews[1].reviewer}}</p>
                 </div>
             </div>
         </div>
+        
     </div>
     <div class="flex">
         <a routerLink="/reviews" class="w-2/4 mx-auto bg-blue-600 p-2 text-center text-white rounded-md">View More</a>

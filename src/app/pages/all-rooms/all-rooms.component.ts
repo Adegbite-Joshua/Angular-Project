@@ -1,24 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FooterComponent } from '../../components/footer/footer.component';
-import { GeneralNavbarComponent } from '../../components/navbar/general-navbar/general-navbar.component';
+import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { RoomsService } from '../../services/rooms/rooms.service';
+import { GeneralNavbarComponent } from '../../components/navbar/general-navbar/general-navbar.component';
+import { FooterComponent } from '../../components/footer/footer.component';
 import { StarRatingComponent } from '../../components/star-rating/star-rating.component';
-import { RouterLink } from '@angular/router';
-
-
-interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-}
 
 interface Room {
   number: number;
@@ -28,170 +22,113 @@ interface Room {
   description: string;
   category: string;
   images: string[];
+  availableFrom: Date;
+  availableTo: Date;
 }
 
 @Component({
   selector: 'app-all-rooms',
   standalone: true,
   imports: [
-    GeneralNavbarComponent,
-    FooterComponent,
-    StarRatingComponent,
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RouterLink,
     MatSliderModule,
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    CommonModule,
-    MatGridListModule,
-    RouterLink
+    MatDatepickerModule,
+    MatNativeDateModule,
+    GeneralNavbarComponent,
+    FooterComponent,
+    StarRatingComponent
   ],
   templateUrl: './all-rooms.component.html',
   styleUrls: ['./all-rooms.component.scss']
 })
-
 export class AllRoomsComponent implements OnInit {
-  tiles: Tile[] = [
-    { text: 'One', cols: 3, rows: 1, color: 'lightblue' },
-    { text: 'Two', cols: 1, rows: 2, color: 'lightgreen' },
-    { text: 'Three', cols: 1, rows: 1, color: 'lightpink' },
-    { text: 'Four', cols: 2, rows: 1, color: '#DDBDF1' },
-  ];
-
-  filterForm: FormGroup;
+  filterForm!: FormGroup;
   ratings: number[] = [1, 2, 3, 4, 5];
   categories: string[] = ['Single', 'Double', 'Suite'];
-  rooms: Room[] = [
-    {
-      number: 101,
-      name: "Luxury Single Room",
-      description: "A luxurious single room with modern amenities and a beautiful city view.",
-      price: 100,
-      rating: 5,
-      category: 'Single',
-      images: ['assets/1.jpg', 'assets/2.jpg', 'assets/1.jpg', 'assets/2.jpg']
-    },
-    {
-      number: 102,
-      name: "Deluxe Double Room",
-      description: "Spacious double room with a comfortable king-sized bed and a scenic view.",
-      price: 200,
-      rating: 4,
-      category: 'Double',
-      images: ['assets/3.jpg', 'assets/4.jpg']
-    },
-    {
-      number: 103,
-      name: "Executive Suite",
-      description: "A luxurious suite offering premium comfort and exclusive amenities.",
-      price: 300,
-      rating: 3,
-      category: 'Suite',
-      images: ['assets/5.jpg', 'assets/6.jpg']
-    },
-    {
-      number: 104,
-      name: "Comfort Single Room",
-      description: "A cozy single room with all the necessary amenities for a comfortable stay.",
-      price: 150,
-      rating: 4,
-      category: 'Single',
-      images: ['assets/7.jpg', 'assets/8.jpg', 'assets/7.jpg']
-    },
-    {
-      number: 105,
-      name: "Standard Double Room",
-      description: "A standard double room with modern furnishings and a relaxing ambiance.",
-      price: 250,
-      rating: 5,
-      category: 'Double',
-      images: ['assets/9.jpg', 'assets/10.jpg']
-    },
-    {
-      number: 106,
-      name: "Premium Suite",
-      description: "A premium suite with a spacious living area and top-notch amenities.",
-      price: 350,
-      rating: 3,
-      category: 'Suite',
-      images: ['assets/11.jpg', 'assets/12.jpg']
-    },
-    {
-      number: 107,
-      name: "Deluxe Single Room",
-      description: "A deluxe single room with elegant decor and a comfortable setting.",
-      price: 180,
-      rating: 5,
-      category: 'Single',
-      images: ['assets/13.jpg', 'assets/14.jpg', 'assets/13.jpg', 'assets/14.jpg']
-    },
-    {
-      number: 108,
-      name: "Superior Double Room",
-      description: "A superior double room with premium furnishings and a relaxing environment.",
-      price: 280,
-      rating: 4,
-      category: 'Double',
-      images: ['assets/15.jpg', 'assets/16.jpg']
-    },
-    {
-      number: 109,
-      name: "Elegant Suite",
-      description: "An elegant suite with stylish decor and first-class amenities.",
-      price: 380,
-      rating: 2,
-      category: 'Suite',
-      images: ['assets/17.jpg', 'assets/18.jpg']
-    },
-    {
-      number: 110,
-      name: "Basic Single Room",
-      description: "A basic single room with essential amenities for a budget-friendly stay.",
-      price: 120,
-      rating: 1,
-      category: 'Single',
-      images: ['assets/19.jpg', 'assets/20.jpg']
-    }
-  ];
+  rooms: Room[] = [];
+  filteredRooms: Room[] = [];
 
-  filteredRooms: Room[] = [...this.rooms];
-  minPrice: number;
-  maxPrice: number;
-
-  constructor(private fb: FormBuilder) {
-    this.minPrice = Math.min(...this.rooms.map(room => room.price));
-    this.maxPrice = Math.max(...this.rooms.map(room => room.price));
+  constructor(private fb: FormBuilder, private roomsService: RoomsService, private route: ActivatedRoute) {
     this.filterForm = this.fb.group({
-      priceRange: [[this.minPrice, this.maxPrice]],
       rating: [null],
-      category: [null]
+      category: [null],
+      checkinDate: [null],
+      checkoutDate: [null]
     });
   }
 
   ngOnInit(): void {
-    this.filterForm.valueChanges.subscribe(filters => {
-      this.applyFilters(filters);
+    this.loadRooms();
+    this.route.queryParams.subscribe(params => {
+      if (params['in']) {
+        this.filterForm.patchValue({ checkinDate: new Date(params['in']) });
+      }
+      if (params['out']) {
+        this.filterForm.patchValue({ checkoutDate: new Date(params['out']) });
+      }
+      if (params['type']) {
+        this.filterForm.patchValue({ category: params['type'] });
+      }
     });
   }
 
-  applyFilters(filters: any): void {
-    this.filteredRooms = this.rooms.filter(room => {
-      return (
-        (!filters.priceRange || (room.price >= filters.priceRange[0] && room.price <= filters.priceRange[1])) &&
-        (!filters.rating || room.rating === filters.rating) &&
-        (!filters.category || room.category === filters.category)
-      );
+  applyFilters(filters: any, rooms: any[]): void {
+    this.filteredRooms = rooms.filter(room => {
+      const matchesRating = filters.rating === null || filters.rating === undefined || room.rating === filters.rating;
+
+      const matchesCategory = filters.category === 'all' || filters.category === null || filters.category === undefined || room.category === filters.category;
+
+      const normalizeDate = (date: any) => {
+        if (date instanceof Date) {
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          return `${year}-${month}-${day}`;
+        }
+        return date;
+      };
+
+
+      const matchesCheckinDate = !filters.checkinDate || !filters.checkoutDate ||
+        this.roomsService.isRoomAvailable(room, normalizeDate(filters.checkinDate), normalizeDate(filters.checkoutDate));
+      return matchesRating && matchesCategory && matchesCheckinDate;
     });
-    console.log(this.filteredRooms);
   }
+
+
+
+
+
+
+  loadRooms(): void {
+    this.roomsService.getRooms().subscribe(rooms => {
+      this.rooms = rooms;
+
+      this.applyFilters(this.filterForm.value, this.rooms);
+
+      this.filterForm.valueChanges.subscribe(filters => {
+
+        this.applyFilters(filters, this.rooms);
+      });
+    });
+  }
+
+
+
 
   resetFilters(): void {
     this.filterForm.reset({
-      priceRange: [this.minPrice, this.maxPrice],
       rating: null,
-      category: null
+      category: null,
+      checkinDate: null,
+      checkoutDate: null
     });
   }
 
@@ -199,45 +136,4 @@ export class AllRoomsComponent implements OnInit {
     return `$${value}`;
   }
 
-  updatePriceRange(event: Event): void {
-    const value = (event.target as HTMLInputElement).value.split(',');
-    this.filterForm.patchValue({
-      priceRange: [parseInt(value[0], 10), parseInt(value[1], 10)]
-    });
-  }
-
-  trackByFn(index: number, item: any): any {
-    return index;
-  }
-
-  getGridCols(length: number): number {
-    switch (length) {
-      case 2:
-        return 2;
-      case 3:
-      case 4:
-        return 2;
-      case 5:
-        return 3;
-      default:
-        return 1;
-    }
-  }
-
-  getColSpan(length: number, index: number): number {
-    if (length === 3) {
-      return index < 2 ? 1 : 2;
-    }
-    if (length === 5) {
-      return index === 0 ? 2 : 1;
-    }
-    return 1;
-  }
-
-  getRowSpan(length: number, index: number): number {
-    if (length === 5 && index === 0) {
-      return 2;
-    }
-    return 1;
-  }
 }

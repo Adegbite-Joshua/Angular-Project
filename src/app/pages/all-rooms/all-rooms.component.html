@@ -1,72 +1,72 @@
 <app-general-navbar></app-general-navbar>
 <div class="grid grid-cols-12">
-    <div class="col-span-12 md:col-span-5 md:border-r md:relative">
-        <div class="md:sticky top-0 p-2">
-            <h6 class="text-2xl">Filters</h6>
-            <form [formGroup]="filterForm">
-                <div class="flex gap-2">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Rating</mat-label>
-                        <mat-select formControlName="rating">
-                            <mat-option [value]="null">All</mat-option>
-                            <mat-option *ngFor="let rating of ratings" [value]="rating">{{rating}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+  <div class="col-span-12 md:col-span-5 md:border-r md:relative">
+    <div class="md:sticky top-0 p-2">
+      <h6 class="text-2xl">Filters</h6>
+      <form [formGroup]="filterForm">
+        <div class="flex gap-2">
+          <mat-form-field appearance="fill">
+            <mat-label>Rating</mat-label>
+            <mat-select formControlName="rating">
+              <mat-option [value]="null">All</mat-option>
+              <mat-option *ngFor="let rating of ratings" [value]="rating">{{rating}}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-                    <mat-form-field appearance="fill">
-                        <mat-label>Category</mat-label>
-                        <mat-select formControlName="category">
-                            <mat-option [value]="null">All</mat-option>
-                            <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-
-                <mat-slider min="{{minPrice}}" max="{{maxPrice}}" step="10" thumbLabel
-                    [ngModel]="filterForm.controls['priceRange'].value" (ngModelChange)="updatePriceRange($event)"
-                    [displayWith]="formatLabel">
-                    <input value="{{minPrice}}" matSliderStartThumb>
-                    <input value="{{maxPrice}}" matSliderEndThumb>
-                </mat-slider>
-                <p>Price Range: ${{ filterForm.controls['priceRange'].value[0] }} - ${{
-                    filterForm.controls['priceRange'].value[1] }}</p>
-
-                <button mat-raised-button color="primary" type="button" (click)="resetFilters()">Reset Filters</button>
-            </form>
+          <mat-form-field appearance="fill">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category">
+              <mat-option [value]="null">All</mat-option>
+              <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-    </div>
-    <div class="col-span-12 md:col-span-7 p-4">
-        <h6 class="text-3xl">Available Rooms</h6>
-        <div *ngFor="let room of filteredRooms"
-            class="p-2 h-auto border-b rounded-lg overflow-hidden grid grid-cols-12 gap-3">
-            <img src="{{room.images[0]}}" class="h-40 w-full md:aspect-square col-span-12 md:col-span-5" alt="">
-            <div class="col-span-12 md:col-span-7">
-                <h2 class="text-3xl">{{room.name}}</h2>
-                <h3 class="my-0 p-0 ">{{room.description}}</h3>
-                <div class="flex justify-around items-center">
-                    <div>
-                        <app-star-rating [rating]="room.rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
-                    </div>
-                    <div>
-                        <h4 class="text2xl text-blue-600">${{room.price}}/night</h4>
-                    </div>
-                </div>
-                <hr class="my-2">
-                <div class="flex gap-3">
-                    <button class="w-1/6 p-3 border border-blue-600 rounded-md"><i
-                            class="far fa-heart text-blue-600"></i></button>
-                    <a routerLink="/rooms/hello" class="w-5/6 bg-blue-600 text-white rounded-md flex justify-center items-center">View Place</a>
-                </div>
-            </div>
-            <!-- <mat-grid-list [cols]="getGridCols(room.images.length)" class="rounded-md" rowHeight="100px">
-                <mat-grid-tile *ngFor="let tile of room.images; let i = index; trackBy: trackByFn"
-                               [colspan]="getColSpan(room.images.length, i)"
-                               [rowspan]="getRowSpan(room.images.length, i)">
-                  <img [src]="tile" class="w-full h-full" alt="Room image">
-                </mat-grid-tile>
-              </mat-grid-list> -->
+
+        <div class="flex gap-2">
+          <mat-form-field appearance="fill">
+            <mat-label>Check-in Date</mat-label>
+            <input matInput [matDatepicker]="checkinPicker" formControlName="checkinDate">
+            <mat-datepicker-toggle matSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+            <mat-datepicker #checkinPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Check-out Date</mat-label>
+            <input matInput [matDatepicker]="checkoutPicker" formControlName="checkoutDate">
+            <mat-datepicker-toggle matSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+            <mat-datepicker #checkoutPicker></mat-datepicker>
+          </mat-form-field>
         </div>
-        <button class="w-full bg-blue-600 p-2 rounded-md text-center text-white">Show more results</button>
+        
+        <button mat-raised-button color="primary" type="button" (click)="resetFilters()">Reset Filters</button>
+      </form>
     </div>
+  </div>
+  <div class="col-span-12 md:col-span-7 p-4">
+    <h6 class="text-3xl">Available Rooms</h6>
+    <div *ngFor="let room of filteredRooms" class="p-2 h-auto border-b rounded-lg overflow-hidden grid grid-cols-12 gap-3">
+      <img src="{{room.images[0]}}" class="h-40 w-full md:aspect-square col-span-12 md:col-span-5" alt="">
+      <div class="col-span-12 md:col-span-7">
+        <h2 class="text-3xl">{{room.name}}</h2>
+        <h3 class="my-0 p-0">{{room.description}}</h3>
+        <div class="flex justify-around items-center">
+          <div>
+            <app-star-rating [rating]="room.rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
+          </div>
+          <div>
+            <h4 class="text-2xl text-blue-600">${{room.price}}/night</h4>
+          </div>
+        </div>
+        <hr class="my-2">
+        <div class="flex gap-3">
+          <button class="w-1/6 p-3 border border-blue-600 rounded-md">
+            <i class="far fa-heart text-blue-600"></i>
+          </button>
+          <a [routerLink]="['/rooms', room.number]" class="w-5/6 bg-blue-600 text-white rounded-md flex justify-center items-center">View Place</a>
+        </div>
+      </div>
+    </div>
+    <button class="w-full bg-blue-600 p-2 rounded-md text-center text-white">Show more results</button>
+  </div>
 </div>
 <app-footer></app-footer>

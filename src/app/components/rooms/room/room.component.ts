@@ -10,4 +10,7 @@ import { Component, Input } from '@angular/core';
 })
 export class RoomComponent {
   @Input() public placementRight: any;  
+  @Input() public roomType: any;  
+  @Input() public numberOfBed: any;  
+  @Input() public numberOfPeople: any;  
 }

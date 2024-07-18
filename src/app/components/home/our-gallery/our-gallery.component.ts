@@ -1,35 +1,34 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { RoomsService } from '../../../services/rooms/rooms.service';
+import { RouterLink } from '@angular/router';
 // import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 
 @Component({
   selector: 'app-our-gallery',
   standalone: true,
-  imports: [CommonModule ,SlickCarouselModule],
+  imports: [CommonModule ,SlickCarouselModule, RouterLink],
   templateUrl: './our-gallery.component.html',
   styleUrl: './our-gallery.component.scss'
 })
 export class OurGalleryComponent {
-  slides = [
-    {img: '/assets/1.jpg'},
-    {img: '/assets/2.jpg'},
-    {img: '/assets/3.jpg'},
-    {img: '/assets/4.jpg'},
-    {img: '/assets/5.jpg'},
-    {img: '/assets/6.jpg'},
-    {img: '/assets/7.jpg'},
-    {img: '/assets/8.jpg'},
-    {img: '/assets/9.jpg'},
-    {img: '/assets/10.jpg'},
-    {img: '/assets/11.jpg'},
-    {img: '/assets/12.jpg'},
-    {img: '/assets/13.jpg'},
-    {img: '/assets/14.jpg'},
-    {img: '/assets/15.jpg'},
-    {img: '/assets/16.jpg'},
-  ];
+
+  public rooms = <any>[];
+
+  constructor (private roomsService: RoomsService) {}
+
+  ngOnInit(): void {
+    this.loadRooms();
+  }
+
+  loadRooms(): void {
+    this.roomsService.getRooms().subscribe(rooms => {
+      this.rooms = rooms
+    });
+  }
+
   slideConfig = {
     "slidesToShow": 4,
     "slidesToScroll": 1,
@@ -59,23 +58,5 @@ export class OurGalleryComponent {
       }
     ]
   };
-
-  // constructor(private breakpointObserver: BreakpointObserver) {}
-
-  // ngOnInit() {
-  //   this.breakpointObserver.observe(['(max-width: 767px)']).subscribe((state: BreakpointState) => {
-  //     if (state.matches) {
-  //       // Below 768px
-  //       this.slideConfig.dots = false;
-  //       console.log(false);
-        
-  //     } else {
-  //       // Above 768px
-  //       this.slideConfig.dots = true;
-  //       console.log(true);
-        
-  //     }
-  //   });
-  // }
 
 }

@@ -13,15 +13,15 @@
             <a routerLink="/write-review" class="mb-6 px-4 py-2 bg-blue-500 text-white rounded mt-auto">Give your review</a>
         </div>
         <div *ngFor="let review of reviews" class="mb-6 p-4 flex flex-col sm:flex-row gap-2 bg-white rounded shadow">
-            <img src="assets/12.jpg" class="h-14 w-14 rounded-full" alt="">
+            <img src="{{review.image}}" class="h-14 w-14 rounded-full" alt="">
             <div>
                 <div class="flex items-center mb-2">
                     <div class="text-xl font-semibold mr-2">
-                        <app-star-rating [rating]="review.score" [readOnly]="true" [maxRating]="5"></app-star-rating>
+                        <app-star-rating [rating]="review.star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
                     </div>
                     <div class="font-bold">| {{ review.reviewer }}</div>
                 </div>
-                <div class="text-gray-700">{{ review.text }}</div>
+                <div class="text-gray-700">{{ review.review }}</div>
             </div>
         </div>
     </div>

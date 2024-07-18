@@ -8,8 +8,9 @@
     </div>
 </div>
 <div class="p-2">
-    <app-room [placementRight]="true"></app-room>
-    <app-room [placementRight]="false"></app-room>
-    <app-room [placementRight]="true"></app-room>
+    <app-room [placementRight]="true" [roomType]="'Single Bed'" [numberOfBed]="1" [numberOfPeople]="'1-2'"></app-room>
+    <app-room [placementRight]="false" [roomType]="'Double Bed'" [numberOfBed]="2" [numberOfPeople]="'2-4'"></app-room>
+    <app-room [placementRight]="true" [roomType]="'Triple Bed'" [numberOfBed]="3" [numberOfPeople]="'Up to 6'"></app-room>
+    <!-- <app-room [placementRight]="true" [roomType]="'VIP'" [numberOfBed]="1" [numberOfPeople]="'1-2'"></app-room> -->
 </div>
 <app-footer></app-footer>

@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,11 +25,10 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class FormComponent {
   private fb = inject(FormBuilder);
-  addressForm = this.fb.group({
-    full_name: [null, Validators.required],
-    phone_number: [null, Validators.required],
+  filterForm = this.fb.group({
     check_in_date: [null, Validators.required],
     check_out_date: [null, Validators.required],
+    room_type: ['all', Validators.required]
   });
 
   hasUnitNumber = false;
@@ -95,7 +95,21 @@ export class FormComponent {
     {name: 'Wyoming', abbreviation: 'WY'}
   ];
 
-  onSubmit(): void {
-    alert('Thanks!');
+  constructor(private router: Router) { }
+
+  navigateWithFilters(): void {
+    const checkInDate = this.filterForm.controls.check_in_date.value;
+    const checkOutDate = this.filterForm.controls.check_out_date.value;
+    const roomType = this.filterForm.controls.room_type.value;
+    
+    this.router.navigate(['rooms/all'], {
+      queryParams: {
+        in: checkInDate,
+        out: checkOutDate,
+        type: roomType
+      }
+    });
   }
+  
+
 }
