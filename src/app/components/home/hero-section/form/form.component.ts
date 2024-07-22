@@ -103,7 +103,7 @@ export class FormComponent {
     const roomType = this.filterForm.controls.room_type.value;
     
     this.router.navigate(['rooms/all'], {
-      queryParams: {
+      state: {
         in: checkInDate,
         out: checkOutDate,
         type: roomType

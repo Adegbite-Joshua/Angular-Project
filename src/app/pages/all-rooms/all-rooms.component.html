@@ -43,7 +43,7 @@
     </div>
   </div>
   <div class="col-span-12 md:col-span-7 p-4">
-    <h6 class="text-3xl">Available Rooms</h6>
+    <p class="text-3xl">Available Rooms</p>
     <div *ngFor="let room of filteredRooms" class="p-2 h-auto border-b rounded-lg overflow-hidden grid grid-cols-12 gap-3">
       <img src="{{room.images[0]}}" class="h-40 w-full md:aspect-square col-span-12 md:col-span-5" alt="">
       <div class="col-span-12 md:col-span-7">
@@ -62,7 +62,7 @@
           <button class="w-1/6 p-3 border border-blue-600 rounded-md">
             <i class="far fa-heart text-blue-600"></i>
           </button>
-          <a [routerLink]="['/rooms', room.number]" class="w-5/6 bg-blue-600 text-white rounded-md flex justify-center items-center">View Place</a>
+          <a [routerLink]="['/rooms', room.id]" class="w-5/6 bg-blue-600 text-white rounded-md flex justify-center items-center">View Place</a>
         </div>
       </div>
     </div>

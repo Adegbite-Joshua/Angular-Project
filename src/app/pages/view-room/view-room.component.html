@@ -2,17 +2,36 @@
 <div class="container mx-auto flex flex-col md:flex-row justify-between items-center my-2 md:p-3">
     <div>
         <div class="flex items-center gap-3">
-            <h3 class="text-4xl font-bold">Lemon Tree Premier Pune</h3>
-            <app-star-rating [rating]="4" [readOnly]="true" [maxRating]="5"></app-star-rating>
+            <h3 class="text-4xl font-bold">{{room.title}}</h3>
+            <app-star-rating [rating]="room.star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
         </div>
-        <h5 class="text-xl">Category: Single</h5>
+        <p class="text-xl">Category: {{room.category}}</p>
+        <div>
+            <div class="flex gap-2">
+                <form [formGroup]="selectDateForm">
+                    <mat-form-field class="p-2" appearance="fill">
+                        <mat-label>Check-in Date</mat-label>
+                        <input matInput [matDatepicker]="checkinPicker" formControlName="checkinDate">
+                        <mat-datepicker-toggle matSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #checkinPicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field class="p-2" appearance="fill">
+                        <mat-label>Check-out Date</mat-label>
+                        <input matInput [matDatepicker]="checkoutPicker" formControlName="checkoutDate">
+                        <mat-datepicker-toggle matSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #checkoutPicker></mat-datepicker>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="flex flex-col">
-        <h2 class="text-4xl text-blue-600">$230/night</h2>
+        <p class="text-4xl text-blue-600">${{room.price}}/night</p>
         <div class="flex gap-2">
             <button class="p-2 rounded-md border border-blue-600"><i class="fas fa-heart text-blue-600"></i></button>
             <button class="p-2 rounded-md border border-blue-600"><i class="fas fa-share text-blue-600"></i></button>
-            <a routerLink="checkout" class="bg-blue-600 rounded-md text-white px-4 flex justify-center items-center font-bold">Book Now</a>
+            <button (click)="bookRoom()" class="bg-blue-600 rounded-md text-white px-4 flex justify-center items-center font-bold">Book Now</button>
         </div>
     </div>
 </div>
@@ -26,48 +45,22 @@
         </mat-grid-list>
     </div>
     <hr class="my-5">
-    <h4 class="text-2xl font-bold">Overview</h4>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore velit, voluptatum quos deleniti magnam, eos est
-        in fugiat fugit ipsam laudantium tenetur saepe ducimus quo ratione? Quia optio dolores, inventore hic odit
-        doloribus. Porro inventore ratione deleniti fugit quis. Recusandae odio soluta rerum nesciunt saepe ipsum
-        obcaecati voluptate, mollitia suscipit dignissimos consequatur sed ut iste, commodi amet autem pariatur quo
-        animi dolores doloribus corrupti nemo molestiae fuga non. Eligendi illum perferendis eum quia ullam? Ipsa
-        provident eveniet dicta labore fugit quis perferendis, corrupti, officiis iste laborum earum excepturi a sit?
-        Omnis dolorem sequi voluptatum ducimus rerum distinctio deleniti quia nulla. Laboriosam, at distinctio adipisci
-        facere ducimus quisquam voluptates neque consectetur deleniti magni? Praesentium deserunt itaque vel aspernatur
-        nostrum laborum quae.
-    </p>
+    <p class="text-2xl font-bold">Overview</p>
+    <p>{{ room.overview }}</p>
     <hr class="my-5">
     <div class="p-2 md:p-10">
-        <h3 class="text-3xl">Available Rooms</h3>
-        <div class="flex flex-col md:flex-row gap-2 items-center justify-between my-2">
-            <div class="flex flex-col md:flex-row gap-2 items-center">
-                <img src="assets/11.jpg" class="h-24 md:h-12 w-full md:w-12 rounded-md" alt="">
-                <strong class="block">Superior room 1 double bed or 2 twin beds</strong>
-            </div>
-            <div class="flex gap-2 justify-center items-center">
-                <h4 class="text-2xl">$120/night</h4>
-                <button class="bg-blue-600 text-white rounded-md py-3 px-5">Book now</button>
-            </div>
+        <p class="text-2xl font-bold">Same Category Rooms</p>
+        <div *ngIf="categoryRooms.length == 0">
+            <p class="text-center text-xl font-bold">No other rooms with the same category</p>
         </div>
-        <div class="flex flex-col md:flex-row gap-2 items-center justify-between my-2">
+        <div *ngFor="let categoryRoom of categoryRooms" class="flex flex-col md:flex-row gap-2 items-center justify-between my-2">
             <div class="flex flex-col md:flex-row gap-2 items-center">
-                <img src="assets/11.jpg" class="h-24 md:h-12 w-full md:w-12 rounded-md" alt="">
-                <strong class="block">Superior room 1 double bed or 2 twin beds</strong>
+                <img src="{{categoryRoom.images[0]}}" class="h-24 md:h-12 w-full md:w-12 rounded-md" alt="">
+                <strong class="block">{{categoryRoom.title}}</strong>
             </div>
             <div class="flex gap-2 justify-center items-center">
-                <h4 class="text-2xl">$120/night</h4>
-                <button class="bg-blue-600 text-white rounded-md py-3 px-5">Book now</button>
-            </div>
-        </div>
-        <div class="flex flex-col md:flex-row gap-2 items-center justify-between my-2">
-            <div class="flex flex-col md:flex-row gap-2 items-center">
-                <img src="assets/11.jpg" class="h-24 md:h-12 w-full md:w-12 rounded-md" alt="">
-                <strong class="block">Superior room 1 double bed or 2 twin beds</strong>
-            </div>
-            <div class="flex gap-2 justify-center items-center">
-                <h4 class="text-2xl">$120/night</h4>
-                <button class="bg-blue-600 text-white rounded-md py-3 px-5">Book now</button>
+                <h4 class="text-2xl flex items-center">${{categoryRoom.price}}/night</h4>
+                <a routerLink="/rooms/{{categoryRoom.id}}" class="bg-blue-600 text-white rounded-md py-3 px-5">Book now</a>
             </div>
         </div>
     </div>

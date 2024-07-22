@@ -1,34 +1,63 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { GeneralNavbarComponent } from '../../components/navbar/general-navbar/general-navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { StarRatingComponent } from '../../components/star-rating/star-rating.component';
 import { CommonModule } from '@angular/common';
+import { RoomsService } from '../../services/rooms/rooms.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 
 @Component({
   selector: 'app-view-room',
   standalone: true,
-  imports: [GeneralNavbarComponent, FooterComponent, MatGridListModule, StarRatingComponent, CommonModule, RouterLink],
+  imports: [GeneralNavbarComponent, FooterComponent, MatGridListModule, StarRatingComponent, CommonModule, RouterLink, MatNativeDateModule, MatDatepickerModule,MatFormFieldModule, MatInputModule, ReactiveFormsModule],
   templateUrl: './view-room.component.html',
   styleUrl: './view-room.component.scss'
 })
 export class ViewRoomComponent {
-  constructor (public activatedRoute: ActivatedRoute) {}
-
-  room = {
-    number: 101,
-    name: "Luxury Single Room",
-    description: "A luxurious single room with modern amenities and a beautiful city view.",
-    price: 100,
-    rating: 5,
-    category: 'Single',
-    images: ['assets/1.jpg', 'assets/2.jpg', 'assets/1.jpg', 'assets/2.jpg']
+  selectDateForm: FormGroup
+  constructor(private fb: FormBuilder, private roomsService: RoomsService, private activatedRoute: ActivatedRoute, private router: Router) {
+    this.selectDateForm = this.fb.group({
+      checkinDate: [null, Validators.required],
+      checkoutDate: [null, Validators.required]
+    });
   }
+
+  roomId:string = ""
+
+  room = <any>{}
+
+  categoryRooms = <any>[];
 
   ngOnInit() {
-    console.log(this.activatedRoute.snapshot.params['id']);
+    this.roomId = this.activatedRoute.snapshot.params['id'];
+    this.loadRooms();
   }
+
+  loadRooms(): void {
+    this.room = this.roomsService.getRoomDetails(this.roomId)
+    this.categoryRooms = this.roomsService.getCategoryRooms(this.room.category, this.room.id)
+  }
+
+  bookRoom() {
+    if (this.selectDateForm.invalid) {
+      alert('Dates required')
+      return;
+    }
+    this.router.navigate([`rooms/${this.roomId}/checkout`], {
+      state: {
+        checkInDate: this.selectDateForm.controls['checkinDate'].value,
+        checkOutDate: this.selectDateForm.controls['checkoutDate'].value,
+      }
+    });
+  }
+
 
   trackByFn(index: number, item: any): any {
     return index;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -16,6 +16,7 @@ import { StarRatingComponent } from '../../components/star-rating/star-rating.co
 
 interface Room {
   number: number;
+  id: string;
   price: number;
   rating: number;
   name: string;
@@ -43,7 +44,8 @@ interface Room {
     MatNativeDateModule,
     GeneralNavbarComponent,
     FooterComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    RouterLink
   ],
   templateUrl: './all-rooms.component.html',
   styleUrls: ['./all-rooms.component.scss']
@@ -55,7 +57,7 @@ export class AllRoomsComponent implements OnInit {
   rooms: Room[] = [];
   filteredRooms: Room[] = [];
 
-  constructor(private fb: FormBuilder, private roomsService: RoomsService, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private roomsService: RoomsService, private route: ActivatedRoute, private router: Router) {
     this.filterForm = this.fb.group({
       rating: [null],
       category: [null],
@@ -66,6 +68,12 @@ export class AllRoomsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadRooms();
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      const state = navigation.extras.state as {
+        
+      }
+    }
     this.route.queryParams.subscribe(params => {
       if (params['in']) {
         this.filterForm.patchValue({ checkinDate: new Date(params['in']) });

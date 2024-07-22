@@ -3,8 +3,8 @@
     <div class="w-full md:w-4/6">
         <div class="shadow-md rounded-md p-5">
             <div class="flex flex-col md:flex-row justify-between">
-                <h3 class="text-3xl">Superior room 1 double bed or 2 twin beds</h3>
-                <h3 class="text-3xl text-blue-600">$120/night</h3>
+                <p class="text-3xl">{{ room.title }}</p>
+                <p class="text-3xl text-blue-600">${{ room.price }}/night</p>
             </div>
             <div class="flex justify-center items-center gap-2 border p-2">
                 <img src="assets/12.jpg" class="h-14 w-24 rounded-md" alt="">
@@ -12,7 +12,7 @@
             </div>
             <div class="flex justify-between">
                 <div class="flex flex-col">
-                    <p class="text-2xl">Thursday, Dec 8</p>
+                    <p class="text-2xl">{{ checkInDate | date:'fullDate' }}</p>
                     <small>Check-In</small>
                 </div>
                 <div class="flex flex-col">
@@ -20,7 +20,7 @@
                     <small>Check-in</small>
                 </div>
                 <div class="flex flex-col">
-                    <p class="text-2xl">Thursday, Dec 8</p>
+                    <p class="text-2xl">{{ checkOutDate | date:'fullDate' }}</p>
                     <small>Check-Out</small>
                 </div>
             </div>
@@ -54,10 +54,10 @@
     <div class="w-full md:w-2/6 p-3">
         <div class="shadow-md p-2">
             <div class="flex flex-col md:flex-row gap-2 p-2">
-                <img src="assets/11.jpg" class="h-24 w-2/5 rounded-md" alt="">
+                <img src="{{room.images[0]}}" class="h-24 w-2/5 rounded-md" alt="">
                 <div>
-                    <h3 class="text-3xl mb-3">Superior room 1 double bed or 2 twin beds</h3>
-                    <app-star-rating [rating]="3" [readOnly]="true" [maxRating]="5"></app-star-rating>
+                    <p class="text-3xl mb-3">{{ room.title }}</p>
+                    <app-star-rating [rating]="room.star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
                 </div>
             </div>
             <hr>
@@ -67,7 +67,7 @@
                 <h5 class="text-xl">Price Details</h5>
                 <div class="flex justify-between">
                     <p>Base fare</p>
-                    <p>$120</p>
+                    <p>${{ room.price }}</p>
                 </div>
                 <div class="flex justify-between">
                     <p>Discount</p>
@@ -84,8 +84,8 @@
             </div>
             <hr>
             <div class="flex justify-between p-2">
-                <p>Service Fee</p>
-                <strong>$5</strong>
+                <p>Total Fee</p>
+                <strong>$300</strong>
             </div>
         </div>
     </div>
