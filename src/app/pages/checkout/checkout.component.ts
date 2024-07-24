@@ -57,4 +57,11 @@ export class CheckoutComponent {
   loadRooms(): void {
     this.room = this.roomsService.getRoomDetails(this.roomId)
   }
+
+  calculateNights(): number {
+    const newCheckInDate = new Date(this.checkInDate);
+    const newCheckOutDate = new Date(this.checkOutDate);
+    const timeDifference = newCheckOutDate.getTime() - newCheckInDate.getTime();
+    return timeDifference / (1000 * 3600 * 24);
+  }
 }
