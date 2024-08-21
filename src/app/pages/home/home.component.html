@@ -32,7 +32,7 @@
         </div>
         <div *ngIf="reviews.length > 1" class="flex flex-col md:flex-row gap-1 md:gap-3 my-2 p-2 md:p-3">
             <img src="{{reviews[1].image}}" class="h-40 w-40 rounded-md" alt="">
-            <div class="">
+            <div class=" ">
                 <div class="flex flex-col justify-around h-40">
                     <app-star-rating [rating]="reviews[1].star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
                     <!-- <app-star-rating  [rating]="userRating"  [readOnly]="isReadOnly"  [maxRating]="5" (ratingChange)="onRatingChange($event)"> </app-star-rating> -->
