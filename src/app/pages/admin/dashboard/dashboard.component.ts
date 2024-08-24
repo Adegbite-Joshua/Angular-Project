@@ -6,14 +6,15 @@ import { Chart, ChartConfiguration, ChartItem, registerables } from 'chart.js';
 import { RouterLink } from '@angular/router';
 import { AdminNavbarComponent } from '../../../components/navbar/admin-navbar/admin-navbar.component';
 import { StarRatingComponent } from '../../../components/star-rating/star-rating.component';
-
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID } from '@angular/core';
 Chart.register(...registerables);
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ AdminNavbarComponent, StarRatingComponent, CommonModule, RouterLink],
+  imports: [AdminNavbarComponent, StarRatingComponent, CommonModule, RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -30,7 +31,7 @@ export class DashboardComponent {
   occupancyChartLabels: string[] = [];
   customerFeedback: any[] = [];
 
-  constructor(private dataService: DashboardService) { }
+  constructor(private dataService: DashboardService, @Inject(PLATFORM_ID) private platformId: any) { }
 
   ngOnInit(): void {
     this.overview = this.dataService.getOverview();
@@ -44,7 +45,9 @@ export class DashboardComponent {
   }
 
   ngAfterViewInit(): void {
-    this.initChart();
+    if (isPlatformBrowser(this.platformId)) {
+      this.initChart();
+    }
   }
 
   initChart(): void {
