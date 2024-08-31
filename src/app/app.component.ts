@@ -1,5 +1,7 @@
 import { Component, NgModule } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { RouterOutlet } from '@angular/router';
+import { ContactDialogComponent } from './components/contact-dialog/contact-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +12,12 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'level4-project';
+
+  constructor(public dialog: MatDialog) {}
+
+  openContactDialog(): void {
+    this.dialog.open(ContactDialogComponent, {
+      width: '400px',
+    });
+  }
 }

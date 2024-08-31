@@ -42,7 +42,7 @@ export class AdminRoomsComponent {
   checkInDate!: string;
   checkOutDate!: string;
   selectedCategory = 'all';
-  roomCategories: string[] = ['Single', 'Double', 'Triple', 'VIP'];
+  roomCategories: string[] = ['Single', 'Double', 'Suite', 'VIP'];
 
   allCount!: number;
   availableCount!: number;

@@ -16,4 +16,6 @@ export class GeneralNavbarComponent {
       document.getElementById('nav_bar')?.classList.toggle('responsive')
     }
   }
+
+  
 }

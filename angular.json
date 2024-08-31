@@ -34,7 +34,8 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/slick-carousel/slick/slick.scss",
               "node_modules/slick-carousel/slick/slick-theme.scss",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/animate.css/animate.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
