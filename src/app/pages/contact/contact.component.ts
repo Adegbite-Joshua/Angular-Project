@@ -3,11 +3,14 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { GeneralNavbarComponent } from '../../components/navbar/general-navbar/general-navbar.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { serverUrl } from '../../constants/server';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [GeneralNavbarComponent, FooterComponent, ReactiveFormsModule, CommonModule],
+  imports: [GeneralNavbarComponent, FooterComponent, ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss'
 })
@@ -16,7 +19,8 @@ export class ContactComponent {
 
   feedbackForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService) { }
+
 
   ngOnInit(): void {
     this.feedbackForm = this.fb.group({
@@ -30,10 +34,15 @@ export class ContactComponent {
     if (this.feedbackForm.valid) {
       // Process the form values
       const formValues = this.feedbackForm.value;
-      console.log('Form Submitted!', formValues);
-      // You can send these values to your server or handle them as needed
-    } else {
-      console.log('Form is invalid');
+      this.http.post(`${serverUrl}/api/contact_us`, formValues).subscribe(
+        (response) => {
+          this.toastr.success('We have received your message,  trust us, we will act on it promptly!');
+        },
+        (error) => {
+          this.toastr.error('Something went wrong, please try again');
+        }
+      )
+      this.feedbackForm.reset();
     }
   }
 

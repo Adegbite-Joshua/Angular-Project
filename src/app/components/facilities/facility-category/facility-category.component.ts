@@ -34,8 +34,8 @@ export class FacilityCategoryComponent {
   slideConfig = {
     "slidesToShow": 4,
     "slidesToScroll": 1,
-    "nextArrow": "<span class='nav-btn next-slide bg-red-500 text-white font-bold p-1 rounded-full'>></span>",
-    "prevArrow": "<span class='nav-btn prev-slide bg-red-500 text-white font-bold p-1 rounded-full'><</span>",
+    "nextArrow": "<span class='nav-btn next-slide bg-blue-500 text-white font-bold p-1 rounded-full'>></span>",
+    "prevArrow": "<span class='nav-btn prev-slide bg-blue-500 text-white font-bold p-1 rounded-full'><</span>",
     "dots": true,
     "infinite": false,
     "responsive": [

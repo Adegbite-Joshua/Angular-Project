@@ -7,12 +7,10 @@ import { ContactUsFormComponent } from '../contact-us-form/contact-us-form.compo
   standalone: true,
   selector: 'app-contact-dialog',
   template: `
-    <h1 mat-dialog-title>Contact Us</h1>
     <div mat-dialog-content>
-      <app-contact-us-form></app-contact-us-form>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-button (click)="onClose()">Close</button>
+      <app-contact-us-form>
+        <button class="bg-danger p-2 rounded-md" (click)="onClose()">Close</button>
+      </app-contact-us-form>
     </div>
   `,
 })

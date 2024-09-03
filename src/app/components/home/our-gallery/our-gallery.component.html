@@ -3,7 +3,7 @@
 <div style="margin-left: 10%; margin-right: 10%;">
   <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
     <div ngxSlickItem *ngFor="let room of rooms" class="slide p-2 relative">
-      <a routerLink="rooms/{{room.id}}" class="absolute top-0 right-0 z-10 p-2 bg-blue-600 text-white rounded-md">Book</a>
+      <!-- <a routerLink="rooms/{{room.id}}" class="absolute top-0 right-0 z-10 p-2 bg-blue-600 text-white rounded-md">Book</a> -->
       <img src="{{ room.images[0]}}" class="img-style rounded-md" alt="" width="100%">
     </div>
   </ngx-slick-carousel>

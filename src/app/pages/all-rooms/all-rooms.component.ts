@@ -87,6 +87,22 @@ export class AllRoomsComponent implements OnInit {
     });
   }
 
+  lovedThisRoom(roomId: string){
+    const lovedRooms:string[] = localStorage.getItem('lovedRooms') ? JSON.parse(localStorage.getItem('lovedRooms') as string) : [];
+    return lovedRooms?.includes(roomId);
+  }
+
+  loveRoom(roomId: string){
+    let lovedRooms:string[] = localStorage.getItem('lovedRooms') ? JSON.parse(localStorage.getItem('lovedRooms') as string) : [];
+    const isNewRoom = !lovedRooms?.includes(roomId);
+    if(isNewRoom){
+      lovedRooms.push(roomId);
+    } else {
+      lovedRooms = lovedRooms.filter(room => room !== roomId);
+    }
+    localStorage.setItem('lovedRooms', JSON.stringify(lovedRooms));
+  }
+
   applyFilters(filters: any, rooms: any[]): void {
     this.filteredRooms = rooms.filter(room => {
       const matchesRating = filters.rating === null || filters.rating === undefined || room.rating === filters.rating;
