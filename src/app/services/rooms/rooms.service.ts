@@ -7,33 +7,17 @@ import axios from 'axios';
   providedIn: 'root'
 })
 export class RoomsService {
-  constructor() {this.fetchRooms()}
+  // Initialize BehaviorSubject with an empty array
+  private rooms = new BehaviorSubject<any[]>([]);
 
-  private rooms = new BehaviorSubject<any[]>([
-    {
-      number: '004',
-      id: '004',
-      price: 250,
-      overview: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore velit, voluptatum quos deleniti magnam, eos estin fugiat fugit ipsam laudantium tenetur saepe ducimus quo ratione? Quia optio dolores, inventore hic oditdoloribus. Porro inventore ratione deleniti fugit quis. Recusandae odio soluta rerum nesciunt saepe ipsumobcaecati voluptate, mollitia suscipit dignissimos consequatur sed ut iste, commodi amet autem pariatur quoanimi dolores doloribus corrupti nemo molestiae fuga non. Eligendi illum perferendis eum quia ullam? Ipsaprovident eveniet dicta labore fugehn it quis perferendis, corrupti, officiis iste laborum earum excepturi asit?Omnis dolorem sequi voluptatum ducimus rerum distinctio deleniti quia nulla. Laboriosam, at distinctio adipiscifacere ducimus quisquam voluptates neque consectetur deleniti magni? Praesentium deserunt itaque vel aspernatur nostrum laborum quae.",
-      title: 'Single bed',
-      bedType: 'Single bed',
-      floor: '-2',
-      facility: 'AC, shower, Single bed, towel, bathtub, TV',
-      status: 'Booked',
-      occupied: true,
-      category: 'Single',
-      checkInDate: '2024-07-12',
-      checkOutDate: '2024-07-18',
-      reservations: [
-        { checkInDate: '2024-07-12', checkOutDate: '2024-07-18' }
-      ],
-      images: ['assets/1.jpg', 'assets/12.jpg', 'assets/7.jpg']
-    }
-  ]);
+  constructor() { 
+    this.fetchRooms(); 
+  }
 
+  // Fetch rooms from the server
   fetchRooms() {
     axios.get(`${serverUrl}/api/rooms`)
-      .then((response) => {        
+      .then((response) => {
         this.rooms.next(response.data.data);
       })
       .catch((error) => {
@@ -41,18 +25,47 @@ export class RoomsService {
       });
   }
 
+  // Return the observable for rooms
   getRooms() {
     return this.rooms.asObservable();
   }
 
-  getRoomDetails(id: any) {
-    return this.rooms.value.find((room) => room.id == id);
+  // Get room details by id
+  async getRoomDetails(id: any): Promise<any> {
+    try {
+      const response = await axios.get(`${serverUrl}/api/rooms/${id}`);
+      console.log(response);
+      return response.data.data;  // Return the room data properly
+    } catch (error) {
+      console.error('Error fetching room details:', error);
+      return null;  // Return null or handle error appropriately
+    }
   }
+  
 
+  // getRoomDetails(id: any) {
+  //   // Access the current value of the BehaviorSubject
+  //   const currentRooms = this.rooms.value;
+  
+  //   // Find the room by id
+  //   console.log(currentRooms);
+    
+  //   const roomDetails = currentRooms.find((room) => room.id == id);
+  
+  //   if (roomDetails) {
+  //     return roomDetails;
+  //   } else {
+  //     console.error(`Room with ID ${id} not found`);
+  //     return null;
+  //   }
+  // }
+
+  // Get other rooms of the same category excluding the current roomId
   getCategoryRooms(category: string, roomId: string) {
-    return this.rooms.value.filter((room) => room.category == category && room.id != roomId)
+    return this.rooms.value.filter((room) => room.category == category && room.id != roomId);
   }
 
+  // Check room availability between checkInDate and checkOutDate
   isRoomAvailable(room: any, checkInDate: string, checkOutDate: string): boolean {
     const newCheckIn = new Date(checkInDate);
     const newCheckOut = new Date(checkOutDate);
@@ -67,5 +80,4 @@ export class RoomsService {
     }
     return true;
   }
-
 }

@@ -103,6 +103,11 @@ export class AllRoomsComponent implements OnInit {
     localStorage.setItem('lovedRooms', JSON.stringify(lovedRooms));
   }
 
+  applyLovedRoomsFilter(){
+    let lovedRooms:string[] = localStorage.getItem('lovedRooms') ? JSON.parse(localStorage.getItem('lovedRooms') as string) : [];
+    this.filteredRooms = this.filteredRooms.filter(room => lovedRooms.includes(room.id));
+  }
+
   applyFilters(filters: any, rooms: any[]): void {
     this.filteredRooms = rooms.filter(room => {
       const matchesRating = filters.rating === null || filters.rating === undefined || room.rating === filters.rating;
@@ -134,6 +139,8 @@ export class AllRoomsComponent implements OnInit {
   loadRooms(): void {
     this.roomsService.getRooms().subscribe(rooms => {
       this.rooms = rooms;
+      console.log(rooms);
+      
 
       this.applyFilters(this.filterForm.value, this.rooms);
 

@@ -2,10 +2,10 @@
 <div class="container mx-auto flex flex-col md:flex-row justify-between items-center my-2 md:p-3">
     <div>
         <div class="flex items-center gap-3">
-            <h3 class="text-4xl font-bold">{{room.title}}</h3>
-            <app-star-rating [rating]="room.star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
+            <h3 class="text-4xl font-bold">{{room?.title}}</h3>
+            <app-star-rating [rating]="room?.star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
         </div>
-        <p class="text-xl">Category: {{room.category}}</p>
+        <p class="text-xl">Category: {{room?.category}}</p>
         <div>
             <div class="flex gap-2">
                 <form [formGroup]="selectDateForm">
@@ -27,43 +27,57 @@
         </div>
     </div>
     <div class="flex flex-col">
-        <p class="text-4xl text-blue-600">${{room.price}}/night</p>
+        <p class="text-4xl text-blue-600">${{room?.price}}/night</p>
         <div class="flex gap-2">
-            <button class="p-2 rounded-md border border-blue-600"><i class="fas fa-heart text-blue-600"></i></button>
+            <button (click)="toggleLoveRoom(room?.id)" class="p-2 rounded-md border border-blue-600">
+                <ng-container *ngIf="lovedThisRoom(room?.id); else notLoved">
+                    <i class="fa fa-heart text-blue-600"></i>
+                </ng-container>
+                <ng-template #notLoved>
+                    <i class="far fa-heart"></i>
+                </ng-template>
+            </button>
             <button class="p-2 rounded-md border border-blue-600"><i class="fas fa-share text-blue-600"></i></button>
-            <button (click)="bookRoom()" class="bg-blue-600 rounded-md text-white px-4 flex justify-center items-center font-bold">Book Now</button>
+            <button (click)="bookRoom()"
+                class="bg-blue-600 rounded-md text-white px-4 flex justify-center items-center font-bold">Book
+                Now</button>
         </div>
     </div>
 </div>
 <div class="container mx-auto my-2 p-2">
     <div class="md:p-0 rounded-lg overflow-hidden">
-        <mat-grid-list [cols]="getGridCols(room.images.length)" class="rounded-md" rowHeight="160px">
-            <mat-grid-tile *ngFor="let tile of room.images; let i = index; trackBy: trackByFn"
-                [colspan]="getColSpan(room.images.length, i)" [rowspan]="getRowSpan(room.images.length, i)">
+        <mat-grid-list [cols]="getGridCols(room?.images?.length)" class="rounded-md" rowHeight="160px">
+            <mat-grid-tile *ngFor="let tile of room?.images; let i = index; trackBy: trackByFn"
+                [colspan]="getColSpan(room?.images.length, i)" [rowspan]="getRowSpan(room?.images?.length, i)">
                 <img [src]="tile" class="w-full h-full" alt="Room image">
             </mat-grid-tile>
         </mat-grid-list>
     </div>
     <hr class="my-5">
     <p class="text-2xl font-bold">Overview</p>
-    <p>{{ room.overview }}</p>
+    <p>{{ room?.overview }}</p>
     <hr class="my-5">
     <div class="p-2 md:p-10">
         <p class="text-2xl font-bold">Same Category Rooms</p>
         <div *ngIf="categoryRooms.length == 0">
             <p class="text-center text-xl font-bold">No other rooms with the same category</p>
         </div>
-        <div *ngFor="let categoryRoom of categoryRooms" class="flex flex-col md:flex-row gap-2 items-center justify-between my-2">
+        <div *ngFor="let categoryRoom of categoryRooms"
+            class="flex flex-col md:flex-row gap-2 items-center justify-between my-2">
             <div class="flex flex-col md:flex-row gap-2 items-center">
-                <img src="{{categoryRoom.images[0]}}" class="h-24 md:h-12 w-full md:w-12 rounded-md" alt="">
-                <strong class="block">{{categoryRoom.title}}</strong>
+                <img src="{{categoryRoom?.images[0]}}" class="h-24 md:h-12 w-full md:w-12 rounded-md" alt="">
+                <strong class="block">{{categoryRoom?.title}}</strong>
             </div>
             <div class="flex gap-2 justify-center items-center">
-                <h4 class="text-2xl flex items-center">${{categoryRoom.price}}/night</h4>
-                <a routerLink="/rooms/{{categoryRoom.id}}" class="bg-blue-600 text-white rounded-md py-3 px-5">Book now</a>
+                <h4 class="text-2xl flex items-center">${{categoryRoom?.price}}/night</h4>
+                <a routerLink="/rooms/{{categoryRoom?.id}}" class="bg-blue-600 text-white rounded-md py-3 px-5">Book
+                    now</a>
             </div>
         </div>
     </div>
     <hr>
 </div>
+<ng-template #loading>
+
+</ng-template>
 <app-footer></app-footer>
