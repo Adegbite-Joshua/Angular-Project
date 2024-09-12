@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { BehaviorSubject } from 'rxjs';
 import { serverUrl } from '../../constants/server';
+import Cookies from 'js-cookie';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class AuthService {
 
   // Method to check if the user is authenticated
   checkLogin(): boolean {
-    const token = localStorage.getItem('token');
+    const token = Cookies.get('token');
     if (token) {
       this.isLoggedIn.next(true);
       return true;
@@ -25,11 +26,18 @@ export class AuthService {
 
   async getUserDetails() {
     try {
+      if (Object.keys(this.userdetails).length > 0) {
+        return this.userdetails.asObservable();
+      }
       axios.get(`${serverUrl}/api/user/details`, {
         headers: { Authorization: `Bearer ${localStorage['token']}` },
       })
+      .then(response => {
+        return response.data.data;
+      })
     } catch (error) {
       console.log(error);
+      return {};
     }
   }
 
@@ -46,5 +54,9 @@ export class AuthService {
 
   getLoginStatus() {
     return this.isLoggedIn.asObservable();
+  }
+
+  changeLoginStatus(value: boolean) {
+    return this.isLoggedIn.next(value);
   }
 }

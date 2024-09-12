@@ -25,7 +25,6 @@ export class GeneralNavbarComponent {
 
   openDashboard(): void {
     if (this.authService.checkLogin()) {
-      // Assuming you fetch user details and bookings from a service
       const user = { name: 'John Doe', email: 'john@example.com' };
       const bookings = [
         { room: '101', checkInDate: '2024-07-01', checkOutDate: '2024-07-05' },
@@ -34,6 +33,11 @@ export class GeneralNavbarComponent {
 
       this.dialog.open(DashboardDialogComponent, {
         data: { user, bookings },
+        width: "90%",
+        height: "90%",
+        panelClass: 'justify-center',
+        // justifyContent: 'center',
+        // padding: "20px",
       });
     } else {
       this.openLoginSignupDialog();
@@ -41,6 +45,7 @@ export class GeneralNavbarComponent {
   }
 
   openLoginSignupDialog(): void {
-    this.dialog.open(SignInSignUpDialogComponent);
-  }
+    this.dialog.open(SignInSignUpDialogComponent, {     
+      // panelClass: 'bg-white p-6 rounded-lg shadow-lg max-w-md'
+    });  }
 }
