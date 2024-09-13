@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard-dialog',
@@ -15,10 +16,22 @@ export class DashboardDialogComponent {
   bookings: any[] = [];
   displayedColumns: string[] = ['room', 'checkIn', 'checkOut'];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.user = this.data.user;
-    this.bookings = this.data.bookings;
+    this.changeDetails();
   }
+
+  async changeDetails() {
+    this.user = await this.authService.getUserDetails();
+    
+    if (this.user) {
+      console.log(this.user);
+      this.bookings = this.user.bookings || [];
+    } else {
+      console.log("No user details found.");
+      this.bookings = [];
+    }
+  }
+  
 }

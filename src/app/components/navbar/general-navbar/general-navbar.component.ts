@@ -23,16 +23,9 @@ export class GeneralNavbarComponent {
 
   constructor(private dialog: MatDialog, private authService: AuthService) {}
 
-  openDashboard(): void {
-    if (this.authService.checkLogin()) {
-      const user = { name: 'John Doe', email: 'john@example.com' };
-      const bookings = [
-        { room: '101', checkInDate: '2024-07-01', checkOutDate: '2024-07-05' },
-        { room: '202', checkInDate: '2024-08-01', checkOutDate: '2024-08-10' },
-      ];
-
+  async openDashboard() {
+    if (this.authService.checkLogin()) {   
       this.dialog.open(DashboardDialogComponent, {
-        data: { user, bookings },
         width: "90%",
         height: "90%",
         panelClass: 'justify-center',

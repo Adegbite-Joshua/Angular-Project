@@ -56,6 +56,9 @@ export class SignInSignUpDialogComponent {
         .then(response => {
           alert('Login successful');
           const token = response.data.data.token;
+          console.log(response.data);          
+          console.log('token', token);
+          
           Cookies.set('token', token, { expires: 7 });
           this.authService.changeLoginStatus(true);
           
@@ -64,6 +67,7 @@ export class SignInSignUpDialogComponent {
             { room: '101', checkInDate: '2024-07-01', checkOutDate: '2024-07-05' },
             { room: '202', checkInDate: '2024-08-01', checkOutDate: '2024-08-10' },
           ];
+          this.closeDialog();
           this.dialog.open(DashboardDialogComponent, {
             data: { user, bookings },
             width: "90%",

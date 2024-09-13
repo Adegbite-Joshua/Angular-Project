@@ -10,9 +10,9 @@ import Cookies from 'js-cookie';
 })
 export class AuthService {
   private isLoggedIn = new BehaviorSubject<boolean>(false);
-  private userdetails = new BehaviorSubject<any|null >(null);
-  
-  constructor() {}
+  private userdetails = new BehaviorSubject<any>(null);
+
+  constructor() { }
 
   // Method to check if the user is authenticated
   checkLogin(): boolean {
@@ -26,22 +26,26 @@ export class AuthService {
 
   async getUserDetails() {
     try {
-      if (Object.keys(this.userdetails).length > 0) {
+      if (this.userdetails.value) {
         return this.userdetails.asObservable();
       }
-      axios.get(`${serverUrl}/api/user/details`, {
-        headers: { Authorization: `Bearer ${localStorage['token']}` },
-      })
-      .then(response => {
-        return response.data.data;
-      })
+      
+      const response = await axios.get(`${serverUrl}/api/user/details`, {
+        headers: { Authorization: `Bearer ${Cookies.get('token')}` },
+      });
+  
+      return response?.data?.data || {};  // Return data or an empty object if undefined
     } catch (error) {
-      console.log(error);
-      return {};
+      console.error("Error fetching user details:", error);
+      return {};  // Return an empty object on error
     }
   }
+  
 
-  // Method to toggle login state
+  setUserDetails(value: any) {
+    this.userdetails.next(value);
+  }
+
   login(token: string): void {
     localStorage.setItem('token', token);
     this.isLoggedIn.next(true);
