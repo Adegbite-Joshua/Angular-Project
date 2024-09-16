@@ -40,5 +40,6 @@ export class GeneralNavbarComponent {
   openLoginSignupDialog(): void {
     this.dialog.open(SignInSignUpDialogComponent, {     
       // panelClass: 'bg-white p-6 rounded-lg shadow-lg max-w-md'
-    });  }
+    });
+  }
 }

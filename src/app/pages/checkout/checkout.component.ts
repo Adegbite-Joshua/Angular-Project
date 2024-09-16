@@ -5,6 +5,9 @@ import { StarRatingComponent } from '../../components/star-rating/star-rating.co
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { RoomsService } from '../../services/rooms/rooms.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth/auth.service';
+import { SignInSignUpDialogComponent } from '../../components/sign-in-sign-up-dialog/sign-in-sign-up-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-checkout',
@@ -14,8 +17,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './checkout.component.scss'
 })
 export class CheckoutComponent {
-  // constructor( ) {}
-  constructor(private roomsService: RoomsService, private activatedRoute: ActivatedRoute, private router: Router) {
+  isUserLoggedIn: boolean = false;
+
+  constructor(private roomsService: RoomsService, private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService, private dialog: MatDialog) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       const state = navigation.extras.state as {
@@ -26,8 +30,7 @@ export class CheckoutComponent {
       this.checkInDate = state.checkInDate
       this.checkOutDate = state.checkOutDate
 
-      console.log('Check-In Date:', state.checkInDate);
-      console.log('Check-Out Date:', state.checkOutDate);
+      this.isUserLoggedIn  = authService.checkLogin() as boolean;
     } else {
       console.log("No state");
       this.router.navigate(['rooms/all'])
@@ -43,9 +46,7 @@ export class CheckoutComponent {
   ngOnInit() {
     this.roomId = this.activatedRoute.snapshot.params['id'];
 
-    if (!this.roomId) {
-      console.log("No id");
-      
+    if (!this.roomId) {      
       this.router.navigate(['rooms/all'])
     } else if (!this.checkInDate || !this.checkOutDate) {
       this.router.navigate([`rooms/${this.roomId}`])
@@ -54,8 +55,10 @@ export class CheckoutComponent {
     this.loadRooms();
   }
 
-  loadRooms(): void {
-    this.room = this.roomsService.getRoomDetails(this.roomId)
+  async loadRooms(): Promise<void> {
+    this.room = await this.roomsService.getRoomDetails(this.roomId);
+    console.log(this.room);
+    
   }
 
   calculateNights(): number {
@@ -64,4 +67,9 @@ export class CheckoutComponent {
     const timeDifference = newCheckOutDate.getTime() - newCheckInDate.getTime();
     return timeDifference / (1000 * 3600 * 24);
   }
+
+  openLoginSignupDialog(): void {
+    this.dialog.open(SignInSignUpDialogComponent, {     
+      // panelClass: 'bg-white p-6 rounded-lg shadow-lg max-w-md'
+    });  }
 }

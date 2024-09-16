@@ -15,13 +15,13 @@ export class AuthService {
   constructor() { }
 
   // Method to check if the user is authenticated
-  checkLogin(): boolean {
+  checkLogin(): unknown {
     const token = Cookies.get('token');
     if (token) {
       this.isLoggedIn.next(true);
-      return true;
+      return this.isLoggedIn.asObservable();
     }
-    return false;
+    return this.isLoggedIn.asObservable();
   }
 
   async getUserDetails() {
@@ -37,7 +37,7 @@ export class AuthService {
       return response?.data?.data || {};  // Return data or an empty object if undefined
     } catch (error) {
       console.error("Error fetching user details:", error);
-      return {};  // Return an empty object on error
+      return {};
     }
   }
   

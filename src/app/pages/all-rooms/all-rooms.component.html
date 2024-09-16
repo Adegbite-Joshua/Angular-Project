@@ -38,8 +38,7 @@
           </mat-form-field>
         </div>
         <div class="flex flex-col md:flex-row justify-between">
-          <button mat-raised-button class="info" type="button" (click)="applyLovedRoomsFilter()">Loved
-            Rooms</button>
+          <button mat-raised-button class="info" type="button" (click)="applyLovedRoomsFilter()">{{ "Loved Rooms(" + numberOfLovedRooms() + ")" }}</button>
           <button mat-raised-button color="primary" type="button" (click)="resetFilters()">Reset Filters</button>
         </div>
       </form>

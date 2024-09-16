@@ -1,0 +1,19 @@
+@import 'ngx-sharebuttons/themes/default';
+
+
+.active {
+    @apply absolute block w-auto;
+    animation: colorChange 4s infinite; /* Apply animation */
+}
+
+@keyframes colorChange {
+    0% {
+        background-color: blue; /* Starting color */
+    }
+    50% {
+        background-color: red; /* Midpoint color */
+    }
+    100% {
+        background-color: blue; /* End color, back to the start */
+    }
+}

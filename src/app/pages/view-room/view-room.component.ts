@@ -12,26 +12,59 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ToastrService } from 'ngx-toastr';
+import { ShareButtons } from 'ngx-sharebuttons/buttons';
+
 
 
 @Component({
   selector: 'app-view-room',
   standalone: true,
-  imports: [GeneralNavbarComponent, FooterComponent, MatGridListModule, StarRatingComponent, CommonModule, RouterLink, MatNativeDateModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [GeneralNavbarComponent, FooterComponent, MatGridListModule, StarRatingComponent, CommonModule, RouterLink, MatNativeDateModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, ShareButtons],
   templateUrl: './view-room.component.html',
   styleUrl: './view-room.component.scss'
 })
 export class ViewRoomComponent {
   selectDateForm: FormGroup;
   isBrowser: boolean = false;
+  currentUrl: string = '';
+
 
   constructor(private fb: FormBuilder, private roomsService: RoomsService, private activatedRoute: ActivatedRoute, private router: Router, private toastr: ToastrService, @Inject(PLATFORM_ID) private platformId: Object) {
     this.selectDateForm = this.fb.group({
       checkinDate: [null, Validators.required],
       checkoutDate: [null, Validators.required]
     });
-    this.isBrowser = isPlatformBrowser(this.platformId);  // Check if it's the browser
+    this.isBrowser = isPlatformBrowser(this.platformId);
+    this.currentUrl = this.router.url;
   }
+
+  today: Date = new Date();
+
+  filterYesterdayDates = (d: Date | null): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate());
+  
+    if (d) {
+      return d >= yesterday;
+    }
+  
+    return true;
+  };
+  
+  filterTodayDates = (d: Date | null): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    if (d) {
+      return d > today;
+    }
+  
+    return true;
+  };
+   
 
   roomId: string = ""
 
@@ -45,8 +78,6 @@ export class ViewRoomComponent {
   }
 
   async loadRooms(): Promise<void> {
-    console.log(await this.roomsService.getRoomDetails(this.roomId));
-    
     this.room = await this.roomsService.getRoomDetails(this.roomId)
 
     this.categoryRooms = this.roomsService.getCategoryRooms(this.room?.category, this.room?.id)
@@ -102,7 +133,7 @@ export class ViewRoomComponent {
   }
 
   toggleLoveRoom(roomId: string) {
-    this.loveRoom(roomId); // Update the loved status in localStorage
+    this.loveRoom(roomId); 
   }
 
   lovedThisRoom(roomId: string) {

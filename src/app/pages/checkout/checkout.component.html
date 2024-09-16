@@ -3,8 +3,8 @@
     <div class="w-full md:w-4/6">
         <div class="shadow-md rounded-md p-5">
             <div class="flex flex-col md:flex-row justify-between">
-                <p class="text-3xl">{{ room.title }}</p>
-                <p class="text-3xl text-blue-600">${{ room.price }}/night</p>
+                <p class="text-3xl">{{ room?.title }}</p>
+                <p class="text-3xl text-blue-600">${{ room?.price }}/night</p>
             </div>
             <div class="flex justify-center items-center gap-2 border p-2">
                 <img src="assets/12.jpg" class="h-14 w-24 rounded-md" alt="">
@@ -28,7 +28,7 @@
             <strong class="py-1 px-2 rounded-lg border">{{calculateNights()}} night(s)</strong>
         </div>
         <div class="shadow-md rounded-md p-5 my-3"> 
-            <button class="bg-blue-600 w-full p-2 rounded-md items-center text-white flex justify-between">
+            <button [disabled]="isUserLoggedIn" class="bg-blue-600 w-full p-2 rounded-md gap-0 items-center text-white flex flex-shrink flex-grow-0 justify-between">
                 <div class="">
                     <p class="text-xl my-0 py-0 ">Pay in full</p>
                     <p class="my-0 py-0 ">Pay the total and you are all set</p>
@@ -36,14 +36,14 @@
                 <strong>O</strong>
             </button>
         </div>
-        <div class="shadow-md rounded-md p-5 my-3"> 
+        <div *ngIf="!isUserLoggedIn" class="shadow-md rounded-md p-5 my-3"> 
             <div class="flex justify-between p-2">
                 <h3>Login or Sign up to book</h3>
-                <a routerLink="/account" class="bg-blue-600 text-white rounded-md px-4 py-2">Sign Up</a>
+                <!-- <a routerLink="/account" class="bg-blue-600 text-white rounded-md px-4 py-2">Sign Up</a> -->
             </div>
-            <input type="email" class="w-full rounded-md p-2 border" placeholder="Email Address">
+            <!-- <input type="email" class="w-full rounded-md p-2 border" placeholder="Email Address"> -->
             <p>We'll text you to confirm your email address. Standard message and data rates apply. Privacy Policy</p>
-            <button class="text-center bg-blue-600 rounded-md text-white w-full p-2">Continue</button>
+            <button (click)="openLoginSignupDialog()" class="text-center bg-blue-600 rounded-md text-white w-full p-2">Continue</button>
             <div class="flex h-7 justify-center items-center">
                 <hr class="w-5/12 my-auto">
                 <p class="w-2/12 text-center">Or</p>
@@ -55,10 +55,10 @@
     <div class="w-full md:w-2/6 p-3">
         <div class="shadow-md p-2">
             <div class="flex flex-col md:flex-row gap-2 p-2">
-                <img src="{{room.images[0]}}" class="h-24 w-2/5 rounded-md" alt="">
+                <img src="{{room?.images ? room?.images[0] : ''}}" class="h-24 w-2/5 rounded-md" alt="">
                 <div>
-                    <p class="text-3xl mb-3">{{ room.title }}</p>
-                    <app-star-rating [rating]="room.star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
+                    <p class="text-3xl mb-3">{{ room?.title }}</p>
+                    <app-star-rating [rating]="room?.star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating>
                 </div>
             </div>
             <hr>
@@ -68,7 +68,7 @@
                 <h5 class="text-xl">Price Details</h5>
                 <div class="flex justify-between">
                     <p>Base fare</p>
-                    <p>${{ room.price }}</p>
+                    <p>${{ room?.price }}</p>
                 </div>
                 <div class="flex justify-between">
                     <p>Discount</p>

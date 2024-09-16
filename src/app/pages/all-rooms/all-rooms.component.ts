@@ -69,11 +69,7 @@ export class AllRoomsComponent implements OnInit {
   ngOnInit(): void {
     this.loadRooms();
     const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras.state) {
-      const state = navigation.extras.state as {
-        
-      }
-    }
+    
     this.route.queryParams.subscribe(params => {
       if (params['in']) {
         this.filterForm.patchValue({ checkinDate: new Date(params['in']) });
@@ -90,6 +86,11 @@ export class AllRoomsComponent implements OnInit {
   lovedThisRoom(roomId: string){
     const lovedRooms:string[] = localStorage.getItem('lovedRooms') ? JSON.parse(localStorage.getItem('lovedRooms') as string) : [];
     return lovedRooms?.includes(roomId);
+  }
+
+  numberOfLovedRooms(){
+    const lovedRooms:string[] = localStorage.getItem('lovedRooms') ? JSON.parse(localStorage.getItem('lovedRooms') as string) : [];
+    return lovedRooms.length;
   }
 
   loveRoom(roomId: string){

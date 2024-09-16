@@ -11,17 +11,17 @@
                 <form [formGroup]="selectDateForm">
                     <mat-form-field class="p-2" appearance="fill">
                         <mat-label>Check-in Date</mat-label>
-                        <input matInput [matDatepicker]="checkinPicker" formControlName="checkinDate">
+                        <input matInput [matDatepicker]="checkinPicker" [matDatepickerFilter]="filterYesterdayDates" formControlName="checkinDate">
                         <mat-datepicker-toggle matSuffix [for]="checkinPicker"></mat-datepicker-toggle>
                         <mat-datepicker #checkinPicker></mat-datepicker>
-                    </mat-form-field>
-
-                    <mat-form-field class="p-2" appearance="fill">
+                      </mat-form-field>
+                    
+                      <mat-form-field class="p-2" appearance="fill">
                         <mat-label>Check-out Date</mat-label>
-                        <input matInput [matDatepicker]="checkoutPicker" formControlName="checkoutDate">
+                        <input matInput [matDatepicker]="checkoutPicker" [matDatepickerFilter]="filterTodayDates" formControlName="checkoutDate">
                         <mat-datepicker-toggle matSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
                         <mat-datepicker #checkoutPicker></mat-datepicker>
-                    </mat-form-field>
+                      </mat-form-field>
                 </form>
             </div>
         </div>
@@ -34,10 +34,18 @@
                     <i class="fa fa-heart text-blue-600"></i>
                 </ng-container>
                 <ng-template #notLoved>
-                    <i class="far fa-heart"></i>
+                    <i class="far fa-heart text-blue-600"></i>
                 </ng-template>
             </button>
-            <button class="p-2 rounded-md border border-blue-600"><i class="fas fa-share text-blue-600"></i></button>
+            <button (click)="shareContainer.classList.toggle('active')"
+                class="p-2 rounded-md border border-blue-600 relative">
+                <i class="fas fa-share text-blue-600"></i>
+                <div #shareContainer class="hidden w-0 top-full -left-2/4 z-30">
+                    <!-- <share-buttons [theme]="'modern-dark'"
+                        [include]="['facebook','x','linkedin','pinterest','reddit','tumblr','mix','viber','vk','telegram','messenger','whatsapp','xing','line','sms','email','print','copy']"
+                        [show]="5" [url]="currentUrl"></share-buttons> -->
+                </div>
+            </button>
             <button (click)="bookRoom()"
                 class="bg-blue-600 rounded-md text-white px-4 flex justify-center items-center font-bold">Book
                 Now</button>
