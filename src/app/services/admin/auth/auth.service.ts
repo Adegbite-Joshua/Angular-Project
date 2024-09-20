@@ -12,11 +12,9 @@ export class AuthService {
   public isLoggedIn = new BehaviorSubject<boolean>(false);
   public adminDetails = new BehaviorSubject<any>(null);
 
-  constructor() { 
-    Cookies.set('admin_token', '4|DuIoGnHnbJd9WW253TySTPZHfoFlBznTD25gUNt2', { expires: 7 });
-  }
+  constructor() { }
 
-  checkLogin(): unknown {
+  checkLogin(): boolean {
     const token = Cookies.get('admin_token');
     if (token) {
       this.isLoggedIn.next(true);
@@ -34,7 +32,7 @@ export class AuthService {
       }
       
       const response = await axios.get(`${serverUrl}/api/admin/details`, {
-        headers: { Authorization: `Bearer ${Cookies.get('token')}` },
+        headers: { Authorization: `Bearer ${Cookies.get('admin_token')}` },
       });
   
       return response?.data?.data || {};  // Return data or an empty object if undefined

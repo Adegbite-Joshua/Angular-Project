@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
+import { AuthService } from '../../../services/admin/auth/auth.service';
 
 
 @Component({
@@ -11,5 +12,9 @@ import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './admin-navbar.component.scss'
 })
 export class AdminNavbarComponent {
+  isLoggedIn: boolean = false;
 
+  constructor (private authSevice: AuthService) {
+    this.isLoggedIn = authSevice.checkLogin();
+  }
 }

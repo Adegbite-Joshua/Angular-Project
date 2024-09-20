@@ -8,6 +8,7 @@ import { AdminNavbarComponent } from '../../../components/navbar/admin-navbar/ad
 import { StarRatingComponent } from '../../../components/star-rating/star-rating.component';
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, PLATFORM_ID } from '@angular/core';
+import { AuthService } from '../../../services/admin/auth/auth.service';
 Chart.register(...registerables);
 
 
@@ -30,8 +31,12 @@ export class DashboardComponent {
   occupancyChartData: any[] = [];
   occupancyChartLabels: string[] = [];
   customerFeedback: any[] = [];
+  adminDetails: any = {};
+  todaysDate = new Date();
 
-  constructor(private dataService: DashboardService, @Inject(PLATFORM_ID) private platformId: any) { }
+  constructor(private dataService: DashboardService, @Inject(PLATFORM_ID) private platformId: any, private authService: AuthService) {
+    this.adminDetails = authService.getAdminDetails();
+  }
 
   ngOnInit(): void {
     this.overview = this.dataService.getOverview();

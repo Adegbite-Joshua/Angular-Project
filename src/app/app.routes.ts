@@ -15,6 +15,9 @@ import { DashboardComponent } from './pages/admin/dashboard/dashboard.component'
 import { GuestsComponent } from './pages/admin/guests/guests.component';
 import { AdminRoomsComponent } from './pages/admin/admin-rooms/admin-rooms.component';
 import { FrontDeskComponent } from './pages/admin/front-desk/front-desk.component';
+import { Error404Component } from './pages/error-404/error-404.component';
+import { SignUpComponent } from './pages/admin/sign-up/sign-up.component';
+import { AuthGuard } from './guards/admin/auth/auth.guard';
 
 export const routes: Routes = [
     {path: 'home', redirectTo: '/', pathMatch: 'full'},
@@ -30,11 +33,13 @@ export const routes: Routes = [
     {path: 'privacy-policy', component: PolicyComponent},
     {path: 'reviews', component: ReviewsComponent},
     {path: 'write-review', component: WriteReviewComponent},
-    {path: '*', component: WriteReviewComponent},
+    { path: 'admin/login', component: DashboardComponent},
+    { path: 'admin/signup', component: SignUpComponent},
     {path: 'admin', children:[
-        { path: 'dashboard', component: DashboardComponent},
-        { path: 'front-desk', component: FrontDeskComponent},
-        { path: 'guests', component: GuestsComponent},
-        { path: 'rooms', component: AdminRoomsComponent },
-    ],canActivate:[]},
+        { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
+        { path: 'front-desk', component: FrontDeskComponent, canActivate:[AuthGuard]},
+        { path: 'guests', component: GuestsComponent, canActivate:[AuthGuard]},
+        { path: 'rooms', component: AdminRoomsComponent, canActivate:[AuthGuard]},
+    ]},
+    {path: '**', component: Error404Component},
 ];

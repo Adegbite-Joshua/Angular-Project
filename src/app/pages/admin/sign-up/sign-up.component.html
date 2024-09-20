@@ -12,7 +12,7 @@
             class="w-full p-2 border rounded focus:outline-none focus:ring"
             [ngClass]="{ 'border-red-500': form['first_name'].errors }"
           />
-          <div *ngIf="form['first_name'].touched && form['first_name'].invalid">
+          <div *ngIf="form['first_name'].dirty && form['first_name'].invalid">
             <span *ngIf="form['first_name'].errors?.['required']" class="text-red-500 text-sm">First name is required</span>
             <span *ngIf="form['first_name'].errors?.['minlength']" class="text-red-500 text-sm">First name should be at least 2 characters long</span>
           </div>
@@ -27,7 +27,7 @@
             class="w-full p-2 border rounded focus:outline-none focus:ring"
             [ngClass]="{ 'border-red-500': form['last_name'].errors }"
           />
-          <div *ngIf="form['last_name'].touched && form['last_name'].invalid">
+          <div *ngIf="form['last_name'].dirty && form['last_name'].invalid">
             <span *ngIf="form['last_name'].errors?.['required']" class="text-red-500 text-sm">Last name is required</span>
             <span *ngIf="form['last_name'].errors?.['minlength']                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    " class="text-red-500 text-sm">Last name should be at least 2 characters long</span>
           </div>
@@ -43,7 +43,7 @@
           class="w-full p-2 border rounded focus:outline-none focus:ring"
           [ngClass]="{ 'border-red-500': form['email'].errors }"
         />
-        <div *ngIf="form['email'].touched && form['email'].invalid">
+        <div *ngIf="form['email'].dirty && form['email'].invalid">
           <span *ngIf="form['email'].errors?.['required']" class="text-red-500 text-sm">Email is required</span>
           <span *ngIf="form['email'].errors?.['email']" class="text-red-500 text-sm">Invalid email format</span>
         </div>
@@ -58,7 +58,7 @@
           class="w-full p-2 border rounded focus:outline-none focus:ring"
           [ngClass]="{ 'border-red-500': form['password'].errors }"
         />
-        <div *ngIf="form['password'].touched && form['password'].invalid">
+        <div *ngIf="form['password'].dirty && form['password'].invalid">
           <span *ngIf="form['password'].errors?.['required']" class="text-red-500 text-sm">Password is required</span>
           <span *ngIf="form['password'].errors?.['minlength']                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    " class="text-red-500 text-sm">Password must be at least 8 characters long</span>
         </div>
@@ -75,7 +75,7 @@
           class="w-full p-2 border rounded focus:outline-none focus:ring"
           [ngClass]="{ 'border-red-500': form['telephone'].errors }"
         />
-        <div *ngIf="form['telephone'].touched && form['telephone'].invalid">
+        <div *ngIf="form['telephone'].dirty && form['telephone'].invalid">
           <span *ngIf="form['telephone'].errors?.['required']" class="text-red-500 text-sm">Telephone is required</span>
           <span *ngIf="form['telephone'].errors?.['pattern']" class="text-red-500 text-sm">Telephone should only contain numbers</span>
         </div>
@@ -90,7 +90,7 @@
           class="w-full p-2 border rounded focus:outline-none focus:ring"
           [ngClass]="{ 'border-red-500': form['nin_number'].errors }"
         />
-        <div *ngIf="form['nin_number'].touched && form['nin_number'].invalid">
+        <div *ngIf="form['nin_number'].dirty && form['nin_number'].invalid">
           <span *ngIf="form['nin_number'].errors?.['required']" class="text-red-500 text-sm">NIN is required</span>
           <span *ngIf="form['nin_number'].errors?.['minlength']" class="text-red-500 text-sm">NIN must be at least 10 characters</span>
         </div>
