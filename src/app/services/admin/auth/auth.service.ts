@@ -2,21 +2,22 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { BehaviorSubject } from 'rxjs';
-import { serverUrl } from '../../constants/server';
 import Cookies from 'js-cookie';
+import { serverUrl } from '../../../constants/server';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   public isLoggedIn = new BehaviorSubject<boolean>(false);
-  public userdetails = new BehaviorSubject<any>(null);
+  public adminDetails = new BehaviorSubject<any>(null);
 
-  constructor() { }
+  constructor() { 
+    Cookies.set('admin_token', '4|DuIoGnHnbJd9WW253TySTPZHfoFlBznTD25gUNt2', { expires: 7 });
+  }
 
-  // Method to check if the user is authenticated
   checkLogin(): unknown {
-    const token = Cookies.get('token');
+    const token = Cookies.get('admin_token');
     if (token) {
       this.isLoggedIn.next(true);
       return true;
@@ -26,13 +27,13 @@ export class AuthService {
     // return this.isLoggedIn.asObservable();
   }
 
-  async getUserDetails() {
+  async getAdminDetails() {
     try {
-      if (this.userdetails.value) {
-        return this.userdetails.asObservable();
+      if (this.adminDetails.value) {
+        return this.adminDetails.asObservable();
       }
       
-      const response = await axios.get(`${serverUrl}/api/user/details`, {
+      const response = await axios.get(`${serverUrl}/api/admin/details`, {
         headers: { Authorization: `Bearer ${Cookies.get('token')}` },
       });
   
@@ -45,16 +46,14 @@ export class AuthService {
   
 
   setUserDetails(value: any) {
-    this.userdetails.next(value);
+    this.adminDetails.next(value);
   }
 
   login(token: string): void {
-    localStorage.setItem('token', token);
     this.isLoggedIn.next(true);
   }
 
   logout(): void {
-    localStorage.removeItem('token');
     this.isLoggedIn.next(false);
   }
 

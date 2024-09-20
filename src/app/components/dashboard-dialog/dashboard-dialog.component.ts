@@ -32,6 +32,5 @@ export class DashboardDialogComponent {
       console.log("No user details found.");
       this.bookings = [];
     }
-  }
-  
+  } 
 }
