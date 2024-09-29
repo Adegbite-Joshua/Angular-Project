@@ -13,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogComponent } from '../../../components/admin/admin-rooms/dialog/dialog.component';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ActionDialogComponent } from '../../../components/admin/admin-rooms/action-dialog/action-dialog.component';
 
@@ -35,18 +35,19 @@ import { ActionDialogComponent } from '../../../components/admin/admin-rooms/act
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminRoomsComponent {
-  displayedColumns: string[] = ['number', 'bedType', 'floor', 'facility', 'status', 'occupied', 'checkInDate', 'checkOutDate', 'actions'];
+  displayedColumns: string[] = ['number', 'bed_type', 'floor', 'facility', 'status', 'occupied', 'check_in_date', 'check_out_date', 'actions'];
   dataSource = new MatTableDataSource<any>();
   filter = 'all';
 
-  checkInDate!: string;
-  checkOutDate!: string;
+  check_in_date!: string;
+  check_out_date!: string;
   selectedCategory = 'all';
   roomCategories: string[] = ['Single', 'Double', 'Suite', 'VIP'];
 
   allCount!: number;
   availableCount!: number;
   bookedCount!: number;
+  rooms: any[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -57,29 +58,41 @@ export class AdminRoomsComponent {
   ) {
     this.roomForm = this.fb.group({
       number: ['', Validators.required],
-      bedType: ['', Validators.required],
+      bed_type: ['', Validators.required],
       floor: ['', Validators.required],
       facility: ['', Validators.required],
       status: ['', Validators.required],
       category: ['', Validators.required]
     });
+
+    roomService.rooms.subscribe( rooms => {
+      this.dataSource.data = rooms;
+      this.rooms = rooms;
+      this.loadRooms()
+    })
   }
 
-  ngOnInit(): void {
-    this.loadRooms();
+  // async ngOnInit(): Promise<void> {
+  //   await this.loadRooms();
+  // }
+
+  async ngOnInit(): Promise<void> {
+    // Wait for rooms to be fetched
+    // const rooms = this.roomService.getRooms();
+
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
-  loadRooms(): void {
-    this.roomService.getRooms().subscribe(rooms => {
-      this.allCount = rooms.length;
-      this.availableCount = rooms.filter(room => room.status.toLowerCase() === 'available').length;
-      this.bookedCount = rooms.filter(room => room.status.toLowerCase() === 'booked').length;
-      this.dataSource.data = rooms;
-    });
+  async loadRooms(): Promise<void> {
+    // this.roomService.getRooms().subscribe(rooms => {
+      this.allCount = this.rooms.length;
+      this.availableCount = this.rooms.filter(room => room?.status.toLowerCase() === 'available').length;
+      this.bookedCount = this.rooms.filter(room => room?.status.toLowerCase() === 'booked').length;
+      this.dataSource.data = this.rooms;      
+    // });
   }
 
   filterRooms(): void {
@@ -87,12 +100,12 @@ export class AdminRoomsComponent {
       map(rooms => {
         let filteredRooms = rooms;
 
-        if (this.checkInDate && this.checkOutDate) {
-          filteredRooms = filteredRooms.filter(room => this.roomService.isRoomAvailable(room, this.checkInDate, this.checkOutDate));
+        if (this.check_in_date && this.check_out_date) {
+          filteredRooms = filteredRooms.filter(room => this.roomService.isRoomAvailable(room, this.check_in_date, this.check_out_date));
         }
 
         if (this.selectedCategory !== 'all') {
-          filteredRooms = filteredRooms.filter(room => room.category === this.selectedCategory);
+          filteredRooms = filteredRooms.filter(room => room?.category === this.selectedCategory);
         }
 
         return filteredRooms;
@@ -100,15 +113,15 @@ export class AdminRoomsComponent {
     ).subscribe(filteredRooms => {
       this.dataSource.data = filteredRooms;
       this.dataSource.paginator = this.paginator;
-      this.checkInDate = '';
-      this.checkOutDate = '';
+      this.check_in_date = '';
+      this.check_out_date = '';
       this.selectedCategory = 'all';
     });
   }
 
   resetFilter(): void {
-    this.checkInDate = '';
-    this.checkOutDate = '';
+    this.check_in_date = '';
+    this.check_out_date = '';
     this.selectedCategory = 'all';
     this.filter = 'all';
 
@@ -131,7 +144,7 @@ export class AdminRoomsComponent {
       });
     } else {
       this.roomService.getRooms().subscribe(rooms => {
-        this.dataSource.data = rooms.filter(room => room.status.toLowerCase() === this.filter);
+        this.dataSource.data = rooms.filter(room => room?.status.toLowerCase() === this.filter);
         this.dataSource.paginator = this.paginator;
       });
     }
@@ -155,7 +168,7 @@ export class AdminRoomsComponent {
 
     confirmDialog.afterClosed().subscribe(result => {
       if (result === true) {
-        this.roomService.deleteRoom(room.number).subscribe(() => {
+        this.roomService.deleteRoom(room?.number).subscribe(() => {
           this.loadRooms();
         });
       }
@@ -173,7 +186,7 @@ export class AdminRoomsComponent {
 
     bookDialog.afterClosed().subscribe(email => {
       if (email) {
-        this.roomService.bookRoom(room.number, email).subscribe(updatedRoom => {
+        this.roomService.bookRoom(room?.number, email).subscribe(updatedRoom => {
           this.loadRooms();
         });
       }

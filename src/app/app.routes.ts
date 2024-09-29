@@ -18,6 +18,7 @@ import { FrontDeskComponent } from './pages/admin/front-desk/front-desk.componen
 import { Error404Component } from './pages/error-404/error-404.component';
 import { SignUpComponent } from './pages/admin/sign-up/sign-up.component';
 import { AuthGuard } from './guards/admin/auth/auth.guard';
+import { SignInComponent } from './pages/admin/sign-in/sign-in.component';
 
 export const routes: Routes = [
     {path: 'home', redirectTo: '/', pathMatch: 'full'},
@@ -33,7 +34,7 @@ export const routes: Routes = [
     {path: 'privacy-policy', component: PolicyComponent},
     {path: 'reviews', component: ReviewsComponent},
     {path: 'write-review', component: WriteReviewComponent},
-    { path: 'admin/login', component: DashboardComponent},
+    { path: 'admin/login', component: SignInComponent},
     { path: 'admin/signup', component: SignUpComponent},
     {path: 'admin', children:[
         { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},

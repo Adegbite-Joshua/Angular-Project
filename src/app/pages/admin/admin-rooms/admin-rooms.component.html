@@ -3,12 +3,12 @@
         <div class="flex flex-col md:flex-row w-full justify-between">
             <div class="space-y-2">
                 <label class="block text-blue-600 font-semibold">Check in</label>
-                <input type="date" [(ngModel)]="checkInDate"
+                <input type="date" [(ngModel)]="check_in_date"
                     class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-600 focus:border-blue-600">
             </div>
             <div class="space-y-2">
                 <label class="block text-blue-600 font-semibold">Check out</label>
-                <input type="date" [(ngModel)]="checkOutDate"
+                <input type="date" [(ngModel)]="check_out_date"
                     class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-600 focus:border-blue-600">
             </div>
             <div class="space-y-2">
@@ -47,42 +47,42 @@
         <table mat-table [dataSource]="dataSource" class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
             <ng-container matColumnDef="number">
                 <th mat-header-cell *matHeaderCellDef class="text-blue-600"> Room Number </th>
-                <td mat-cell *matCellDef="let room"> {{room.number}} </td>
+                <td mat-cell *matCellDef="let room"> {{room?.number}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="bedType">
+            <ng-container matColumnDef="bed_type">
                 <th mat-header-cell *matHeaderCellDef class="text-blue-600"> Bed Type </th>
-                <td mat-cell *matCellDef="let room"> {{room.bedType}} </td>
+                <td mat-cell *matCellDef="let room"> {{room?.bed_type}} </td>
             </ng-container>
 
             <ng-container matColumnDef="floor">
                 <th mat-header-cell *matHeaderCellDef class="text-blue-600"> Room Floor </th>
-                <td mat-cell *matCellDef="let room"> {{room.floor}} </td>
+                <td mat-cell *matCellDef="let room"> {{room?.floor}} </td>
             </ng-container>
 
             <ng-container matColumnDef="facility">
                 <th mat-header-cell *matHeaderCellDef class="text-blue-600"> Room Facility </th>
-                <td mat-cell *matCellDef="let room"> {{room.facility}} </td>
+                <td mat-cell *matCellDef="let room"> {{room?.facility}} </td>
             </ng-container>
 
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef class="text-blue-600"> Status </th>
-                <td mat-cell *matCellDef="let room"> {{room.status}} </td>
+                <td mat-cell *matCellDef="let room"> {{room?.status}} </td>
             </ng-container>
 
             <ng-container matColumnDef="occupied">
                 <th mat-header-cell *matHeaderCellDef class="text-blue-600"> Occupied </th>
-                <td mat-cell *matCellDef="let room"> {{room.occupied ? 'Yes' : 'No'}} </td>
+                <td mat-cell *matCellDef="let room"> {{room?.occupied ? 'Yes' : 'No'}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="checkInDate">
+            <ng-container matColumnDef="check_in_date">
                 <th mat-header-cell *matHeaderCellDef class="text-blue-600"> Check In Date </th>
-                <td mat-cell *matCellDef="let room"> {{room.checkInDate}} </td>
+                <td mat-cell *matCellDef="let room"> {{room?.check_in_date}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="checkOutDate">
+            <ng-container matColumnDef="check_out_date">
                 <th mat-header-cell *matHeaderCellDef class="text-blue-600"> Check Out Date </th>
-                <td mat-cell *matCellDef="let room"> {{room.checkOutDate}} </td>
+                <td mat-cell *matCellDef="let room"> {{room?.check_out_date}} </td>
             </ng-container>
 
             <ng-container matColumnDef="actions">

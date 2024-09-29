@@ -10,6 +10,7 @@ import { SignInSignUpDialogComponent } from '../../components/sign-in-sign-up-di
 import { MatDialog } from '@angular/material/dialog';
 import axios from 'axios';
 import { serverUrl } from '../../constants/server';
+import Cookies from 'js-cookie';
 
 @Component({
   selector: 'app-checkout',
@@ -29,8 +30,8 @@ export class CheckoutComponent {
         checkOutDate: string;
       };
 
-      this.checkInDate = state.checkInDate
-      this.checkOutDate = state.checkOutDate
+      this.checkInDate = new Date(state.checkInDate).toISOString().slice(0, 10)
+      this.checkOutDate = new Date(state.checkOutDate).toISOString().slice(0, 10)      
 
       this.isUserLoggedIn  = authService.checkLogin() as boolean;
     } else {
@@ -50,9 +51,10 @@ export class CheckoutComponent {
   checkOutDate = ""
 
   room = <any>{};
-  userDetails:any = this.authService.getUserDetails();
+  userDetails:any = {};
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.userDetails = await this.authService.getUserDetails();
     this.roomId = this.activatedRoute.snapshot.params['id'];
 
     if (!this.roomId) {      
@@ -89,15 +91,27 @@ export class CheckoutComponent {
   }
 
   checkOut() {
+    console.log({
+      email: this.userDetails.email,
+      amount: this.calculateTotalFee(),
+      roomId: this.roomId,
+      check_in_date: this.checkInDate,
+      check_out_date: this.checkOutDate
+    });
     axios.post(`${serverUrl}/api/payment/initialize`, {
       email: this.userDetails.email,
       amount: this.calculateTotalFee(),
       roomId: this.roomId,
       check_in_date: this.checkInDate,
       check_out_date: this.checkOutDate
+    }, {
+      headers: { Authorization: `Bearer ${Cookies.get('token')}` },
     })
     .then(response => {
-      
+      window.location.href = response.data.authorization_url;
+    })
+    .catch( error => {
+      alert('Something went wrong, please try again later')
     })
   }
 

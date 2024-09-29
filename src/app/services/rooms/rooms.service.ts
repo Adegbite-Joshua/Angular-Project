@@ -15,14 +15,13 @@ export class RoomsService {
   }
 
   // Fetch rooms from the server
-  fetchRooms() {
-    axios.get(`${serverUrl}/api/rooms`)
-      .then((response) => {
-        this.rooms.next(response.data.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching rooms:', error);
-      });
+  async fetchRooms() {
+    try {
+      const rooms = await axios.get(`${serverUrl}/api/rooms`);
+      this.rooms.next(rooms.data.data); // Populate rooms once fetched
+    } catch (error) {
+      console.error('Error fetching rooms:', error);
+    }
   }
 
   // Return the observable for rooms

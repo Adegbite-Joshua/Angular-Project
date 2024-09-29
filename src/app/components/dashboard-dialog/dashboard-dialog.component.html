@@ -10,27 +10,36 @@
         <img class="order-0 md:order-2 h-32 w-32 md:ms-auto rounded-full" src={{user.image}} alt="User image">
       </div>
       <h3 class="font-bold mt-4">Bookings</h3>
-      <table mat-table [dataSource]="bookings" class="mat-elevation-z8">
-        <!-- Booking Columns -->
-        <ng-container matColumnDef="room">
-          <th mat-header-cell *matHeaderCellDef> Room </th>
-          <td mat-cell *matCellDef="let booking"> {{booking.room}} </td>
-        </ng-container>
+      <div class="overflow-x-auto overflow-y-auto">
+        <table mat-table [dataSource]="bookings" class="mat-elevation-z8">
+          <!-- Booking Columns -->
+          <ng-container matColumnDef="room">
+            <th mat-header-cell *matHeaderCellDef> Room </th>
+            <td mat-cell *matCellDef="let booking"> {{booking.ref}} </td>
+          </ng-container>
 
-        <ng-container matColumnDef="checkIn">
-          <th mat-header-cell *matHeaderCellDef> Check-In </th>
-          <td mat-cell *matCellDef="let booking"> {{booking.checkInDate | date}} </td>
-        </ng-container>
+          <ng-container matColumnDef="checkIn">
+            <th mat-header-cell *matHeaderCellDef> Check-In </th>
+            <td mat-cell *matCellDef="let booking"> {{booking.check_in_date | date}} </td>
+          </ng-container>
 
-        <ng-container matColumnDef="checkOut">
-          <th mat-header-cell *matHeaderCellDef> Check-Out </th>
-          <td mat-cell *matCellDef="let booking"> {{booking.checkOutDate | date}} </td>
-        </ng-container>
+          <ng-container matColumnDef="checkOut">
+            <th mat-header-cell *matHeaderCellDef> Check-Out </th>
+            <td mat-cell *matCellDef="let booking"> {{booking.check_out_date | date}} </td>
+          </ng-container>
+          <ng-container matColumnDef="ref">
+            <th mat-header-cell *matHeaderCellDef> Download </th>
+            <td mat-cell *matCellDef="let booking">
+              <button (click)="downloadBooking(booking)" class="bg-green-400 text-white py-2 px-4 rounded-md"><i
+                  class="fa fa-download" aria-hidden="true"></i></button>
+            </td>
+          </ng-container>
 
-        <!-- Table header and row declarations -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+          <!-- Table header and row declarations -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
     </div>
   </div>
 </div>

@@ -1,70 +1,32 @@
 import { Injectable } from '@angular/core';
+import axios from 'axios';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { serverUrl } from '../../../constants/server';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomsService {
-  private rooms = new BehaviorSubject<any[]>([
-    {
-      number: '001',
-      id: '001',
-      bedType: 'Double bed',
-      floor: '-1',
-      facility: 'AC, shower, Double bed, towel, bathtub, TV',
-      status: 'Available',
-      occupied: false,
-      category: 'Double',
-      checkInDate: null,
-      checkOutDate: null,
-      reservations: []
-    },
-    {
-      number: '002',
-      id: '002',
-      bedType: 'Single bed',
-      floor: '-2',
-      facility: 'AC, shower, Single bed, towel, bathtub, TV',
-      status: 'Booked',
-      occupied: true,
-      category: 'Single',
-      checkInDate: '2024-07-10',
-      checkOutDate: '2024-07-15',
-      reservations: [
-        { checkInDate: '2024-07-10', checkOutDate: '2024-07-15' }
-      ]
-    },
-    {
-      number: '003',
-      id: '003',
-      bedType: 'Triple bed',
-      floor: '-1',
-      facility: 'AC, shower, Triple bed, towel, bathtub, TV',
-      status: 'Available',
-      occupied: false,
-      category: 'Triple',
-      checkInDate: null,
-      checkOutDate: null,
-      reservations: []
-    },
-    {
-      number: '004',
-      id: '004',
-      bedType: 'Single bed',
-      floor: '-2',
-      facility: 'AC, shower, Single bed, towel, bathtub, TV',
-      status: 'Booked',
-      occupied: true,
-      category: 'Single',
-      checkInDate: '2024-07-12',
-      checkOutDate: '2024-07-18',
-      reservations: [
-        { checkInDate: '2024-07-12', checkOutDate: '2024-07-18' }
-      ]
+  public rooms = new BehaviorSubject<any[]>([]);
+
+  constructor() {
+    this.fetchRooms(); 
+  }
+
+  // Fetch rooms from the server
+  async fetchRooms() {
+    try {
+      const rooms = await axios.get(`${serverUrl}/api/rooms`)
+      console.log(rooms);
+      this.rooms.next(rooms.data.data);
+    } catch (error) {
+      console.error('Error fetching rooms:', error);
+      
     }
-  ]);
+  }
+
 
   getRooms() {
     return this.rooms.asObservable();

@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class DashboardDialogComponent {
   user: any;
   bookings: any[] = [];
-  displayedColumns: string[] = ['room', 'checkIn', 'checkOut'];
+  displayedColumns: string[] = ['room', 'checkIn', 'checkOut', 'ref'];
 
   constructor(private authService: AuthService) {}
 
@@ -33,4 +33,23 @@ export class DashboardDialogComponent {
       this.bookings = [];
     }
   } 
+
+  downloadBooking(booking: any) {
+    const bookingData = `
+      Room: ${booking.room}${Math.floor(Math.round(5)*100)}\n
+      Check-In Date: ${booking?.check_in_date}\n
+      Check-Out Date: ${booking?.check_out_date}\n
+    `;
+
+    // Create a Blob object representing the data as a text file
+    const blob = new Blob([bookingData], { type: 'text/plain' });
+    
+    // Create a download link
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = `booking_${booking.room}.txt`;
+
+    // Automatically trigger the download
+    link.click();
+  }
 }

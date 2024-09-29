@@ -16,5 +16,8 @@ export class AdminNavbarComponent {
 
   constructor (private authSevice: AuthService) {
     this.isLoggedIn = authSevice.checkLogin();
+    console.log(authSevice.checkLogin());
+    console.log(this.isLoggedIn);
+    
   }
 }

@@ -28,7 +28,7 @@
             <strong class="py-1 px-2 rounded-lg border">{{calculateNights()}} night(s)</strong>
         </div>
         <div class="shadow-md rounded-md p-5 my-3"> 
-            <button [disabled]="!isUserLoggedIn" class="bg-blue-600 disabled:bg-blue-300 w-full p-2 rounded-md gap-0 items-center text-white flex flex-shrink flex-grow-0 justify-between">
+            <button [disabled]="!isUserLoggedIn" (click)="checkOut()" class="bg-blue-600 disabled:bg-blue-300 w-full p-2 rounded-md gap-0 items-center text-white flex flex-shrink flex-grow-0 justify-between">
                 <div class="">
                     <p class="text-xl my-0 py-0 ">Pay in full</p>
                     <p class="my-0 py-0 ">Pay the total and you are all set</p>
