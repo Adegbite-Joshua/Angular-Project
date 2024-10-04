@@ -10,6 +10,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { GuestsService } from '../../../services/admin/guests/guests.service';
 import { CommonModule } from '@angular/common';
+import axios from 'axios';
+import { serverUrl } from '../../../constants/server';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-guests',
@@ -27,21 +30,25 @@ import { CommonModule } from '@angular/common';
   styleUrl: './guests.component.scss'
 })
 export class GuestsComponent {
-  displayedColumns: string[] = ['id', 'name', 'roomNumber', 'totalAmount', 'amountPaid', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'room', 'room_id', 'amount', 'amount', 'status', 'actions'];
   dataSource = new MatTableDataSource<any>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private guestService: GuestsService) { }
+  constructor(private guestService: GuestsService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadGuests();
   }
 
   loadGuests() {
-    const guests = this.guestService.getGuests();
-    this.dataSource.data = guests;
+    this.guestService.getGuests();
+    this.guestService.guests.subscribe(guests => {
+      this.dataSource.data = guests;
+      console.log(guests);
+      
+    });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -52,13 +59,28 @@ export class GuestsComponent {
   }
 
   checkIn(id: number) {
-    this.guestService.checkIn(id);
-    this.loadGuests();
+    axios.patch(`${serverUrl}/api/admin/bookings/${id}`, {
+      status: 'checked_in'
+    }).then(response => {
+      this.guestService.checkIn(id);
+      this.toastr.success('Checked in successfully')
+    })
+    .catch( error => {
+      this.toastr.error('Please try again', 'Error checking in');
+    })
   }
 
   checkOut(id: number) {
-    this.guestService.checkOut(id);
-    this.loadGuests();
+    axios.patch(`${serverUrl}/api/admin/bookings/${id}`, {
+      status: 'checked_out'
+    }).then(response => {
+      this.guestService.checkOut(id);
+      this.toastr.success('Checked out successfully')
+    })
+    .catch( error => {
+      this.toastr.error('Please try again', 'Error checking out');
+    })
+    // this.loadGuests();
   }
 
   searchByRoomNumber(event: Event) {

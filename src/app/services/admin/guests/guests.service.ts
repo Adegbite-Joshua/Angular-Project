@@ -1,39 +1,46 @@
 import { Injectable } from '@angular/core';
+import axios from 'axios';
+import { serverUrl } from '../../../constants/server';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GuestsService {
-  private guests = [
-    { id: 5644, name: 'Alexander', roomNumber: 'A647', totalAmount: 467, amountPaid: 200, status: 'Clean' },
-    { id: 6112, name: 'Pegasus', roomNumber: 'A456', totalAmount: 645, amountPaid: 250, status: 'Dirty' },
-    { id: 6141, name: 'Martin', roomNumber: 'A645', totalAmount: 686, amountPaid: 400, status: 'Dirty' },
-    { id: 6535, name: 'Cecil', roomNumber: 'A684', totalAmount: 8413, amountPaid: 2500, status: 'Inspected' },
-    { id: 6541, name: 'Luke', roomNumber: 'B464', totalAmount: 841, amountPaid: 400, status: 'Clean' },
-    { id: 9846, name: 'Yadrin', roomNumber: 'C648', totalAmount: 684, amountPaid: 300, status: 'Clean' },
-    { id: 4921, name: 'Kiand', roomNumber: 'D644', totalAmount: 984, amountPaid: 513, status: 'Pick up' },
-    { id: 9841, name: 'Turen', roomNumber: 'B641', totalAmount: 984, amountPaid: 600, status: 'Dirty' }
-  ];
+  public guests = new BehaviorSubject<any[]>([]);
+
+  constructor () {
+    axios.post(`${serverUrl}/api/admin/guests`)
+    .then( response => {
+      console.log();
+      this.guests.next(response.data.data);
+    })
+    .catch( error => {
+      console.log(error);
+      
+    })
+  }
+
 
   getGuests() {
-    return this.guests;
+    return this.guests.asObservable;
   }
 
   checkIn(id: number) {
-    const guest = this.guests.find(g => g.id === id);
+    const guest = this.guests.value.find(g => g.id === id);
     if (guest) {
-      guest.status = 'Checked In';
+      guest.status = 'checked_in';
     }
   }
 
   checkOut(id: number) {
-    const guest = this.guests.find(g => g.id === id);
+    const guest = this.guests.value.find(g => g.id === id);
     if (guest) {
-      guest.status = 'Checked Out';
+      guest.status = 'checked_out';
     }
   }
 
   searchGuests(roomNumber: string) {
-    return this.guests.filter(guest => guest.roomNumber.toLowerCase().includes(roomNumber.toLowerCase()));
+    return this.guests.value.filter(guest => guest.roomNumber.toLowerCase().includes(roomNumber.toLowerCase()));
   }
 }

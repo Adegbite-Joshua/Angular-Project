@@ -70,34 +70,6 @@ export class AuthService {
     return this.isLoggedIn.next(value);
   }
 
-  // Send OTP to admin's email
-  async sendOtp(email: string): Promise<void> {
-    try {
-      const response = await axios.post(`${serverUrl}/api/admin/send-otp`, { email });
-      if (response.status === 200) {
-        this.otpSent.next(true);
-        console.log('OTP sent successfully');
-      }
-    } catch (error) {
-      console.error('Error sending OTP:', error);
-    }
-  }
-
-  // Validate the OTP entered by the admin
-  async validateOtp(email: string, otp: string): Promise<boolean> {
-    try {
-      const response = await axios.post(`${serverUrl}/api/admin/verify-otp`, { email, otp });
-      if (response.status === 200) {
-        const { token } = response.data;
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.error('Error validating OTP:', error);
-      return false;
-    }
-  }
-
   // Track OTP sent state as an observable
   isOtpSent() {
     return this.otpSent.asObservable();

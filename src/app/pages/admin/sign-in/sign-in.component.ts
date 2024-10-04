@@ -43,7 +43,7 @@ export class SignInComponent {
 
   requestNewOtp() {
     if (this.countdown === 0) {
-      this.login(); // Call login again to request new OTP
+      this.login();
     }
   }
 
@@ -52,8 +52,10 @@ export class SignInComponent {
     this.adminAuthService.verifyOtp(this.email, this.otp).then((response) => {
       this.adminAuthService.setAdminDetails(response.data);
       this.isVerifying = false;
-      this.router.navigate(['/dashboard']); 
-      Cookies.set('admin_token', response.data.data.token);
+      this.router.navigate(['/admin/dashboard']); 
+      Cookies.set('admin_token', response.data.data.token, { expires: 7 });
+      this.adminAuthService.changeLoginStatus(true);
+      this.adminAuthService.setAdminDetails(response.data.data.admin)
       this.toastr.success('Login Successfully');
     }).catch((error) => {
       this.toastr.error('OTP verification failed');

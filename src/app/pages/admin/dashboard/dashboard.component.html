@@ -11,27 +11,27 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 <div>
                     <p class="text-sm">Today's</p>
-                    <p class="text-lg">Check-in: <span class="text-blue-600 text-xl">{{ overview.checkIn }}</span>
+                    <p class="text-lg">Check-in: <span class="text-blue-600 text-xl">{{ overview?.check_in || 0}}</span>
                     </p>
                 </div>
                 <div>
                     <p class="text-sm">Today's</p>
-                    <p class="text-lg">Check-out: <span class="text-blue-600 text-xl">{{ overview.checkOut }}</span>
+                    <p class="text-lg">Check-out: <span class="text-blue-600 text-xl">{{ overview?.check_out || 0}}</span>
                     </p>
                 </div>
                 <div>
                     <p class="text-sm">Total</p>
-                    <p class="text-lg">In Hotel: <span class="text-blue-600 text-xl">{{ overview.inHotel }}</span>
+                    <p class="text-lg">In Hotel: <span class="text-blue-600 text-xl">{{ overview?.inHotel || 0}}</span>
                     </p>
                 </div>
                 <div>
                     <p class="text-sm">Total</p>
                     <p class="text-lg">Available Rooms: <span class="text-blue-600 text-xl">{{
-                            overview.availableRoom }}</span></p>
+                            overview?.available_rooms || 0}}</span></p>
                 </div>
                 <div>
                     <p class="text-sm">Total</p>
-                    <p class="text-lg">Occupied Rooms: <span class="text-blue-600 text-xl">{{ overview.occupiedRoom
+                    <p class="text-lg">Occupied Rooms: <span class="text-blue-600 text-xl">{{ overview?.occupied_rooms || 0
                             }}</span></p>
                 </div>
             </div>
@@ -40,11 +40,13 @@
         <div class="room-types bg-white p-4 rounded-lg shadow-md mb-6">
             <h2 class="text-2xl font-semibold mb-2">Rooms</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                <div class="border-2 p-2 rounded-md" *ngFor="let room of roomTypes">
-                    <p class="text-xl">{{ room.type }}</p>
-                    <p><span class="text-xl">{{ room.available }}</span>/{{ room.total }}</p>
-                    <p><span class="text-xl text-blue-600">${{ room.price }}</span>/day</p>
-                </div>
+                    <div *ngFor="let roomType of room_metrics | keyvalue">
+                        <div class="border-2 p-2 rounded-md">
+                            <p class="text-xl">{{ roomType.key }}</p> <!-- Displays the room type (e.g., 'single', 'double', etc.) -->
+                            <p><span class="text-xl">{{ roomType.value['booked'] }}</span>/{{ roomType.value['total_rooms'] }}</p>
+                            <p><span class="text-xl text-blue-600">${{ roomType.value['price'] }}</span>/day</p>
+                        </div>
+                    </div>                
             </div>
         </div>
 
@@ -78,14 +80,14 @@
             <div class="col-span-12 md:col-span-5 mx-1 customer-feedback bg-white p-4 rounded-lg shadow-md mb-6">
                 <h2 class="text-2xl font-semibold mb-2">Customers Review</h2>
                 <div class="space-y-2 overflow-y-auto h-72">
-                    <div *ngFor="let feedback of customerFeedback">
+                    <div *ngFor="let review of reviews">
                         <div class="flex items-end gap-2 mb-1">
                             <img src="assets/13.jpg" class="h-12 w-12 rounded-full" alt="">
-                            <strong>{{ feedback.name }}</strong>
-                            <span><app-star-rating [rating]="feedback.star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating></span>
+                            <strong>{{ review.name }}</strong>
+                            <span><app-star-rating [rating]="review.star_rating" [readOnly]="true" [maxRating]="5"></app-star-rating></span>
                         </div>
                         <hr>
-                        <p>{{ feedback.review }}</p>
+                        <p>{{ review.review }}</p>
                     </div>
                 </div>
             </div>

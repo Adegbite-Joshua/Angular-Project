@@ -33,20 +33,41 @@ export class DashboardComponent {
   customerFeedback: any[] = [];
   adminDetails: any = {};
   todaysDate = new Date();
+  metrics: {} = {};
+  room_metrics: {} = {};
+  reviews: any = [];
 
   constructor(private dataService: DashboardService, @Inject(PLATFORM_ID) private platformId: any, private authService: AuthService) {
     this.adminDetails = authService.getAdminDetails();
   }
 
-  ngOnInit(): void {
+  ngOnInit():void {
     this.overview = this.dataService.getOverview();
     this.roomTypes = this.dataService.getRoomTypes();
+    this.dataService.getMetrics().then((data) => {
+      this.overview = data;
+      this.room_metrics = data.rooms;
+    });
+
+    this.dataService.metrics.asObservable().subscribe((data) => {
+      this.overview = data;
+      this.room_metrics = data.rooms;      
+    });
+
+    this.dataService.getCustomerReviews().then(data => {
+      this.reviews = data; // Initial fetch
+      console.log('Initial reviews:', data);
+    });
+
+    this.dataService.reviews.subscribe(data => {
+      this.reviews = data;
+      console.log('Updated reviews:', data);
+    });
     this.roomStatus = this.dataService.getRoomStatus();
     this.floorChartData = [this.dataService.getFloorStatus(), 100 - this.dataService.getFloorStatus()];
     this.floorChartLabels = ['Completed', 'Yet to Complete'];
     this.occupancyChartData = [{ data: this.dataService.getOccupancyStatistics(), label: 'Occupancy Rate' }];
     this.occupancyChartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    this.customerFeedback = this.dataService.getCustomerFeedback();
   }
 
   ngAfterViewInit(): void {

@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import axios from 'axios';
+import { serverUrl } from '../../../constants/server';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +10,39 @@ export class DashboardService {
 
   constructor() { }
 
-  getOverview() {
-    return {
-      checkIn: 23,
-      checkOut: 13,
-      inHotel: 60,
-      availableRoom: 10,
-      occupiedRoom: 90
-    };
+  public metrics = new BehaviorSubject<any>({});
+  public reviews = new BehaviorSubject<any[]>([]);
+
+  async getMetrics():Promise<any> {
+    if (Object.keys(this.metrics.value).length > 0) {
+      return this.metrics.asObservable();
+    }
+    try {
+      const response = await axios.get(`${serverUrl}/api/admin/metrics`)
+      this.metrics.next(response.data.data);
+      console.log(response.data.data);
+      
+      return response.data.data;
+    } catch (error) {
+      console.log(error);
+        return {};
+    }
+  }
+
+  getOverview():any {
+    if (Object.keys(this.metrics.value).length > 0) {
+      return this.metrics.asObservable();
+    }
+    axios.get(`${serverUrl}/api/admin/metrics`)
+      .then(response => {
+        console.log(response);
+        this.metrics.next(response.data.data);
+        return response.data.data;
+      })
+      .catch(error => {
+        console.log(error);
+        return {};
+      })
   }
 
   getRoomTypes() {
@@ -38,23 +66,18 @@ export class DashboardService {
     return [60, 70, 75, 80, 85, 90, 95, 80, 85, 70, 75, 80];
   }
 
-  getCustomerFeedback() {
-    return [
-      { name: 'Mark', review: 'Food could be better.', star_rating: 3 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid. Facilities are not enough for amount paid Facilities are not enough for amount paid', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid. Facilities are not enough for amount paid', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
-      { name: 'Christian', review: 'Facilities are not enough for amount paid.', star_rating: 4 },
-      { name: 'Alexander', review: 'Room cleaning could be better.', star_rating: 2 }
-    ];
+  async getCustomerReviews():Promise<any> {
+    if (this.reviews.value?.length > 0) {
+      return this.reviews.asObservable();
+    }
+    try {
+      const response = await axios.get(`${serverUrl}/api/reviews`);
+      console.log(response);
+      this.reviews.next(response.data.data);
+      return response.data.data;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
   }
 }
