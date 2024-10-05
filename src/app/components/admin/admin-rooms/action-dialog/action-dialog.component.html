@@ -1,16 +1,29 @@
-<div class="p-3 text-white">
+<div class="p-3 text-white sm:w-[450px]">
     <h1 mat-dialog-title>{{data.title}}</h1>
-    <div mat-dialog-content>
+    <div mat-dialog-content class="w-full">
         <p>{{data.message}}</p>
-        <ng-container *ngIf="data.input">
-            <mat-form-field>
-                <label for="">Enter the customer email address</label>
-                <input matInput [(ngModel)]="inputValue" class="w-full rounded-md p-2 focus:border focus:border-blue-400" placeholder="Email">
-            </mat-form-field>
-        </ng-container>
+        <div>
+            <ng-container class="w-full" *ngIf="data.input">
+                <mat-form-field class="w-full">
+                    <label for="">Enter the customer email address</label>
+                    <input matInput [(ngModel)]="emailValue"
+                        class="w-full rounded-md p-2 focus:border focus:border-blue-400" placeholder="Email">
+                </mat-form-field>
+            </ng-container>
+        </div>
+        <div>
+            <ng-container class="w-full" *ngIf="data.input">
+                <mat-form-field class="w-full">
+                    <label for="">Enter the amount paid by customer</label>
+                    <input matInput type="number" [(ngModel)]="amountValue"
+                        class="w-full text-black rounded-md p-2 focus:border focus:border-blue-400" placeholder="Amount">
+                </mat-form-field>
+            </ng-container>
+        </div>
     </div>
     <div mat-dialog-actions class="flex justify-between mt-5">
         <button mat-button (click)="onNoClick()" class="bg-green-400 py-2 px-3 rounded-md">Cancel</button>
-        <button mat-button [disabled]="data.input && inputValue.trim().length == 0" (click)="onYesClick()" class="bg-red-400 py-2 px-3 rounded-md" cdkFocusInitial>Confirm</button>
+        <button mat-button [disabled]="data.input && emailValue.trim().length == 0 && amountValue != 0"
+            (click)="onYesClick()" class="bg-red-400 py-2 px-3 rounded-md" cdkFocusInitial>Confirm</button>
     </div>
 </div>

@@ -45,7 +45,7 @@ export class GuestsComponent {
   loadGuests() {
     this.guestService.getGuests();
     this.guestService.guests.subscribe(guests => {
-      this.dataSource.data = guests;
+      this.dataSource.data = guests.reverse();
       console.log(guests);
       
     });

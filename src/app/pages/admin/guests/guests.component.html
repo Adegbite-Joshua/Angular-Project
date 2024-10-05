@@ -63,8 +63,8 @@
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef>Actions</th>
               <td mat-cell *matCellDef="let element">
-                <button mat-button (click)="checkIn(element.id)">Check In</button>
-                <button mat-button (click)="checkOut(element.id)">Check Out</button>
+                <button *ngIf="element.status === 'paid'" class="bg-blue-400 p-2 rounded-md" (click)="checkIn(element.id)">Check In</button>
+                <button *ngIf="element.status === 'checked_in'" class="bg-green-400 p-2 rounded-md" (click)="checkOut(element.id)">Check Out</button>
               </td>
             </ng-container>
         

@@ -11,7 +11,8 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
   templateUrl: './action-dialog.component.html',
 })
 export class ActionDialogComponent {
-  inputValue: string = '';
+  emailValue: string = '';
+  amountValue: number = 0;
 
   constructor(
     public dialogRef: MatDialogRef<ActionDialogComponent>,
@@ -23,6 +24,9 @@ export class ActionDialogComponent {
   }
 
   onYesClick(): void {
-    this.dialogRef.close(this.data.input ? this.inputValue : true);
+    this.dialogRef.close(this.data.input ? {
+      email: this.emailValue,
+      amount: this.amountValue
+    } : true);
   }
 }

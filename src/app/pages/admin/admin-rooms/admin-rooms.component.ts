@@ -82,10 +82,10 @@ export class AdminRoomsComponent {
       category: ['', Validators.required]
     });
 
-    roomService.rooms.subscribe( rooms => {
-      this.dataSource.data = rooms;
+    roomService.rooms.subscribe(rooms => {
+      this.dataSource.data = rooms.reverse();
       console.log(rooms);
-      
+
       this.rooms = rooms;
       this.loadRooms()
     })
@@ -96,25 +96,25 @@ export class AdminRoomsComponent {
   filterYesterdayDates = (d: Date | null): boolean => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-  
+
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate());
-  
+
     if (d) {
       return d >= yesterday;
     }
-  
+
     return true;
   };
-  
+
   filterTodayDates = (d: Date | null): boolean => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-  
+
     if (d) {
       return d > today;
     }
-  
+
     return true;
   };
 
@@ -123,10 +123,10 @@ export class AdminRoomsComponent {
   }
 
   async loadRooms(): Promise<void> {
-      this.allCount = this.rooms.length;
-      this.availableCount = this.rooms.filter(room => room?.booking_status.toLowerCase() === 'available').length;
-      this.bookedCount = this.rooms.filter(room => room?.booking_status.toLowerCase() === 'booked').length;
-      this.dataSource.data = this.rooms;      
+    this.allCount = this.rooms.length;
+    this.availableCount = this.rooms.filter(room => room?.booking_status.toLowerCase() === 'available').length;
+    this.bookedCount = this.rooms.filter(room => room?.booking_status.toLowerCase() === 'booked').length;
+    this.dataSource.data = this.rooms;
   }
 
   filterRooms(): void {
@@ -147,9 +147,9 @@ export class AdminRoomsComponent {
     ).subscribe(filteredRooms => {
       this.dataSource.data = filteredRooms;
       this.dataSource.paginator = this.paginator;
-      this.check_in_date = '';
-      this.check_out_date = '';
-      this.selectedCategory = 'all';
+      // this.check_in_date = '';
+      // this.check_out_date = '';
+      // this.selectedCategory = 'all';
     });
   }
 
@@ -160,7 +160,7 @@ export class AdminRoomsComponent {
     this.filter = 'all';
 
     this.roomService.getRooms().subscribe(rooms => {
-      this.dataSource.data = rooms;
+      this.dataSource.data = rooms.reverse();
       this.dataSource.paginator = this.paginator;
     });
   }
@@ -173,12 +173,12 @@ export class AdminRoomsComponent {
   applyFilter(): void {
     if (this.filter === 'all') {
       this.roomService.getRooms().subscribe(rooms => {
-        this.dataSource.data = rooms;
+        this.dataSource.data = rooms.reverse();
         this.dataSource.paginator = this.paginator;
       });
     } else {
       this.roomService.getRooms().subscribe(rooms => {
-        this.dataSource.data = rooms.filter(room => room?.booking_status.toLowerCase() === this.filter);
+        this.dataSource.data = rooms.reverse().filter(room => room?.booking_status.toLowerCase() === this.filter);
         this.dataSource.paginator = this.paginator;
       });
     }
@@ -203,15 +203,15 @@ export class AdminRoomsComponent {
     confirmDialog.afterClosed().subscribe(result => {
       if (result === true) {
         axios.delete(`${serverUrl}/api/admin/rooms/${room?.id}`)
-        .then( response => {
-          this.toastr.success('Room deleted successfully', 'Success!')
-          this.roomService.deleteRoom(room?.id).subscribe(() => {
-            this.loadRooms();
-          });
-        })
-        .catch( error => {
-          this.toastr.error('Something went wrong, please try again', 'Error')
-        })
+          .then(response => {
+            this.toastr.success('Room deleted successfully', 'Success!')
+            this.roomService.deleteRoom(room?.id).subscribe(() => {
+              this.loadRooms();
+            });
+          })
+          .catch(error => {
+            this.toastr.error('Something went wrong, please try again', 'Error')
+          })
       }
     });
   }
@@ -225,17 +225,36 @@ export class AdminRoomsComponent {
       }
     });
 
-    
-    
-    bookDialog.afterClosed().subscribe(email => {
-      console.log(email, this.check_in_date, this.check_out_date);
+
+
+    bookDialog.afterClosed().subscribe(values => {
       if (!this.check_in_date || !this.check_out_date) {
         this.toastr.info('Please fill in the check in and out date')
       }
-      if (email) {
-        this.roomService.bookRoom(room?.number, email).subscribe(updatedRoom => {
-          this.loadRooms();
-        });
+      if (values.email) {
+        const check_in_date = new Date(this.check_in_date).toISOString().split('T')[0];
+        const check_out_date = new Date(this.check_out_date).toISOString().split('T')[0];
+        axios.post(`${serverUrl}/api/admin/create-booking`, {
+          'email': values.email,
+          'amount': values.amount,
+          'roomId': room.id,
+          'check_in_date': check_in_date,
+          'check_out_date': check_out_date
+        })
+        .then( response => {
+          this.roomService.bookRoom(room?.id, values.email).subscribe(updatedRoom => {
+            this.loadRooms();
+          });
+          this.toastr.success('Room booked successfully', 'Success')
+        })
+        .catch( error => {
+          console.log(error);
+          if (error.response.data.error) {
+            this.toastr.error(error.response.data.error, 'Error');
+          } else {
+            this.toastr.error("Something went wrong", 'Error');
+          }
+        })
       }
     });
   }
