@@ -16,6 +16,9 @@ import { DialogComponent } from '../../../components/admin/admin-rooms/dialog/di
 import { firstValueFrom, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ActionDialogComponent } from '../../../components/admin/admin-rooms/action-dialog/action-dialog.component';
+import axios from 'axios';
+import { serverUrl } from '../../../constants/server';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-rooms',
@@ -35,7 +38,7 @@ import { ActionDialogComponent } from '../../../components/admin/admin-rooms/act
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminRoomsComponent {
-  displayedColumns: string[] = ['number', 'bed_type', 'floor', 'facility', 'status', 'occupied', 'check_in_date', 'check_out_date', 'actions'];
+  displayedColumns: string[] = ['id', 'type', 'floor', 'facilities', 'status', 'occupied', 'check_in_date', 'check_out_date', 'actions'];
   dataSource = new MatTableDataSource<any>();
   filter = 'all';
 
@@ -55,6 +58,7 @@ export class AdminRoomsComponent {
     private roomService: RoomsService,
     private fb: FormBuilder,
     private dialog: MatDialog,
+    private toastr: ToastrService
   ) {
     this.roomForm = this.fb.group({
       number: ['', Validators.required],
@@ -67,19 +71,11 @@ export class AdminRoomsComponent {
 
     roomService.rooms.subscribe( rooms => {
       this.dataSource.data = rooms;
+      console.log(rooms);
+      
       this.rooms = rooms;
       this.loadRooms()
     })
-  }
-
-  // async ngOnInit(): Promise<void> {
-  //   await this.loadRooms();
-  // }
-
-  async ngOnInit(): Promise<void> {
-    // Wait for rooms to be fetched
-    // const rooms = this.roomService.getRooms();
-
   }
 
   ngAfterViewInit() {
@@ -87,12 +83,10 @@ export class AdminRoomsComponent {
   }
 
   async loadRooms(): Promise<void> {
-    // this.roomService.getRooms().subscribe(rooms => {
       this.allCount = this.rooms.length;
-      this.availableCount = this.rooms.filter(room => room?.status.toLowerCase() === 'available').length;
-      this.bookedCount = this.rooms.filter(room => room?.status.toLowerCase() === 'booked').length;
+      this.availableCount = this.rooms.filter(room => room?.booking_status.toLowerCase() === 'available').length;
+      this.bookedCount = this.rooms.filter(room => room?.booking_status.toLowerCase() === 'booked').length;
       this.dataSource.data = this.rooms;      
-    // });
   }
 
   filterRooms(): void {
@@ -144,7 +138,7 @@ export class AdminRoomsComponent {
       });
     } else {
       this.roomService.getRooms().subscribe(rooms => {
-        this.dataSource.data = rooms.filter(room => room?.status.toLowerCase() === this.filter);
+        this.dataSource.data = rooms.filter(room => room?.booking_status.toLowerCase() === this.filter);
         this.dataSource.paginator = this.paginator;
       });
     }
@@ -168,9 +162,16 @@ export class AdminRoomsComponent {
 
     confirmDialog.afterClosed().subscribe(result => {
       if (result === true) {
-        this.roomService.deleteRoom(room?.number).subscribe(() => {
-          this.loadRooms();
-        });
+        axios.delete(`${serverUrl}/api/admin/rooms/${room?.id}`)
+        .then( response => {
+          this.toastr.success('Room deleted successfully', 'Success!')
+          this.roomService.deleteRoom(room?.id).subscribe(() => {
+            this.loadRooms();
+          });
+        })
+        .catch( error => {
+          this.toastr.error('Something went wrong, please try again', 'Error')
+        })
       }
     });
   }

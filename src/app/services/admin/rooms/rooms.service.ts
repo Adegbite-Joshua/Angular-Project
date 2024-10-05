@@ -53,8 +53,8 @@ export class RoomsService {
     this.rooms.next([...currentRooms, room]);
   }
 
-  deleteRoom(number: string): Observable<void> {
-    const rooms = this.rooms.value.filter(room => room.number !== number);
+  deleteRoom(id: string): Observable<void> {
+    const rooms = this.rooms.value.filter(room => room.id !== id);
     this.rooms.next(rooms);
     return of();
   }

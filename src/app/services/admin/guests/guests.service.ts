@@ -41,6 +41,6 @@ export class GuestsService {
   }
 
   searchGuests(roomNumber: string) {
-    return this.guests.value.filter(guest => guest.roomNumber.toLowerCase().includes(roomNumber.toLowerCase()));
+    return this.guests.value.filter(guest => String(guest?.room_id)?.toLowerCase()?.includes(roomNumber.toLowerCase()));
   }
 }
