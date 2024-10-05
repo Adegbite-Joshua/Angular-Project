@@ -19,6 +19,9 @@ import { ActionDialogComponent } from '../../../components/admin/admin-rooms/act
 import axios from 'axios';
 import { serverUrl } from '../../../constants/server';
 import { ToastrService } from 'ngx-toastr';
+import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-admin-rooms',
@@ -32,7 +35,17 @@ import { ToastrService } from 'ngx-toastr';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule ],
+    MatDialogModule,
+    MatDatepicker,
+    MatInputModule,
+    MatSliderModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
   templateUrl: './admin-rooms.component.html',
   styleUrls: ['./admin-rooms.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -77,6 +90,33 @@ export class AdminRoomsComponent {
       this.loadRooms()
     })
   }
+
+  today: Date = new Date();
+
+  filterYesterdayDates = (d: Date | null): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate());
+  
+    if (d) {
+      return d >= yesterday;
+    }
+  
+    return true;
+  };
+  
+  filterTodayDates = (d: Date | null): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    if (d) {
+      return d > today;
+    }
+  
+    return true;
+  };
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -185,7 +225,13 @@ export class AdminRoomsComponent {
       }
     });
 
+    
+    
     bookDialog.afterClosed().subscribe(email => {
+      console.log(email, this.check_in_date, this.check_out_date);
+      if (!this.check_in_date || !this.check_out_date) {
+        this.toastr.info('Please fill in the check in and out date')
+      }
       if (email) {
         this.roomService.bookRoom(room?.number, email).subscribe(updatedRoom => {
           this.loadRooms();

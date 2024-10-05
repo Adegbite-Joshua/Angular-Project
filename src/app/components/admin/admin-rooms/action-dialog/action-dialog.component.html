@@ -11,6 +11,6 @@
     </div>
     <div mat-dialog-actions class="flex justify-between mt-5">
         <button mat-button (click)="onNoClick()" class="bg-green-400 py-2 px-3 rounded-md">Cancel</button>
-        <button mat-button (click)="onYesClick()" class="bg-red-400 py-2 px-3 rounded-md" cdkFocusInitial>Confirm</button>
+        <button mat-button [disabled]="data.input && inputValue.trim().length == 0" (click)="onYesClick()" class="bg-red-400 py-2 px-3 rounded-md" cdkFocusInitial>Confirm</button>
     </div>
 </div>

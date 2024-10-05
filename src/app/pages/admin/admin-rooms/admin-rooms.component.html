@@ -1,16 +1,19 @@
 <app-admin-navbar>
     <div class="filters p-4 bg-gray-100 rounded-lg shadow-md space-y-4">
         <div class="flex flex-col md:flex-row w-full justify-between">
-            <div class="space-y-2">
-                <label class="block text-blue-600 font-semibold">Check in</label>
-                <input type="date" [(ngModel)]="check_in_date"
-                    class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-600 focus:border-blue-600">
-            </div>
-            <div class="space-y-2">
-                <label class="block text-blue-600 font-semibold">Check out</label>
-                <input type="date" [(ngModel)]="check_out_date"
-                    class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-600 focus:border-blue-600">
-            </div>
+            <mat-form-field class="p-2" appearance="fill">
+                <mat-label>Check-in Date</mat-label>
+                <input matInput [matDatepicker]="checkinPicker" [matDatepickerFilter]="filterYesterdayDates"  [(ngModel)]="check_in_date">
+                <mat-datepicker-toggle matSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+                <mat-datepicker #checkinPicker></mat-datepicker>
+              </mat-form-field>
+            
+              <mat-form-field class="p-2" appearance="fill">
+                <mat-label>Check-out Date</mat-label>
+                <input matInput [matDatepicker]="checkoutPicker" [matDatepickerFilter]="filterTodayDates"  [(ngModel)]="check_out_date">
+                <mat-datepicker-toggle matSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+                <mat-datepicker #checkoutPicker></mat-datepicker>
+              </mat-form-field>
             <div class="space-y-2">
                 <label class="block text-blue-600 font-semibold">Room Category</label>
                 <select [(ngModel)]="selectedCategory"
