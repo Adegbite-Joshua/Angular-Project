@@ -2,18 +2,21 @@
 
 
 .active {
-    @apply absolute block w-auto;
-    animation: colorChange 4s infinite; /* Apply animation */
+    @apply absolute flex flex-wrap w-[250px] shadow-lg bg-slate-300 p-3 rounded-md justify-between items-stretch mt-3;
+    animation: colorChange 4s; /* Apply animation */
 }
 
 @keyframes colorChange {
     0% {
+        opacity: 0;
         background-color: blue; /* Starting color */
     }
     50% {
+        opacity: .5;
         background-color: red; /* Midpoint color */
     }
     100% {
+        opacity: 1;
         background-color: blue; /* End color, back to the start */
     }
 }

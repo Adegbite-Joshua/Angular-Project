@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+// Share buttons styles
+@import 'ngx-sharebuttons/themes/default';
+
 
 * {
     padding: 0;

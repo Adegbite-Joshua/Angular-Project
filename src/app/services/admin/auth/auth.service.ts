@@ -10,7 +10,19 @@ import { serverUrl } from '../../../constants/server';
 })
 export class AuthService {
   public isLoggedIn = new BehaviorSubject<boolean>(false);
-  public adminDetails = new BehaviorSubject<any>(null);
+  public adminDetails = new BehaviorSubject<any>({
+    first_name: 'John',
+    last_name: 'Doe',
+    email: 'johndoe@example.com',
+    password: 'hhb',
+    telephone: '123-456-7890',
+    gender: 'Male',
+    role: 'User',
+    nin_number: 'AB123456',
+    city: 'New York',
+    zip_code: '10001',
+    address: '123 Main St'
+  });
   private otpSent = new BehaviorSubject<boolean>(false);
 
   constructor() { }

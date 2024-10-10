@@ -117,7 +117,7 @@ lovedThisRoom(roomId: string){
 
 numberOfLovedRooms(){
   const lovedRooms: string[] = localStorage.getItem('lovedRooms') ? JSON.parse(localStorage.getItem('lovedRooms') as string) : [];
-  return lovedRooms.length;
+  return this.filteredRooms.filter(room => lovedRooms.includes(room.id)).length;
 }
 
 loveRoom(roomId: string){

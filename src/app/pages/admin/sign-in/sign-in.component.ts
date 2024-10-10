@@ -5,11 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../services/admin/auth/auth.service';
 import Cookies from 'js-cookie';
 import { Router } from '@angular/router';
+import { AdminNavbarComponent } from '../../../components/navbar/admin-navbar/admin-navbar.component';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AdminNavbarComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })

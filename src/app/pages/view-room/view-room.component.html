@@ -28,7 +28,7 @@
     </div>
     <div class="flex flex-col">
         <p class="text-4xl text-blue-600">${{room?.price}}/night</p>
-        <div class="flex gap-2">
+        <div class="flex gap-2 relative">
             <button (click)="toggleLoveRoom(room?.id)" class="p-2 rounded-md border border-blue-600">
                 <ng-container *ngIf="lovedThisRoom(room?.id); else notLoved">
                     <i class="fa fa-heart text-blue-600"></i>
@@ -37,18 +37,16 @@
                     <i class="far fa-heart text-blue-600"></i>
                 </ng-template>
             </button>
-            <button (click)="shareContainer.classList.toggle('active')"
-                class="p-2 rounded-md border border-blue-600 relative">
+            <button (click)="shareContainer.classList.toggle('active')" class="p-2 rounded-md border border-blue-600">
                 <i class="fas fa-share text-blue-600"></i>
-                <div #shareContainer class="hidden w-0 top-full -left-2/4 z-30">
-                    <!-- <share-buttons [theme]="'modern-dark'"
-                        [include]="['facebook','x','linkedin','pinterest','reddit','tumblr','mix','viber','vk','telegram','messenger','whatsapp','xing','line','sms','email','print','copy']"
-                        [show]="5" [url]="currentUrl"></share-buttons> -->
-                </div>
             </button>
-            <button (click)="bookRoom()"
-                class="bg-blue-600 rounded-md text-white px-4 flex justify-center items-center font-bold">Book
-                Now</button>
+            <button (click)="bookRoom()" class="bg-blue-600 rounded-md text-white px-4 flex justify-center items-center font-bold">Book Now</button>
+            <div #shareContainer class="hidden border top-full -left-1/4 sm:-left-2/4 z-30">
+                <!-- <share-buttons [theme]="'modern-dark'"
+                    [include]="['facebook','x','linkedin','pinterest','reddit','tumblr','mix','viber','vk','telegram','messenger','whatsapp','xing','line','sms','email','print','copy']"
+                    [show]="5" [url]="currentUrl"></share-buttons> -->
+                    <share-buttons class="grid-cols-5" show="18"/>
+            </div>
         </div>
     </div>
 </div>
@@ -63,6 +61,7 @@
     </div>
     <hr class="my-5">
     <p class="text-2xl font-bold">Overview</p>
+    
     <p>{{ room?.overview }}</p>
     <hr class="my-5">
     <div class="p-2 md:p-10">
@@ -74,7 +73,7 @@
             class="flex flex-col md:flex-row gap-2 items-center justify-between my-2">
             <div class="flex flex-col md:flex-row gap-2 items-center">
                 <img src="{{categoryRoom?.images[0]}}" class="h-24 md:h-12 w-full md:w-12 rounded-md" alt="">
-                <strong class="block">{{categoryRoom?.title}}</strong>
+                <strong class="block">{{categoryRoom?.name}}</strong>
             </div>
             <div class="flex gap-2 justify-center items-center">
                 <h4 class="text-2xl flex items-center">${{categoryRoom?.price}}/night</h4>

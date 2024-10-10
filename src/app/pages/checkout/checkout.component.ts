@@ -11,18 +11,33 @@ import { MatDialog } from '@angular/material/dialog';
 import axios from 'axios';
 import { serverUrl } from '../../constants/server';
 import Cookies from 'js-cookie';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [GeneralNavbarComponent, FooterComponent, StarRatingComponent, RouterLink, RouterOutlet, CommonModule],
+  imports: [
+    GeneralNavbarComponent, 
+    FooterComponent, 
+    StarRatingComponent, 
+    RouterLink, 
+    RouterOutlet, 
+    CommonModule
+  ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss'
 })
 export class CheckoutComponent {
   isUserLoggedIn: boolean = false;
 
-  constructor(private roomsService: RoomsService, private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService, private dialog: MatDialog) {
+  constructor(
+    private roomsService: RoomsService, 
+    private activatedRoute: ActivatedRoute, 
+    private router: Router, 
+    private authService: AuthService, 
+    private dialog: MatDialog,
+    private toastr: ToastrService
+  ) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       const state = navigation.extras.state as {
@@ -35,7 +50,6 @@ export class CheckoutComponent {
 
       this.isUserLoggedIn  = authService.checkLogin() as boolean;
     } else {
-      console.log("No state");
       this.router.navigate(['rooms/all'])
     }
 
@@ -111,7 +125,11 @@ export class CheckoutComponent {
       window.location.href = response.data.authorization_url;
     })
     .catch( error => {
-      alert('Something went wrong, please try again later')
+      if (error.response.status == 409) {
+        this.toastr.error('Room not available for the selected date', 'Error');
+      } else {
+        this.toastr.error('Something went wrong, please try again later', 'Error');
+      }
     })
   }
 

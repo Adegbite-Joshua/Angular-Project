@@ -1,78 +1,72 @@
-<div class="min-h-screen flex items-center justify-center">
-  <div class="bg-white p-8 rounded-lg shadow-md w-96">
-    <h2 class="text-2xl font-bold mb-6 text-center">Admin Login</h2>
+<app-admin-navbar>
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md w-96">
+      <h2 class="text-2xl font-bold mb-6 text-center">Admin Login</h2>
 
-    <ng-container *ngIf="!isOtpSent">
-      <form (ngSubmit)="login()" #loginForm="ngForm">
-        <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700">Email</label>
-          <input 
-            type="email" 
-            [(ngModel)]="email" 
-            name="email" 
-            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-green-300"
-            required 
-            [ngClass]="{'border-red-400': emailInput.errors && emailInput.touched}"
-            #emailInput="ngModel" 
-          />
-          <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="text-red-600 text-sm mt-1">
-            <div *ngIf="emailInput.errors?.['required']">Email is required.</div>
-            <div *ngIf="emailInput.errors?.['email']">Please enter a valid email address.</div>
+      <ng-container *ngIf="!isOtpSent">
+        <form (ngSubmit)="login()" #loginForm="ngForm">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" [(ngModel)]="email" name="email"
+              class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-green-300" required
+              [ngClass]="{'border-red-400': emailInput.errors && emailInput.touched}" #emailInput="ngModel" />
+            <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+              class="text-red-600 text-sm mt-1">
+              <div *ngIf="emailInput.errors?.['required']">Email is required.</div>
+              <div *ngIf="emailInput.errors?.['email']">Please enter a valid email address.</div>
+            </div>
           </div>
-        </div>
-        
-        <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700">Password</label>
-          <input 
-            type="password" 
-            [(ngModel)]="password" 
-            name="password" 
-            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-green-300"
-            required 
-            #passwordInput="ngModel" 
-          />
-          <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="text-red-600 text-sm mt-1">
-            <div *ngIf="passwordInput.errors?.['required']">Password is required.</div>
+
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Password</label>
+            <input type="password" [(ngModel)]="password" name="password"
+              class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-green-300" required
+              #passwordInput="ngModel" />
+            <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+              class="text-red-600 text-sm mt-1">
+              <div *ngIf="passwordInput.errors?.['required']">Password is required.</div>
+            </div>
           </div>
-        </div>
-        
-        <button type="submit" class="btn-primary w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700" [disabled]="loginForm.invalid || isLoading">
-          <span *ngIf="isLoading">Sending...</span>
-          <span *ngIf="!isLoading">Login</span>
-        </button>
-      </form>
-    </ng-container>
 
-    <ng-container *ngIf="isOtpSent">
-      <form (ngSubmit)="verifyOtp()" #otpForm="ngForm">
-        <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700">OTP</label>
-          <input 
-            type="text" 
-            [(ngModel)]="otp" 
-            name="otp" 
-            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-green-300"
-            required 
-            #otpInput="ngModel" 
-          />
-          <div *ngIf="otpInput.invalid && (otpInput.dirty || otpInput.touched)" class="text-red-600 text-sm mt-1">
-            <div *ngIf="otpInput.errors?.['required']">OTP is required.</div>
+          <button type="submit"
+            class="btn-primary w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700"
+            [disabled]="loginForm.invalid || isLoading">
+            <span *ngIf="isLoading">Sending...</span>
+            <span *ngIf="!isLoading">Login</span>
+          </button>
+        </form>
+      </ng-container>
+
+      <ng-container *ngIf="isOtpSent">
+        <form (ngSubmit)="verifyOtp()" #otpForm="ngForm">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">OTP</label>
+            <input type="text" [(ngModel)]="otp" name="otp"
+              class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-green-300" required
+              #otpInput="ngModel" />
+            <div *ngIf="otpInput.invalid && (otpInput.dirty || otpInput.touched)" class="text-red-600 text-sm mt-1">
+              <div *ngIf="otpInput.errors?.['required']">OTP is required.</div>
+            </div>
           </div>
+
+          <button type="submit"
+            class="btn-primary w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700"
+            [disabled]="otpForm.invalid || isVerifying">
+            <span *ngIf="isVerifying">Verifying...</span>
+            <span *ngIf="!isVerifying">Verify OTP</span>
+          </button>
+        </form>
+
+        <div class="mt-4 text-center">
+          <button (click)="requestNewOtp()" class="text-green-600 hover:underline">Request New Verification
+            Code</button>
         </div>
-        
-        <button type="submit" class="btn-primary w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700" [disabled]="otpForm.invalid || isVerifying">
-          <span *ngIf="isVerifying">Verifying...</span>
-          <span *ngIf="!isVerifying">Verify OTP</span>
-        </button>
-      </form>
 
-      <div class="mt-4 text-center">
-        <button (click)="requestNewOtp()" class="text-green-600 hover:underline">Request New Verification Code</button>
-      </div>
-
-      <div class="mt-4 text-center">
-        <button (click)="resetCredentials()" class="text-blue-600 hover:underline">Enter New Email and Password</button>
-      </div>
-    </ng-container>
+        <div class="mt-4 text-center">
+          <button (click)="resetCredentials()" class="text-blue-600 hover:underline">Enter New Email and
+            Password</button>
+        </div>
+      </ng-container>
+    </div>
   </div>
-</div>
+</app-admin-navbar>

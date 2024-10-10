@@ -19,6 +19,7 @@ import { Error404Component } from './pages/error-404/error-404.component';
 import { SignUpComponent } from './pages/admin/sign-up/sign-up.component';
 import { AuthGuard } from './guards/admin/auth/auth.guard';
 import { SignInComponent } from './pages/admin/sign-in/sign-in.component';
+import { ProfileComponent } from './pages/admin/profile/profile.component';
 
 export const routes: Routes = [
     {path: 'home', redirectTo: '/', pathMatch: 'full'},
@@ -37,6 +38,8 @@ export const routes: Routes = [
     { path: 'admin/login', component: SignInComponent},
     { path: 'admin/signup', component: SignUpComponent},
     {path: 'admin', children:[
+        { path: '',  redirectTo: 'dashboard', pathMatch: 'full'},
+        { path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
         { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
         { path: 'front-desk', component: FrontDeskComponent, canActivate:[AuthGuard]},
         { path: 'guests', component: GuestsComponent, canActivate:[AuthGuard]},

@@ -19,7 +19,20 @@ import { ShareButtons } from 'ngx-sharebuttons/buttons';
 @Component({
   selector: 'app-view-room',
   standalone: true,
-  imports: [GeneralNavbarComponent, FooterComponent, MatGridListModule, StarRatingComponent, CommonModule, RouterLink, MatNativeDateModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, ShareButtons],
+  imports: [
+    GeneralNavbarComponent, 
+    FooterComponent, 
+    MatGridListModule, 
+    StarRatingComponent, 
+    CommonModule, 
+    RouterLink, 
+    MatNativeDateModule, 
+    MatDatepickerModule, 
+    MatFormFieldModule, 
+    MatInputModule, 
+    ReactiveFormsModule, 
+    ShareButtons,
+  ],
   templateUrl: './view-room.component.html',
   styleUrl: './view-room.component.scss'
 })
@@ -29,7 +42,11 @@ export class ViewRoomComponent {
   currentUrl: string = '';
 
 
-  constructor(private fb: FormBuilder, private roomsService: RoomsService, private activatedRoute: ActivatedRoute, private router: Router, private toastr: ToastrService, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(private fb: FormBuilder, 
+    private roomsService: RoomsService, 
+    private activatedRoute: ActivatedRoute, 
+    private router: Router, 
+    private toastr: ToastrService, @Inject(PLATFORM_ID) private platformId: Object) {
     this.selectDateForm = this.fb.group({
       checkinDate: [null, Validators.required],
       checkoutDate: [null, Validators.required]
