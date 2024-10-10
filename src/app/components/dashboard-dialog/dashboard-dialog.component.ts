@@ -3,11 +3,12 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { AuthService } from '../../services/auth/auth.service';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-dashboard-dialog',
   standalone: true,
-  imports: [CommonModule, MatTableModule],
+  imports: [CommonModule, MatTableModule, MatButton, MatButtonModule],
   templateUrl: './dashboard-dialog.component.html',
   styleUrl: './dashboard-dialog.component.scss'
 })
@@ -18,20 +19,20 @@ export class DashboardDialogComponent {
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.changeDetails();
+  ngOnInit() {
+    this.getUserDetails()
   }
 
-  async changeDetails() {
-    this.user = await this.authService.getUserDetails();
-    
-    if (this.user) {
-      console.log(this.user);
-      this.bookings = this.user.bookings || [];
-    } else {
-      console.log("No user details found.");
-      this.bookings = [];
-    }
+  async getUserDetails() {
+    this.authService.getUserDetails();
+    this.authService.userdetails.subscribe( details => {
+      this.user = details;
+      if (details) {
+        this.bookings = details.bookings || [];
+      } else {
+        this.bookings = [];
+      }
+    })
   } 
 
   downloadBooking(booking: any) {

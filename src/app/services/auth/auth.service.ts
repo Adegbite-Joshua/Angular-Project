@@ -35,10 +35,10 @@ export class AuthService {
       const response = await axios.get(`${serverUrl}/api/user/details`, {
         headers: { Authorization: `Bearer ${Cookies.get('token')}` },
       });
-  
-      return response?.data?.data || {};  // Return data or an empty object if undefined
+
+      this.userdetails.next(response?.data?.data)
+      return response?.data?.data || {};
     } catch (error) {
-      console.error("Error fetching user details:", error);
       return {};
     }
   }

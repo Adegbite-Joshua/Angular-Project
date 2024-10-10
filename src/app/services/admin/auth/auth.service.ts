@@ -67,7 +67,7 @@ export class AuthService {
 
   // Logout admin and clear token
   logout() {
-    Cookies.remove('adminToken');
+    Cookies.remove('admin_token');
     this.isLoggedIn.next(false);
     this.adminDetails.next(null);
   }

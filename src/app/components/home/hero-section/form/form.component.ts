@@ -7,6 +7,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -20,7 +24,14 @@ import { Router } from '@angular/router';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    CommonModule
   ]
 })
 export class FormComponent {
@@ -32,6 +43,7 @@ export class FormComponent {
   });
 
   hasUnitNumber = false;
+  categories: string[] = ['Single', 'Double', 'Suite'];
 
   states = [
     {name: 'Alabama', abbreviation: 'AL'},
@@ -111,5 +123,29 @@ export class FormComponent {
     });
   }
   
+  filterYesterdayDates = (d: Date | null): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate());
+  
+    if (d) {
+      return d >= yesterday;
+    }
+  
+    return true;
+  };
+  
+  filterTodayDates = (d: Date | null): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    if (d) {
+      return d > today;
+    }
+  
+    return true;
+  };
 
 }

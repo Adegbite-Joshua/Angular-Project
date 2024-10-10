@@ -5,14 +5,6 @@
       <p class="text-2xl">Filters</p>
       <form [formGroup]="filterForm">
         <div class="flex gap-2">
-          <!-- <mat-form-field appearance="fill">
-            <mat-label>Rating</mat-label>
-            <mat-select formControlName="rating">
-              <mat-option [value]="null">All</mat-option>
-              <mat-option *ngFor="let rating of ratings" [value]="rating">{{rating}}</mat-option>
-            </mat-select>
-          </mat-form-field> -->
-
           <mat-form-field appearance="fill">
             <mat-label>Category</mat-label>
             <mat-select formControlName="category">
@@ -25,14 +17,14 @@
         <div class="flex gap-2">
           <mat-form-field appearance="fill">
             <mat-label>Check-in Date</mat-label>
-            <input matInput [matDatepicker]="checkinPicker" formControlName="checkinDate">
+            <input matInput [matDatepicker]="checkinPicker" [matDatepickerFilter]="filterYesterdayDates" formControlName="checkinDate">
             <mat-datepicker-toggle matSuffix [for]="checkinPicker"></mat-datepicker-toggle>
             <mat-datepicker #checkinPicker></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Check-out Date</mat-label>
-            <input matInput [matDatepicker]="checkoutPicker" formControlName="checkoutDate">
+            <input matInput [matDatepicker]="checkoutPicker" [matDatepickerFilter]="filterTodayDates" formControlName="checkoutDate">
             <mat-datepicker-toggle matSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
             <mat-datepicker #checkoutPicker></mat-datepicker>
           </mat-form-field>

@@ -6,32 +6,37 @@
     <mat-card-content>
       <div>
         <div class="bg-opacity-35 italic my-2 text-black">
-          <label class="text-blue-600 font-bold" for="">Check-in Date</label>
-          <input class="w-full p-2 h-10 rounded-lg" type="date" placeholder="Check in date"
-            formControlName="check_in_date">
+          <mat-form-field appearance="fill">
+            <mat-label>Check-in Date</mat-label>
+            <input matInput [matDatepicker]="checkinPicker" [matDatepickerFilter]="filterYesterdayDates" formControlName="check_in_date">
+            <mat-datepicker-toggle matSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+            <mat-datepicker #checkinPicker></mat-datepicker>
+          </mat-form-field>
           @if (filterForm.controls['check_in_date'].hasError('required') &&
           filterForm.controls['check_in_date'].dirty) {
           <mat-error class="text-blue-600">Check in date is <strong>required</strong></mat-error>
           }
         </div>
         <div class="bg-opacity-35 italic my-2 text-black">
-          <label class="text-blue-600 font-bold" for="">Check-out Date</label>
-          <input class="w-full p-2 h-10 rounded-lg" type="date" placeholder="Check out date"
-            formControlName="check_out_date">
+          <mat-form-field appearance="fill">
+            <mat-label>Check-out Date</mat-label>
+            <input matInput [matDatepicker]="checkoutPicker" [matDatepickerFilter]="filterTodayDates" formControlName="checkoutDate">
+            <mat-datepicker-toggle matSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+            <mat-datepicker #checkoutPicker></mat-datepicker>
+          </mat-form-field>
           @if (filterForm.controls['check_out_date'].hasError('required') &&
           filterForm.controls['check_out_date'].dirty) {
           <mat-error class="text-blue-600">Check out date is <strong>required</strong></mat-error>
           }
         </div>
         <div class="bg-opacity-35 italic my-2 text-black">
-          <label class="text-blue-600 font-bold" for="">Room Type</label>
-          <select class="w-full p-2 h-10 rounded-lg" formControlName="room_type">
-            <option value="all" selected>All</option>
-            <option value="single">Single</option>
-            <option value="double">Double</option>
-            <option value="suite">Suite</option>
-            <option value="vip">VIP</option>
-          </select>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Room Type:</mat-label>
+            <mat-select formControlName="room_type">
+              <mat-option [value]="'all'">All</mat-option>
+              <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+            </mat-select>
+          </mat-form-field>
           @if (filterForm.controls['room_type'].hasError('required') &&
           filterForm.controls['room_type'].dirty) {
             <mat-error class="text-blue-600">Room type is <strong>required</strong></mat-error>

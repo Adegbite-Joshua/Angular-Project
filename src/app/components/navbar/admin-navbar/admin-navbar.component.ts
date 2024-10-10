@@ -17,4 +17,9 @@ export class AdminNavbarComponent {
   constructor (private authSevice: AuthService) {
     this.isLoggedIn = authSevice.checkLogin();    
   }
+
+  log_out() {
+    // this.authSevice.logout();
+    
+  }
 }

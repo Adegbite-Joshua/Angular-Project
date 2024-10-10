@@ -49,8 +49,12 @@
       <!-- Gender -->
       <div>
         <label class="block text-lg font-semibold">Gender:</label>
-        <input [(ngModel)]="user['gender']" [disabled]="!isEditing" type="text"
-          class="border border-gray-300 rounded-md p-2 w-full" />
+        <select [value]="user['gender']" name="gender"[(ngModel)]="user['gender']" class="border border-gray-300 rounded-md p-2 w-full" [disabled]="!isEditing" id="gender">
+          <option [selected]="user['gender'] == 'male'" value="male">Male</option>
+          <option [selected]="user['gender'] == 'female'" value="female">Female</option>
+        </select>
+        <!-- <input [(ngModel)]="user['gender']"  type="text"
+           /> -->
       </div>
 
       <!-- Role -->

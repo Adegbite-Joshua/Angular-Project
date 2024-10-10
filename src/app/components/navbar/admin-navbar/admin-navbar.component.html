@@ -1,23 +1,23 @@
 <div class="flex flex-col md:flex-row">
     <div *ngIf="isLoggedIn" class="w-full md:w-3/12 flex flex-row md:flex-col p-3 overflow-x-auto">
-        <img src="assets/14.jpg" class="w-24 md:w-full h-16 my-1" alt="">
-        <a routerLink="/admin/dashboard" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center flex gap-2 p-2">
+        <img src="assets/14.jpg" class="w-26 md:w-full h-14 my-1" alt="">
+        <a routerLink="/admin/dashboard" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-nowrap break-keep text-lg items-center flex gap-1 md:gap-2 p-1 md:p-2">
             <i class="fas fa-home"></i>
             <span>Dashboard</span>
         </a>
-        <a routerLink="/admin/front-desk" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center flex gap-2 p-2">
+        <a routerLink="/admin/front-desk" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-nowrap break-keep text-lg items-center flex gap-1 md:gap-2 p-1 md:p-2">
             <i class="fas fa-pen-to-square"></i>
             <span>Front Desk</span>
         </a>
-        <a routerLink="/admin/guests" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center flex gap-2 p-2">
+        <a routerLink="/admin/guests" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-nowrap break-keep text-lg items-center flex gap-1 md:gap-2 p-1 md:p-2">
             <i class="fas fa-check-to-slot"></i>
             <span>Guests</span>
         </a>
-        <a routerLink="/admin/rooms" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center flex gap-2 p-2">
+        <a routerLink="/admin/rooms" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-nowrap break-keep text-lg items-center flex gap-1 md:gap-2 p-1 md:p-2">
             <i class="fa-solid fa-bed"></i>
             <span>Rooms</span>
         </a>
-        <a routerLink="/admin/rooms" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center flex gap-2 p-2">
+        <a routerLink="/admin/login" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-nowrap break-keep text-lg items-center flex gap-1 md:gap-2 p-1 md:p-2">
             <i class="fa fa-sign-out rotate-180"></i>
             <span>Log Out</span>
         </a>
@@ -35,24 +35,23 @@
                     <i class="fas fa-notify"></i>
                     <img src="assets/12.jpg" (click)="user_dialog.classList.toggle('hidden')" class="h-12 w-12 rounded-full cursor-pointer" alt="">
                 </div>
-                <div #user_dialog class="absolute hidden z-40 bg-gray-300 p-2 rounded-md -right-5 mt-3 top-full w-[200px]">
-                    <a routerLink="/admin/profile" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center justify-end flex gap-2 p-2">
-                        <i class="fas fa-check-to-slot"></i>
+                <div #user_dialog class="absolute hidden z-40 shadow-md bg-gray-300 p-2 rounded-md -right-5 mt-3 top-full w-[200px]">
+                    <a routerLink="/admin/profile" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center justify-end flex gap-1 md:gap-2 p-1 md:p-2">
                         <i class="fa fa-user" aria-hidden="true"></i>
                         <span>Profile</span>
                     </a>
-                    <a routerLink="/admin/rooms" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center justify-end flex gap-2 p-2">
+                    <a routerLink="/admin/login" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center justify-end flex gap-1 md:gap-2 p-1 md:p-2">
                         <i class="fa fa-sign-out rotate-180"></i>
                         <span>Log Out</span>
                     </a>
                 </div>
                 <div *ngIf="!isLoggedIn">
-                    <a routerLink="/admin/signup" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center flex gap-2 p-2">
+                    <a routerLink="/admin/signup" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center flex gap-1 md:gap-2 p-1 md:p-2">
                         <i class="fas fa-check-to-slot"></i>
                         <span>Sign Up</span>
                     </a>
-                    <a routerLink="/admin/login" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center flex gap-2 p-2">
-                        <i class="fas fa-check-to-slot"></i>
+                    <a routerLink="/admin/login" routerLinkActive="text-blue-600 bg-blue-200 rounded-md" class="w-auto text-lg items-center flex gap-1 md:gap-2 p-1 md:p-2">
+                        <i class="fa fa-sign-out rotate-180"></i>
                         <span>Log In</span>
                     </a>
                 </div>

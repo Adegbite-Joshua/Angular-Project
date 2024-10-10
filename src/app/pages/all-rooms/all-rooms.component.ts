@@ -49,7 +49,7 @@ interface Room {
     GeneralNavbarComponent,
     FooterComponent,
     StarRatingComponent,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './all-rooms.component.html',
   styleUrls: ['./all-rooms.component.scss']
@@ -158,10 +158,30 @@ applyFilters(filters: any, rooms: any[]): void {
   });
 }
 
+filterYesterdayDates = (d: Date | null): boolean => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate());
 
+  if (d) {
+    return d >= yesterday;
+  }
 
+  return true;
+};
 
+filterTodayDates = (d: Date | null): boolean => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if (d) {
+    return d > today;
+  }
+
+  return true;
+};
 
 loadRooms(): void {
   this.roomsService.getRooms().subscribe(rooms => {
