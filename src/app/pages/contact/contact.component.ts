@@ -4,17 +4,13 @@ import { GeneralNavbarComponent } from '../../components/navbar/general-navbar/g
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { serverUrl } from '../../constants/server';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [GeneralNavbarComponent, FooterComponent, ReactiveFormsModule, CommonModule, 
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule],
+  imports: [GeneralNavbarComponent, FooterComponent, ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss'
 })
