@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { GeneralNavbarComponent } from '../../components/navbar/general-navbar/general-navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StarRatingComponent } from '../../components/star-rating/star-rating.component';
@@ -11,7 +11,11 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-write-review',
   standalone: true,
-  imports: [GeneralNavbarComponent, FooterComponent, CommonModule, FormsModule, HttpClientModule, StarRatingComponent],
+  imports: [GeneralNavbarComponent, FooterComponent, CommonModule, FormsModule, 
+// TODO: `HttpClientModule` should not be imported into a component directly.
+// Please refactor the code to add `provideHttpClient()` call to the provider list in the
+// application bootstrap logic and remove the `HttpClientModule` import from this component.
+HttpClientModule, StarRatingComponent],
   templateUrl: './write-review.component.html',
   styleUrl: './write-review.component.scss'
 })
