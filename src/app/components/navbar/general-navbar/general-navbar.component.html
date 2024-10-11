@@ -7,23 +7,25 @@
                 <span></span>
                 <span></span>
                 <span></span>
-              </label>
+            </label>
         </h3>
-        <a routerLink="/" class="text-blue-600 text-5xl">Home</a>
-        <!-- <a href="" class="">
-        <img class="h-12 w-112" src="/logo.png" alt="">
-    </a> -->
+        <!-- <a routerLink="/" class="text-blue-600 text-5xl">Home</a> -->
+        <a routerLink="/" class="">
+            <img class="h-12 w-112" src="assets/logo.webp" alt="Logo">
+        </a>
     </div>
-    <div #nav_bar id="nav_bar" (click)="toggle_nav_bar($event)" class="hidden lg:flex lg:gap-11 lg:items-center lg:justify-evenly lg:overflow-hidden z-10 font-bold">
+    <div #nav_bar id="nav_bar" (click)="toggle_nav_bar($event)"
+        class="hidden lg:flex lg:gap-11 lg:items-center lg:justify-evenly lg:overflow-hidden z-10 font-bold">
         <!-- <div class=""> -->
-            <a routerLink="/" class="mx-2">Home</a>
-            <a routerLink="/rooms" class="mx-2">Rooms</a>
-            <a routerLink="/facilities" class="mx-2">Facilities</a>
-            <a routerLink="/contact-us" class="mx-2">Contacts</a>
-            <a routerLink="/terms" class="mx-2">Terms</a>
-            <a routerLink="/privacy-policy" class="mx-2">Policies</a>
-            <a routerLink="/rooms/all" class="bg-blue-600 text-white rounded-lg p-3 mx-3">Book Room</a>
-            <button (click)="openDashboard()" class="bg-blue-600 w-full inset-3 text-white rounded-lg p-3"><i class="fas fa-user"></i></button>
+        <a routerLink="/" class="mx-2">Home</a>
+        <a routerLink="/rooms" class="mx-2">Rooms</a>
+        <a routerLink="/facilities" class="mx-2">Facilities</a>
+        <a routerLink="/contact-us" class="mx-2">Contacts</a>
+        <a routerLink="/terms" class="mx-2">Terms</a>
+        <a routerLink="/privacy-policy" class="mx-2">Policies</a>
+        <a routerLink="/rooms/all" class="bg-blue-600 text-white rounded-lg p-3 mx-3">Book Room</a>
+        <button (click)="openDashboard()" class="bg-blue-600 w-full inset-3 text-white rounded-lg p-3"><i
+                class="fas fa-user"></i></button>
 
         <!-- </div> -->
     </div>

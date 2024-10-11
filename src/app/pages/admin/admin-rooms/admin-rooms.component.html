@@ -3,24 +3,27 @@
         <div class="flex flex-col md:flex-row w-full justify-between">
             <mat-form-field class="p-2" appearance="fill">
                 <mat-label>Check-in Date</mat-label>
-                <input matInput [matDatepicker]="checkinPicker" [matDatepickerFilter]="filterYesterdayDates"  [(ngModel)]="check_in_date">
+                <input matInput [matDatepicker]="checkinPicker" [matDatepickerFilter]="filterYesterdayDates"
+                    [(ngModel)]="check_in_date">
                 <mat-datepicker-toggle matSuffix [for]="checkinPicker"></mat-datepicker-toggle>
                 <mat-datepicker #checkinPicker></mat-datepicker>
-              </mat-form-field>
-            
-              <mat-form-field class="p-2" appearance="fill">
+            </mat-form-field>
+
+            <mat-form-field class="p-2" appearance="fill">
                 <mat-label>Check-out Date</mat-label>
-                <input matInput [matDatepicker]="checkoutPicker" [matDatepickerFilter]="filterTodayDates"  [(ngModel)]="check_out_date">
+                <input matInput [matDatepicker]="checkoutPicker" [matDatepickerFilter]="filterTodayDates"
+                    [(ngModel)]="check_out_date">
                 <mat-datepicker-toggle matSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
                 <mat-datepicker #checkoutPicker></mat-datepicker>
-              </mat-form-field>
-            <div class="space-y-2">
-                <label class="block text-blue-600 font-semibold">Room Category</label>
-                <select [(ngModel)]="selectedCategory"
-                    class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-600 focus:border-blue-600">
-                    <option value="all">All</option>
-                    <option *ngFor="let category of roomCategories" [value]="category">{{ category }}</option>
-                </select>
+            </mat-form-field>
+            <div class="bg-opacity-35 italic my-2 text-black">
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Room Type:</mat-label>
+                    <mat-select [(ngModel)]="selectedCategory">
+                        <mat-option [value]="'all'">All</mat-option>
+                        <mat-option *ngFor="let category of roomCategories" [value]="category">{{category}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
         <button (click)="resetFilter()" class="bg-blue-600 text-white px-4 py-2 rounded-md me-2">Reset</button>
@@ -104,6 +107,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
-    <mat-paginator [length]="dataSource.data.length" [pageSizeOptions]="[5, 10, 25, 100]" class="bg-white shadow-md rounded-lg mt-6"></mat-paginator>
+    <mat-paginator [length]="dataSource.data.length" [pageSizeOptions]="[5, 10, 25, 100]"
+        class="bg-white shadow-md rounded-lg mt-6"></mat-paginator>
 
 </app-admin-navbar>

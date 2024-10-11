@@ -1,4 +1,4 @@
-<div class="p-10 w-full h-full bg-white">
+<div class="print:hidden p-10 w-full h-full bg-white">
   <div class="h-full w-full overflow-y-auto">
     <h2 class="text-xl font-bold">User Dashboard</h2>
     <div *ngIf="user">
@@ -7,10 +7,11 @@
           <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
           <p><strong>Email:</strong> {{ user.email }}</p>
         </div>
-        <div class="flex">
+        <img class="order-0 md:order-2 h-32 w-32 md:ms-auto rounded-full" src={{user.image}} alt="User image">
+        <!-- <div class="flex">
           <img class="order-0 md:order-2 h-32 w-32 md:ms-auto rounded-full" src={{user.image}} alt="User image">
           <button mat-button>Log Out</button>
-        </div>
+        </div> -->
       </div>
       <h3 class="font-bold mt-4">Bookings</h3>
       <div class="overflow-x-auto overflow-y-auto">
@@ -32,9 +33,11 @@
           </ng-container>
           <ng-container matColumnDef="ref">
             <th mat-header-cell *matHeaderCellDef> Download </th>
-            <td mat-cell *matCellDef="let booking">
-              <button (click)="downloadBooking(booking)" class="bg-green-400 text-white py-2 px-4 rounded-md"><i
-                  class="fa fa-download" aria-hidden="true"></i></button>
+            <td mat-cell *matCellDef="let booking; let i = index;">
+              <button (click)="downloadBooking(i)" class="bg-green-400 text-white py-2 px-4 rounded-md">
+                <i *ngIf="!downloadingReceipt" class="fa fa-download" aria-hidden="true"></i>
+                <i *ngIf="downloadingReceipt" class="fa fa-spinner" aria-hidden="true"></i>
+              </button>
             </td>
           </ng-container>
 
@@ -45,4 +48,57 @@
       </div>
     </div>
   </div>
+</div>
+
+<div id="receipt" class="hidden p-8 bg-white shadow-md rounded-md relative">
+  <div class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center z-10 opacity-15">
+    <img src="assets/logo.webp" class="h-52 w-52" alt="">
+  </div>
+  <div class="flex justify-center bg-transparent items-start gap-8 mb-8">
+    <!-- Logo and Hotel Info -->
+    <div>
+      <img src="assets/logo.webp" alt="Company Logo" class="w-24">
+    </div>
+    <div class="flex flex-col justify-start">
+      <h1 class="text-2xl font-bold">HotelHub</h1>
+      <h4 class="text-gray-600">Where every flavor tells you a story</h4>
+    </div>
+  </div>
+
+  <!-- User Details -->
+  <div class="flex justify-between items-center mb-8">
+    <div class="flex items-center gap-4">
+      <img class="w-24 h-24 rounded-full object-cover" src="{{user?.image}}" alt="User Image">
+      <div>
+        <h2 class="text-lg font-bold">{{user?.first_name}} {{user?.last_name}}</h2>
+        <p class="text-gray-600">{{user?.email}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Details Table (Vertical layout) -->
+  <table class="min-w-full bg-transparent border">
+    <tbody>
+      <tr>
+        <td class="py-2 px-4 font-bold">Room Name</td>
+        <td class="py-2 px-4">{{bookings[currentBookingIndex].room}}</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="py-2 px-4 font-bold">Floor</td>
+        <td class="py-2 px-4">{{bookings[currentBookingIndex].floor}}</td>
+      </tr>
+      <tr>
+        <td class="py-2 px-4 font-bold">Check-In Date</td>
+        <td class="py-2 px-4">{{bookings[currentBookingIndex].check_in_date | date: 'longDate'}}</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="py-2 px-4 font-bold">Check-Out Date</td>
+        <td class="py-2 px-4">{{bookings[currentBookingIndex].check_out_date | date: 'longDate'}}</td>
+      </tr>
+      <tr>
+        <td class="py-2 px-4 font-bold">Price</td>
+        <td class="py-2 px-4">{{bookings[currentBookingIndex].amount | currency}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
